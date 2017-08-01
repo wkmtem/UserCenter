@@ -10,3 +10,8 @@ port:81
 user:root
 password:centos
 dir:/usr/local/tomcat/alitomcat-7_81
+
+# git
+account:wkm
+password:a123456789
+url:http://gitlab.sh-tlj.com/compass_examination_java/UserCenter.git
