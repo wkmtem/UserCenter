@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop" 
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:hsf="http://www.taobao.com/hsf"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+						   http://www.springframework.org/schema/mvc 
+						   http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+						   http://www.springframework.org/schema/context 
+						   http://www.springframework.org/schema/context/spring-context-4.3.xsd 
+						   http://www.springframework.org/schema/aop 
+						   http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
+						   http://www.springframework.org/schema/tx 
+						   http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
+						   http://www.springframework.org/schema/jdbc 
+     					   http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+     					   http://www.springframework.org/schema/task 
+     					   http://www.springframework.org/schema/task/spring-task-4.3.xsd
+     					   http://www.taobao.com/hsf
+     					   http://www.taobao.com/hsf/hsf.xsd"
+     					   default-autowire="byName">
+
+	<!-- 
+		interface: 必填[String]，服务对外提供的接口 
+		version: 可选[String]，服务的版本，默认为 1.0.0 
+		group: 可选[String]，服务所属的组别，以便按组别来管理服务的配置，默认为 HSF
+		clientTimeout: 该配置对接口中的所有方法生效，但是如果客户端通过MethodSpecial属性对某方法配置了超时时间，则该方法的超时时间以客户端配置为准，其他方法不受影响
+		serializeType: 可选[String(hessian|java)]，序列化类型，默认hessian
+		corePoolSize: 单独针对这个服务设置核心线程池，是从公用线程池这个大蛋糕里切一块下来 
+		maxPoolSize:单独针对这个服务设置线程池，是从公用线程池这个大蛋糕里切一块下来
+		enableTXC: 开启分布式事务Txc 
+		ref: 必填[ref]，需要发布为HSF服务的spring bean id
+		methodSpecials: 可选，为方法单独配置超时(单位 ms)， 这样接口中的方法可以采用不同的超时时间，
+			优先级高于clientTimeout的超时配置，低于客户端的methodSpecials配置
+	 -->
+	<bean id="personImpl" class="com.compass.examination.rpc.impl.PersonImpl" />
+	<hsf:provider id="person" interface="com.compass.examination.rpc.api.IPerson"
+		version="1.0.1" group="test1" clientTimeout="3000" serializeType="hessian"
+		enableTXC="true" ref="personImpl" >
+		<hsf:methodSpecials>
+			<hsf:methodSpecial name="sum" timeout="2000" />
+		</hsf:methodSpecials>
+	</hsf:provider>
+	
+	<!-- <bean id="personServiceImpl" class="com.compass.service.impl.PersonServiceImpl" />
+	<hsf:provider id="personService" interface="com.compass.service.IPersonService" 
+		ref="personServiceImpl" version="1.0.1" group="test1" clientTimeout="3000" enableTXC="true" 
+	    serializeType="hessian">
+		<hsf:methodSpecials>
+			<hsf:methodSpecial name="sum" timeout="2000" />
+		</hsf:methodSpecials>
+	</hsf:provider> -->
+
+</beans>

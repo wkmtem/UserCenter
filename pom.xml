@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.compass.examination</groupId>
+  <artifactId>UserCenter</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<junit-version>4.12</junit-version>
+  	<org.springframework-version>4.3.9.RELEASE</org.springframework-version>
+  	<org.mybatis-version>3.4.2</org.mybatis-version>
+  	<mybatis-spring-version>1.3.0</mybatis-spring-version>
+  	<mybatis-oscache-version>1.3.1</mybatis-oscache-version>
+  	<hamcrest-core-version>1.3</hamcrest-core-version>
+  	<com.github.pagehelper-version>5.0.0</com.github.pagehelper-version>
+  	<mybatis-memcached-version>1.0.0-beta1</mybatis-memcached-version>
+  	<mysql-connector-java-version>5.1.42</mysql-connector-java-version>
+  	<c3p0-version>0.9.1.2</c3p0-version>
+  	<javax.servlet-api-version>3.1.0</javax.servlet-api-version>
+  	<cglib-nodep-version>3.3.1</cglib-nodep-version>
+  	<asm-all-version>3.3.1</asm-all-version>
+	<commons-beanutils-version>1.9.3</commons-beanutils-version>
+	<commons-codec-version>1.10</commons-codec-version>
+	<commons-digester-version>3.2</commons-digester-version>
+	<commons-fileupload-version>1.3.2</commons-fileupload-version>
+	<commons-lang3-version>3.6</commons-lang3-version>
+  	<org.apache.httpcomponents-version>4.5.3</org.apache.httpcomponents-version>
+  	<com.fasterxml.jackson.core-version>2.8.9</com.fasterxml.jackson.core-version>
+  	<org.json-version>20170516</org.json-version>
+	<com.google.code.gson-version>2.8.1</com.google.code.gson-version>
+  	<slf4j-log4j12-version>1.7.25</slf4j-log4j12-version>
+  	<ch.qos.logback-version>1.2.3</ch.qos.logback-version>
+  	<logback-ext-spring-version>0.1.4</logback-ext-spring-version>
+	<com.google.guava-version>22.0</com.google.guava-version>
+	<com.alibaba-hsf-version>edas1.0.1</com.alibaba-hsf-version>
+	<com.alibaba.edas-sdk-version>1.5.6</com.alibaba.edas-sdk-version>
+	<aliyun-java-sdk-push-version>2.2.1</aliyun-java-sdk-push-version>
+	<aliyun-java-sdk-core-version>2.4.2</aliyun-java-sdk-core-version>
+  </properties>
+  
+  <dependencyManagement>
+  	<dependencies>
+      <!-- junit -->
+	  <dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>${junit-version}</version>
+		<type>jar</type>
+	  </dependency>
+  	  <!-- Spring -->
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-orm</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aspects</artifactId>
+		<version>${org.springframework-version}</version>
+	  </dependency>
+  	  <!-- mybatis -->
+	  <dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>${org.mybatis-version}</version>
+	  </dependency>
+  	  <!-- mybatis-spring -->
+	  <dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>${mybatis-spring-version}</version>
+	  </dependency>
+  	  <!-- mybatis-oscache -->
+	  <dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-oscache</artifactId>
+	    <version>${mybatis-oscache-version}</version>
+	  </dependency>
+  	  <!-- hamcrest-core -->
+	  <dependency>
+	    <groupId>org.hamcrest</groupId>
+	    <artifactId>hamcrest-core</artifactId>
+	    <version>${hamcrest-core-version}</version>
+	  </dependency>
+  	  <!-- mybatis-pageHelper -->
+	  <dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>${com.github.pagehelper-version}</version>
+	  </dependency>
+  	  <!-- mybatis-memcached -->
+	  <dependency>
+	    <groupId>org.mybatis.caches</groupId>
+	    <artifactId>mybatis-memcached</artifactId>
+	    <version>${mybatis-memcached-version}</version>
+	  </dependency>
+  	  <!-- mysql -->
+      <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>${mysql-connector-java-version}</version>
+      </dependency>
+  	  <!-- c3p0 -->
+	  <dependency>
+		<groupId>c3p0</groupId>
+		<artifactId>c3p0</artifactId>
+		<version>${c3p0-version}</version>
+	  </dependency>
+  	  <!-- servlet-api -->
+	  <dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>${javax.servlet-api-version}</version>
+	  </dependency>
+  	  <!-- cglib -->
+	  <dependency>
+	    <groupId>cglib</groupId>
+	    <artifactId>cglib-nodep</artifactId>
+	    <version>${cglib-nodep-version}</version>
+	  </dependency>
+  	  <!-- asm -->
+	  <dependency>
+	    <groupId>asm</groupId>
+	    <artifactId>asm-all</artifactId>
+	    <version>${asm-all-version}</version>
+	  </dependency>
+  	  <!-- commons -->
+	  <dependency>
+	    <groupId>commons-beanutils</groupId>
+	    <artifactId>commons-beanutils</artifactId>
+	    <version>${commons-beanutils-version}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+		<version>${commons-codec-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>commons-digester</groupId>
+	    <artifactId>commons-digester</artifactId>
+	    <version>${commons-digester-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>${commons-fileupload-version}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>${commons-lang3-version}</version>
+	  </dependency>
+  	  <!-- httpclient -->
+	  <dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	    <version>${org.apache.httpcomponents-version}</version>
+	  </dependency>
+	  <!-- jackson -->
+	  <dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>${com.fasterxml.jackson.core-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>${com.fasterxml.jackson.core-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	    <version>${com.fasterxml.jackson.core-version}</version>
+	  </dependency>	
+	  <!-- json -->
+	  <dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>${org.json-version}</version>
+	  </dependency>
+	  <!-- gson -->
+	  <dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>${com.google.code.gson-version}</version>
+	  </dependency>
+	  <!-- slf4j -->
+	  <dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>${slf4j-log4j12-version}</version>
+	  </dependency>
+	  <!-- logback -->
+      <dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-access</artifactId>
+		<version>${ch.qos.logback-version}</version>
+      </dependency>
+      <dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-classic</artifactId>
+		<version>${ch.qos.logback-version}</version>
+      </dependency>
+      <!-- extensions -->
+      <dependency>
+	    <groupId>org.logback-extensions</groupId>
+	    <artifactId>logback-ext-spring</artifactId>
+	    <version>${logback-ext-spring-version}</version>
+	  </dependency>
+	  <!-- guava -->
+	  <dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>${com.google.guava-version}</version>
+	  </dependency>
+      <!-- alibaba -->
+	  <dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>hsf.schema</artifactId>
+		<version>${com.alibaba-hsf-version}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>com.alibaba.edas</groupId>
+		<artifactId>edas-sdk</artifactId>
+		<version>${com.alibaba.edas-sdk-version}</version>
+	  </dependency>
+	  <!-- aliyun -->
+	  <dependency>
+	    <groupId>com.aliyun</groupId>
+	    <artifactId>aliyun-java-sdk-push</artifactId>
+	    <version>${aliyun-java-sdk-push-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.aliyun</groupId>
+	    <artifactId>aliyun-java-sdk-core</artifactId>
+	    <version>${aliyun-java-sdk-core-version}</version>
+	  </dependency>
+  	</dependencies>
+  </dependencyManagement>
+  
+  <modules>
+    <module>UserCenter-core</module>
+    <module>UserCenter-api</module>
+  </modules>
+  
+  <build>
+	<plugins>
+	  <!-- Compiler -->
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>3.2</version>
+		<configuration>
+			<source>1.7</source>
+			<target>1.7</target>
+			<encoding>UTF-8</encoding>
+		</configuration>
+	  </plugin>
+	  <!-- Test -->
+       <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-surefire-plugin</artifactId>
+           <version>2.18.1</version>
+           <configuration>
+               <skipTests>true</skipTests>
+           </configuration>
+       </plugin>
+	   <!-- <plugin>
+		  <artifactId>maven-war-plugin</artifactId>
+		  <version>2.2</version>
+		  <configuration>
+			  <version>3.0</version>
+			  <failOnMissingWebXml>false</failOnMissingWebXml>
+		</configuration>
+	  </plugin> -->
+	</plugins>
+  </build>
+  
+  <profiles>
+     <profile>
+         <id>release</id>
+         <build>
+             <plugins>
+                 <!-- 生成Sources源码包的插件 -->
+                 <plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+                     <artifactId>maven-source-plugin</artifactId>
+                     <version>2.4</version>
+                     <configuration>  
+                   <attach>true</attach>  
+               </configuration>
+                     <executions>
+                         <execution>
+                             <phase>package</phase>
+                             <goals>
+                                 <goal>jar-no-fork</goal>
+                             </goals>
+                         </execution>
+                     </executions>
+                 </plugin>
+                 <!-- 生成Javadoc文档包的插件 -->
+                 <plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+                     <artifactId>maven-javadoc-plugin</artifactId>
+                     <version>2.10.3</version>
+                     <configuration>  
+                   <aggregate>true</aggregate>  
+               </configuration>
+                     <executions>
+                         <execution>
+                             <phase>package</phase>
+                             <goals>
+                                 <goal>jar</goal>
+                             </goals>
+                         </execution>
+                     </executions>
+                 </plugin>
+             </plugins>
+         </build>
+     </profile>
+  </profiles>
+</project>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop" 
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+						   http://www.springframework.org/schema/mvc 
+						   http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+						   http://www.springframework.org/schema/context 
+						   http://www.springframework.org/schema/context/spring-context-4.3.xsd 
+						   http://www.springframework.org/schema/aop 
+						   http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
+						   http://www.springframework.org/schema/tx 
+						   http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
+						   http://www.springframework.org/schema/jdbc 
+     					   http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+     					   http://www.springframework.org/schema/task 
+     					   http://www.springframework.org/schema/task/spring-task-4.3.xsd"
+     					   default-autowire="byName">
+
+	
+	<!-- spring组件扫描(自带装配) -->
+	<context:component-scan base-package="com.compass.examination.core" use-default-filters="false">
+		<!-- use-default-filters="false":springMVC要求不能有完成过滤器,只包括Controller注解 -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+	</context:component-scan>	
+	
+	
+	<!-- Spring AOP的三种配置:aop:config、aop:aspectj-autoproxy、bean class="DefaultAdvisorAutoProxyCreator"
+		  最终调用的都是 AopConfigUtils类同一个方法:registerOrEscalateApcAsRequired
+		  不可在同一个文件中混用，推荐：aop:config和aop:aspectj-autoproxy -->
+	<!-- AOP强制CGLIB代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- <aop:config proxy-target-class="true" /> -->
+	
+	
+	<!-- 上传图片解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 最大上传大小(the maximum file size in bytes) -->
+		<property name="maxUploadSize"  value="52428800"/><!-- 5M -->
+	</bean>
+	
+	
+	<!-- ViewResolver：jsp视图 -->
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+
+	<!-- 替换处理器映射器和适配器：默认支持：JSON转换器 -->
+	<!-- spring4.2.1支持的josn转换配置  -->
+	<mvc:annotation-driven><!--  validator="validator" -->
+		<mvc:message-converters>  
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+				<!-- json转换器，ObjectMapper对象设置为JsonUtil中的objectMapper对象，比spring内置的json转换器优先级更高，与json有关的转换，spring会优先使用 -->
+				<property name="objectMapper" value="#{jsonDateMutualUtil.mapper}"/><!-- 需配置JsonDateMutualUtil.java类 --> 
+            	<property name="supportedMediaTypes">  
+	                <list>  
+	                    <value>text/json;charset=UTF-8</value> 
+	                    <value>text/html;charset=UTF-8</value>
+	                    <value>application/json;charset=UTF-8 </value> 
+	                </list>  
+            	</property>  
+			</bean> 
+		</mvc:message-converters>  
+	</mvc:annotation-driven> 
+	
+	
+	<!-- 后台校验器(JSR-303规范) -->
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		校验器提供者：hibernate
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		指定校验使用的资源文件，不指定则默认使用classpath下的ValidationMessages.properties
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean> -->
+	<!-- 校验错误信息配置文件 -->
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		资源文件名
+		<property name="basenames">
+			<list>
+				<value>classpath:properties/customValidationMessages</value>
+			</list>
+		</property>
+		资源文件编码格式
+		<property name="fileEncodings" value="utf-8" />
+		资源文件内容缓存时间，单位秒
+		<property name="cacheSeconds" value="120" />
+	</bean> -->
+	
+	
+	<!-- 容器默认的DefaultServletHandler处理所有静态内容与无RequestMapping处理的URL -->  
+    <mvc:default-servlet-handler />
+    
+	
+	<!-- 可访问资源（过滤对指定路径不使用Spring MVC解释器）-->
+    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/styles/**" location="/styles/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/mpeg/**" location="/mpeg/" />
+    
+</beans>
