@@ -38,7 +38,7 @@ import com.compass.examination.core.annotation.SystemService;
 @Aspect
 public class SysLogExceptionAspect {
 
-	// 本地日志、异常记录对象
+	// 级别：trace < debug(L) < info < warn < error < fatal
 	private static final Logger logger = LoggerFactory.getLogger(SysLogExceptionAspect.class);
 	
 	/*@Autowired
@@ -46,12 +46,12 @@ public class SysLogExceptionAspect {
 	@Autowired
 	private SysOperationLogMapper operationLogMapper;*/
 	
-	// 异常切入点表达式
+	// 异常切点
 	@Pointcut("@annotation(com.compass.examination.core.annotation.SystemController)||" +
 			  "@annotation(com.compass.examination.core.annotation.SystemService)")// CGLIB
 	public void afterThrowing() {}
 
-	// 环绕切入点表达式
+	// 环绕切点
 	@Pointcut("@annotation(com.compass.examination.core.annotation.SystemController)||" +
 			  "@annotation(com.compass.examination.core.annotation.SystemService)")// CGLIB
 	public void around() {}
