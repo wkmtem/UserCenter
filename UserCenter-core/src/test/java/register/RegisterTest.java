@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.compass.examination.common.junit.SpringJunitTest;
 import com.compass.examination.core.service.tenant.ITenantService;
-import com.compass.examination.rpc.api.IPerson;
 
 public class RegisterTest extends SpringJunitTest {
 
