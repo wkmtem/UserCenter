@@ -9,4 +9,10 @@ public class PersonImpl implements IPerson {
 		return "hello " + name;
 	}
 
+	@Override
+	public String hello2(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
