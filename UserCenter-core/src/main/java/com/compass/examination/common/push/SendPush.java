@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.compass.examination.constant.InitConstant;
+import com.compass.constant.InitConstant;
 
 
 /**

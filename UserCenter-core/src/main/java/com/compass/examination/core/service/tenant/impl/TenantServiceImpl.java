@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.compass.constant.SysConstant;
 import com.compass.examination.core.dao.mapper.TenantMapper;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.pojo.po.Tenant;
@@ -45,6 +46,7 @@ public class TenantServiceImpl implements ITenantService {
 		TenantExample.Criteria criteria = example.createCriteria();
 		criteria.andAccountEqualTo(account);
 		List<Tenant> list = tenantMapper.selectByExample(example);
+		String s =SysConstant.DATE_FORMAT_DATE;
 		if (CollectionUtils.isEmpty(list)) {
 			return true;
 		}
