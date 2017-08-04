@@ -6,8 +6,8 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.push.model.v20150827.PushRequest;
 import com.aliyuncs.push.model.v20150827.PushResponse;
-import com.compass.constant.InitConstant;
-import com.compass.constant.PushConstant;
+import com.compass.examination.constant.InitConstant;
+import com.compass.examination.constant.PushConstant;
 import com.google.gson.Gson;
 
 

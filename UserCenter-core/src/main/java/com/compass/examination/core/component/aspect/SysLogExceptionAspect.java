@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.compass.constant.SysConstant;
 import com.compass.examination.common.json.JsonMapper;
+import com.compass.examination.constant.SysConstant;
 import com.compass.examination.core.annotation.SystemController;
 import com.compass.examination.core.annotation.SystemService;
 
