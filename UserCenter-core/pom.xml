@@ -199,11 +199,6 @@
 	    <groupId>com.aliyun</groupId>
 	    <artifactId>aliyun-java-sdk-core</artifactId>
 	  </dependency>
-	  <dependency>
-	    <groupId>com.compass</groupId>
-	    <artifactId>constant</artifactId>
-	    <version>0.0.1</version>
-	  </dependency>
   </dependencies>
   
   <build>
