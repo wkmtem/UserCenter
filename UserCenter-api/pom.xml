@@ -16,6 +16,35 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
+  <!-- snapshot仓库 -->
+  <!-- <distributionManagement>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus Snapshot</name>
+            <url>http://106.14.217.189:8081/repository/maven-snapshots/</url 
+
+>
+        </snapshotRepository>
+        <site>
+            <id>nexus</id>
+            <name>Nexus Sites</name>
+            <url>http://106.14.217.189:8081/repository/maven-snapshots/</url 
+
+>
+        </site>
+    </distributionManagement> -->
+    <!-- Releases仓库 -->
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus Snapshot</name>
+            <url>http://106.14.217.189:8081/repository/maven-releases/</url 
+
+>
+        </repository>
+     </distributionManagement>
+  
+  
   <build>
     <plugins>
       <plugin>
