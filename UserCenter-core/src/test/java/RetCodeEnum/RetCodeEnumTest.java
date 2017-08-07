@@ -15,5 +15,7 @@ public class RetCodeEnumTest extends SpringJunitTest {
 		System.out.println("---------------------------");
 		System.out.println(RetCodeEnum.SUCCEED.code);
 		System.out.println(RetCodeEnum.SUCCEED.value);
+		
+		
 	}
 }
