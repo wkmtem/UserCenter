@@ -1,5 +1,7 @@
 package com.compass.examination.core.service.tenant;
 
+import com.compass.examination.pojo.vo.RegisterInfoVO;
+
 
 /**
  * 
@@ -13,7 +15,17 @@ package com.compass.examination.core.service.tenant;
 public interface ITenantService {
 	
 	/**
-	 * 租户账户是否存在
+	 * 企业账号是否存在
 	 */
 	boolean isExistAccount(String account) throws Exception;
+	
+	/**
+	 * 注册企业账号，返回散列盐
+	 */
+	String tenantRegister(RegisterInfoVO registerInfoVO) throws Exception;
+
+	/**
+	 * 注册管理员账号
+	 */
+	boolean userRegister(RegisterInfoVO registerInfoVO) throws Exception;
 }

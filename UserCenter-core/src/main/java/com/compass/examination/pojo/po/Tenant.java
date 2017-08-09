@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Tenant implements Serializable {
-    private String id;
+    private Long id;
 
     private String account;
 
@@ -20,24 +20,26 @@ public class Tenant implements Serializable {
 
     private String type;
 
+    private String salt;
+
     private String registerName;
 
     private String registerPhone;
 
-    private Date createGmt;
+    private Date gmtCreate;
 
-    private Date updateGmt;
+    private Date gmtModified;
 
     private Boolean enabled;
 
-    private static final long serialVersionUID = -3601190034833230562L;
+    private static final long serialVersionUID = 7971021345748049210L;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAccount() {
@@ -96,6 +98,14 @@ public class Tenant implements Serializable {
         this.type = type == null ? null : type.trim();
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+
     public String getRegisterName() {
         return registerName;
     }
@@ -112,20 +122,20 @@ public class Tenant implements Serializable {
         this.registerPhone = registerPhone == null ? null : registerPhone.trim();
     }
 
-    public Date getCreateGmt() {
-        return createGmt;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setCreateGmt(Date createGmt) {
-        this.createGmt = createGmt;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public Date getUpdateGmt() {
-        return updateGmt;
+    public Date getGmtModified() {
+        return gmtModified;
     }
 
-    public void setUpdateGmt(Date updateGmt) {
-        this.updateGmt = updateGmt;
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     public Boolean getEnabled() {

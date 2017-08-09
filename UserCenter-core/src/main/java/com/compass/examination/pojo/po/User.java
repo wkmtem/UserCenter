@@ -4,15 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
-    private String id;
+    private Long id;
 
-    private String tenantId;
+    private Long tenantId;
 
     private String username;
 
     private String password;
-
-    private String salt;
 
     private String token;
 
@@ -28,30 +26,30 @@ public class User implements Serializable {
 
     private String description;
 
-    private Date createGmt;
+    private Date gmtCreate;
 
-    private Date updateGmt;
+    private Date gmtModified;
 
     private Boolean enabled;
 
     private Boolean deleted;
 
-    private static final long serialVersionUID = -347878246787558101L;
+    private static final long serialVersionUID = 6829806791117343003L;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId == null ? null : tenantId.trim();
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
     }
 
     public String getUsername() {
@@ -68,14 +66,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
     }
 
     public String getToken() {
@@ -134,20 +124,20 @@ public class User implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
-    public Date getCreateGmt() {
-        return createGmt;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setCreateGmt(Date createGmt) {
-        this.createGmt = createGmt;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public Date getUpdateGmt() {
-        return updateGmt;
+    public Date getGmtModified() {
+        return gmtModified;
     }
 
-    public void setUpdateGmt(Date updateGmt) {
-        this.updateGmt = updateGmt;
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     public Boolean getEnabled() {

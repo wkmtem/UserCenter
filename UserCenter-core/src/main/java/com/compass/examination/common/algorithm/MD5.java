@@ -35,4 +35,34 @@ public class MD5 {
 			return null;
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * @Method Name: get2MD5StrByTimeMillis
+	 * @Description: 根据时间戳获取2次MD5大写32位字符串
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月9日下午2:56:02
+	 * @return:
+	 */
+	public static String get2MD5StrByTimeMillis() {
+		return getMD5(getMD5(System.currentTimeMillis() + "")).toUpperCase();
+	}
+	
+	
+	/**
+	 * 
+	 * @Method Name: get2MD5StrBySaltWithPwd
+	 * @Description: 根据散列盐和明文密码获取2次MD5大写32位字符串
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月9日下午2:56:02
+	 * @return:
+	 */
+	public static String get2MD5StrBySaltWithPwd(String salt, String pwd) {
+		return getMD5(getMD5(salt + pwd)).toUpperCase();
+	}
 }

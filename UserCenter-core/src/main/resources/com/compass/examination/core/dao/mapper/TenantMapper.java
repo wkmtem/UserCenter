@@ -10,7 +10,7 @@ public interface TenantMapper {
 
     int deleteByExample(TenantExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(Tenant record);
 
@@ -18,7 +18,7 @@ public interface TenantMapper {
 
     List<Tenant> selectByExample(TenantExample example);
 
-    Tenant selectByPrimaryKey(String id);
+    Tenant selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") Tenant record, @Param("example") TenantExample example);
 
