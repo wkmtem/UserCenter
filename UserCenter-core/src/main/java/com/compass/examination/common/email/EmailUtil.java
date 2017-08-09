@@ -18,9 +18,9 @@ public class EmailUtil {
 	public static String sendEmail(SendEmailInfoVO sendEmailInfoVO) {
 		
 		IClientProfile profile = DefaultProfile.getProfile(
-				AliConstant.REGION_HANGZHOU, 
-				AliConstant.ACCESSKEYID,
-				AliConstant.ACCESSKEYSECRET);
+				AliConstant.REGION_LOCATION, 
+				AliConstant.ACCESS_KEY_ID,
+				AliConstant.ACCESS_KEY_SECRET);
 
 		/** 如果是除杭州region外的其它region（如新加坡region）， 需要做如下处理 */
 		/*try {

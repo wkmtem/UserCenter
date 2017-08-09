@@ -13,10 +13,10 @@ package com.compass.examination.constant;
 public class AliConstant {
 
 	// 阿里RAM用户配置
-	public static final String REGION_HANGZHOU = "cn-hangzhou";
-	public static final String ACCESSKEYID = "LTAIbPK20cUtz182";
-	public static final String ACCESSKEYSECRET = "J083JuQbN8x2mHuNFaV4FhFeZ6Ghxf";
-	public static final long APPKEY = 23558121;
+	public static final String REGION_LOCATION = "cn-hangzhou";
+	public static final String ACCESS_KEY_ID = "LTAIbPK20cUtz182";
+	public static final String ACCESS_KEY_SECRET = "J083JuQbN8x2mHuNFaV4FhFeZ6Ghxf";
+	public static final long APP_KEY = 23558121;
 	
 	// 账号推送
 	public final static String ACCOUNT = "account";

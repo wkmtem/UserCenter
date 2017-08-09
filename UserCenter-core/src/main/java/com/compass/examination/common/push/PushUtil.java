@@ -22,14 +22,14 @@ public class PushUtil{
 	private static DefaultAcsClient client;
 	
 	public PushUtil(String accounts,String phone){
-		APPKEY = AliConstant.APPKEY;
+		APPKEY = AliConstant.APP_KEY;
 		DEVICEIDS = accounts;
 		ACCOUNTS = phone;
 		// 推送配置
         client = new DefaultAcsClient(DefaultProfile.getProfile(
-        		AliConstant.REGION_HANGZHOU, 
-        		AliConstant.ACCESSKEYID, 
-        		AliConstant.ACCESSKEYSECRET));
+        		AliConstant.REGION_LOCATION, 
+        		AliConstant.ACCESS_KEY_ID, 
+        		AliConstant.ACCESS_KEY_SECRET));
 	}
 	
 	
