@@ -12,7 +12,7 @@ public class UserExample implements Serializable {
 
     protected List<Criteria> oredCriteria;
 
-    private static final long serialVersionUID = 3048572037070239408L;
+    private static final long serialVersionUID = 5581379744228129536L;
 
     protected int limitStart = -1;
 

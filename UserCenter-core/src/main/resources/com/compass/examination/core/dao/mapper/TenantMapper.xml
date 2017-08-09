@@ -11,11 +11,11 @@
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="CHAR" />
     <result column="salt" property="salt" jdbcType="VARCHAR" />
-    <result column="register_name" property="registerName" jdbcType="VARCHAR" />
-    <result column="register_phone" property="registerPhone" jdbcType="VARCHAR" />
+    <result column="admin_user_id" property="adminUserId" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="BIT" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
-    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="gmt_active" property="gmtActive" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, account, name, address, telephone, fax, description, type, salt, register_name, 
-    register_phone, gmt_create, gmt_modified, enabled
+    id, account, name, address, telephone, fax, description, type, salt, admin_user_id, 
+    state, gmt_create, gmt_modified, gmt_active
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.compass.examination.pojo.po.TenantExample" >
     select
@@ -115,14 +115,14 @@
   <insert id="insert" parameterType="com.compass.examination.pojo.po.Tenant" useGeneratedKeys="true" keyProperty="id" >
     insert into tenant (account, name, address, 
       telephone, fax, description, 
-      type, salt, register_name, 
-      register_phone, gmt_create, gmt_modified, 
-      enabled)
+      type, salt, admin_user_id, 
+      state, gmt_create, gmt_modified, 
+      gmt_active)
     values (#{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{type,jdbcType=CHAR}, #{salt,jdbcType=VARCHAR}, #{registerName,jdbcType=VARCHAR}, 
-      #{registerPhone,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{enabled,jdbcType=BIT})
+      #{type,jdbcType=CHAR}, #{salt,jdbcType=VARCHAR}, #{adminUserId,jdbcType=BIGINT}, 
+      #{state,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{gmtActive,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.compass.examination.pojo.po.Tenant" useGeneratedKeys="true" keyProperty="id" >
     insert into tenant
@@ -151,11 +151,11 @@
       <if test="salt != null" >
         salt,
       </if>
-      <if test="registerName != null" >
-        register_name,
+      <if test="adminUserId != null" >
+        admin_user_id,
       </if>
-      <if test="registerPhone != null" >
-        register_phone,
+      <if test="state != null" >
+        state,
       </if>
       <if test="gmtCreate != null" >
         gmt_create,
@@ -163,8 +163,8 @@
       <if test="gmtModified != null" >
         gmt_modified,
       </if>
-      <if test="enabled != null" >
-        enabled,
+      <if test="gmtActive != null" >
+        gmt_active,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -192,11 +192,11 @@
       <if test="salt != null" >
         #{salt,jdbcType=VARCHAR},
       </if>
-      <if test="registerName != null" >
-        #{registerName,jdbcType=VARCHAR},
+      <if test="adminUserId != null" >
+        #{adminUserId,jdbcType=BIGINT},
       </if>
-      <if test="registerPhone != null" >
-        #{registerPhone,jdbcType=VARCHAR},
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
       </if>
       <if test="gmtCreate != null" >
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -204,8 +204,8 @@
       <if test="gmtModified != null" >
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="enabled != null" >
-        #{enabled,jdbcType=BIT},
+      <if test="gmtActive != null" >
+        #{gmtActive,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -245,11 +245,11 @@
       <if test="record.salt != null" >
         salt = #{record.salt,jdbcType=VARCHAR},
       </if>
-      <if test="record.registerName != null" >
-        register_name = #{record.registerName,jdbcType=VARCHAR},
+      <if test="record.adminUserId != null" >
+        admin_user_id = #{record.adminUserId,jdbcType=BIGINT},
       </if>
-      <if test="record.registerPhone != null" >
-        register_phone = #{record.registerPhone,jdbcType=VARCHAR},
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=BIT},
       </if>
       <if test="record.gmtCreate != null" >
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
@@ -257,8 +257,8 @@
       <if test="record.gmtModified != null" >
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.enabled != null" >
-        enabled = #{record.enabled,jdbcType=BIT},
+      <if test="record.gmtActive != null" >
+        gmt_active = #{record.gmtActive,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -276,11 +276,11 @@
       description = #{record.description,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=CHAR},
       salt = #{record.salt,jdbcType=VARCHAR},
-      register_name = #{record.registerName,jdbcType=VARCHAR},
-      register_phone = #{record.registerPhone,jdbcType=VARCHAR},
+      admin_user_id = #{record.adminUserId,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=BIT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      enabled = #{record.enabled,jdbcType=BIT}
+      gmt_active = #{record.gmtActive,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -312,11 +312,11 @@
       <if test="salt != null" >
         salt = #{salt,jdbcType=VARCHAR},
       </if>
-      <if test="registerName != null" >
-        register_name = #{registerName,jdbcType=VARCHAR},
+      <if test="adminUserId != null" >
+        admin_user_id = #{adminUserId,jdbcType=BIGINT},
       </if>
-      <if test="registerPhone != null" >
-        register_phone = #{registerPhone,jdbcType=VARCHAR},
+      <if test="state != null" >
+        state = #{state,jdbcType=BIT},
       </if>
       <if test="gmtCreate != null" >
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -324,8 +324,8 @@
       <if test="gmtModified != null" >
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="enabled != null" >
-        enabled = #{enabled,jdbcType=BIT},
+      <if test="gmtActive != null" >
+        gmt_active = #{gmtActive,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -340,11 +340,11 @@
       description = #{description,jdbcType=VARCHAR},
       type = #{type,jdbcType=CHAR},
       salt = #{salt,jdbcType=VARCHAR},
-      register_name = #{registerName,jdbcType=VARCHAR},
-      register_phone = #{registerPhone,jdbcType=VARCHAR},
+      admin_user_id = #{adminUserId,jdbcType=BIGINT},
+      state = #{state,jdbcType=BIT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      enabled = #{enabled,jdbcType=BIT}
+      gmt_active = #{gmtActive,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

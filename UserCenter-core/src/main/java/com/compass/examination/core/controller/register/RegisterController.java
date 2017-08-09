@@ -49,7 +49,7 @@ public class RegisterController {
 	@ResponseBody
 	public ResultBO isExistAccount(String account) throws Exception {
 		
-		if (StringUtils.isEmpty(account)) {
+		if (StringUtils.isBlank(account)) {
 			return ResultBO.empty("企业账号");
 		}
 		
@@ -59,7 +59,7 @@ public class RegisterController {
 	
 	
 	/**
-	 * 
+	 * "注册租户账号"与"注册管理员账号"同时在"立即注册"中完成！
 	 * @Method Name: tenantRegister
 	 * @Description: 注册租户账号
 	 * @params:
@@ -75,10 +75,10 @@ public class RegisterController {
 	@ResponseBody
 	public ResultBO tenantRegister(RegisterInfoVO registerInfoVO) throws Exception {
 		
-		if (StringUtils.isEmpty(registerInfoVO.getAccount())) {
+		if (StringUtils.isBlank(registerInfoVO.getAccount())) {
 			return ResultBO.empty("企业账号");
 		}
-		if (StringUtils.isEmpty(registerInfoVO.getTenantName())) {
+		if (StringUtils.isBlank(registerInfoVO.getTenantName())) {
 			return ResultBO.empty("企业名称");
 		}
 		
@@ -89,7 +89,7 @@ public class RegisterController {
 		return ResultBO.fail("企业账号注册失败，请联系客服"); // 否则返回null
 	}
 	
-	/**
+	/** 
 	 * 
 	 * @Method Name: userRegister
 	 * @Description: 注册管理员账号
@@ -110,16 +110,16 @@ public class RegisterController {
 	@ResponseBody
 	public ResultBO register(RegisterInfoVO registerInfoVO) throws Exception {
 		
-		if (StringUtils.isEmpty(registerInfoVO.getAccount())) {
+		if (StringUtils.isBlank(registerInfoVO.getAccount())) {
 			return ResultBO.empty("企业账号");
 		}
-		if (StringUtils.isEmpty(registerInfoVO.getUsername())) {
+		if (StringUtils.isBlank(registerInfoVO.getUsername())) {
 			return ResultBO.empty("管理员账号");
 		}
-		if (StringUtils.isEmpty(registerInfoVO.getPassword())) {
+		if (StringUtils.isBlank(registerInfoVO.getPassword())) {
 			return ResultBO.empty("密码");
 		}
-		if (StringUtils.isEmpty(registerInfoVO.getEmail())) {
+		if (StringUtils.isBlank(registerInfoVO.getEmail())) {
 			return ResultBO.empty("电子邮箱");
 		}
 		

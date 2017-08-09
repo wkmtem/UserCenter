@@ -34,7 +34,7 @@ public class User implements Serializable {
 
     private Boolean deleted;
 
-    private static final long serialVersionUID = 6829806791117343003L;
+    private static final long serialVersionUID = 7481708654231719575L;
 
     public Long getId() {
         return id;

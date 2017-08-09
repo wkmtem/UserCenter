@@ -12,7 +12,7 @@ public class TenantExample implements Serializable {
 
     protected List<Criteria> oredCriteria;
 
-    private static final long serialVersionUID = 3887152551336475646L;
+    private static final long serialVersionUID = 524590799391481375L;
 
     protected int limitStart = -1;
 
@@ -748,143 +748,123 @@ public class TenantExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameIsNull() {
-            addCriterion("register_name is null");
+        public Criteria andAdminUserIdIsNull() {
+            addCriterion("admin_user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameIsNotNull() {
-            addCriterion("register_name is not null");
+        public Criteria andAdminUserIdIsNotNull() {
+            addCriterion("admin_user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameEqualTo(String value) {
-            addCriterion("register_name =", value, "registerName");
+        public Criteria andAdminUserIdEqualTo(Long value) {
+            addCriterion("admin_user_id =", value, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameNotEqualTo(String value) {
-            addCriterion("register_name <>", value, "registerName");
+        public Criteria andAdminUserIdNotEqualTo(Long value) {
+            addCriterion("admin_user_id <>", value, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameGreaterThan(String value) {
-            addCriterion("register_name >", value, "registerName");
+        public Criteria andAdminUserIdGreaterThan(Long value) {
+            addCriterion("admin_user_id >", value, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameGreaterThanOrEqualTo(String value) {
-            addCriterion("register_name >=", value, "registerName");
+        public Criteria andAdminUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("admin_user_id >=", value, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameLessThan(String value) {
-            addCriterion("register_name <", value, "registerName");
+        public Criteria andAdminUserIdLessThan(Long value) {
+            addCriterion("admin_user_id <", value, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameLessThanOrEqualTo(String value) {
-            addCriterion("register_name <=", value, "registerName");
+        public Criteria andAdminUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("admin_user_id <=", value, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameLike(String value) {
-            addCriterion("register_name like", value, "registerName");
+        public Criteria andAdminUserIdIn(List<Long> values) {
+            addCriterion("admin_user_id in", values, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameNotLike(String value) {
-            addCriterion("register_name not like", value, "registerName");
+        public Criteria andAdminUserIdNotIn(List<Long> values) {
+            addCriterion("admin_user_id not in", values, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameIn(List<String> values) {
-            addCriterion("register_name in", values, "registerName");
+        public Criteria andAdminUserIdBetween(Long value1, Long value2) {
+            addCriterion("admin_user_id between", value1, value2, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameNotIn(List<String> values) {
-            addCriterion("register_name not in", values, "registerName");
+        public Criteria andAdminUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("admin_user_id not between", value1, value2, "adminUserId");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameBetween(String value1, String value2) {
-            addCriterion("register_name between", value1, value2, "registerName");
+        public Criteria andStateIsNull() {
+            addCriterion("state is null");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterNameNotBetween(String value1, String value2) {
-            addCriterion("register_name not between", value1, value2, "registerName");
+        public Criteria andStateIsNotNull() {
+            addCriterion("state is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneIsNull() {
-            addCriterion("register_phone is null");
+        public Criteria andStateEqualTo(Boolean value) {
+            addCriterion("state =", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneIsNotNull() {
-            addCriterion("register_phone is not null");
+        public Criteria andStateNotEqualTo(Boolean value) {
+            addCriterion("state <>", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneEqualTo(String value) {
-            addCriterion("register_phone =", value, "registerPhone");
+        public Criteria andStateGreaterThan(Boolean value) {
+            addCriterion("state >", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneNotEqualTo(String value) {
-            addCriterion("register_phone <>", value, "registerPhone");
+        public Criteria andStateGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("state >=", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneGreaterThan(String value) {
-            addCriterion("register_phone >", value, "registerPhone");
+        public Criteria andStateLessThan(Boolean value) {
+            addCriterion("state <", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneGreaterThanOrEqualTo(String value) {
-            addCriterion("register_phone >=", value, "registerPhone");
+        public Criteria andStateLessThanOrEqualTo(Boolean value) {
+            addCriterion("state <=", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneLessThan(String value) {
-            addCriterion("register_phone <", value, "registerPhone");
+        public Criteria andStateIn(List<Boolean> values) {
+            addCriterion("state in", values, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneLessThanOrEqualTo(String value) {
-            addCriterion("register_phone <=", value, "registerPhone");
+        public Criteria andStateNotIn(List<Boolean> values) {
+            addCriterion("state not in", values, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneLike(String value) {
-            addCriterion("register_phone like", value, "registerPhone");
+        public Criteria andStateBetween(Boolean value1, Boolean value2) {
+            addCriterion("state between", value1, value2, "state");
             return (Criteria) this;
         }
 
-        public Criteria andRegisterPhoneNotLike(String value) {
-            addCriterion("register_phone not like", value, "registerPhone");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegisterPhoneIn(List<String> values) {
-            addCriterion("register_phone in", values, "registerPhone");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegisterPhoneNotIn(List<String> values) {
-            addCriterion("register_phone not in", values, "registerPhone");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegisterPhoneBetween(String value1, String value2) {
-            addCriterion("register_phone between", value1, value2, "registerPhone");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegisterPhoneNotBetween(String value1, String value2) {
-            addCriterion("register_phone not between", value1, value2, "registerPhone");
+        public Criteria andStateNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("state not between", value1, value2, "state");
             return (Criteria) this;
         }
 
@@ -1008,63 +988,63 @@ public class TenantExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andEnabledIsNull() {
-            addCriterion("enabled is null");
+        public Criteria andGmtActiveIsNull() {
+            addCriterion("gmt_active is null");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledIsNotNull() {
-            addCriterion("enabled is not null");
+        public Criteria andGmtActiveIsNotNull() {
+            addCriterion("gmt_active is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledEqualTo(Boolean value) {
-            addCriterion("enabled =", value, "enabled");
+        public Criteria andGmtActiveEqualTo(Date value) {
+            addCriterion("gmt_active =", value, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotEqualTo(Boolean value) {
-            addCriterion("enabled <>", value, "enabled");
+        public Criteria andGmtActiveNotEqualTo(Date value) {
+            addCriterion("gmt_active <>", value, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledGreaterThan(Boolean value) {
-            addCriterion("enabled >", value, "enabled");
+        public Criteria andGmtActiveGreaterThan(Date value) {
+            addCriterion("gmt_active >", value, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("enabled >=", value, "enabled");
+        public Criteria andGmtActiveGreaterThanOrEqualTo(Date value) {
+            addCriterion("gmt_active >=", value, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledLessThan(Boolean value) {
-            addCriterion("enabled <", value, "enabled");
+        public Criteria andGmtActiveLessThan(Date value) {
+            addCriterion("gmt_active <", value, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledLessThanOrEqualTo(Boolean value) {
-            addCriterion("enabled <=", value, "enabled");
+        public Criteria andGmtActiveLessThanOrEqualTo(Date value) {
+            addCriterion("gmt_active <=", value, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledIn(List<Boolean> values) {
-            addCriterion("enabled in", values, "enabled");
+        public Criteria andGmtActiveIn(List<Date> values) {
+            addCriterion("gmt_active in", values, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotIn(List<Boolean> values) {
-            addCriterion("enabled not in", values, "enabled");
+        public Criteria andGmtActiveNotIn(List<Date> values) {
+            addCriterion("gmt_active not in", values, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledBetween(Boolean value1, Boolean value2) {
-            addCriterion("enabled between", value1, value2, "enabled");
+        public Criteria andGmtActiveBetween(Date value1, Date value2) {
+            addCriterion("gmt_active between", value1, value2, "gmtActive");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("enabled not between", value1, value2, "enabled");
+        public Criteria andGmtActiveNotBetween(Date value1, Date value2) {
+            addCriterion("gmt_active not between", value1, value2, "gmtActive");
             return (Criteria) this;
         }
     }

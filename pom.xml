@@ -38,8 +38,9 @@
 	<com.google.guava-version>22.0</com.google.guava-version>
 	<com.alibaba-hsf-version>edas1.0.1</com.alibaba-hsf-version>
 	<com.alibaba.edas-sdk-version>1.5.6</com.alibaba.edas-sdk-version>
-	<aliyun-java-sdk-push-version>2.2.1</aliyun-java-sdk-push-version>
 	<aliyun-java-sdk-core-version>2.4.2</aliyun-java-sdk-core-version>
+	<aliyun-java-sdk-push-version>2.2.1</aliyun-java-sdk-push-version>
+	<aliyun-java-sdk-dm-version>3.1.0</aliyun-java-sdk-dm-version>
   </properties>
   
   <dependencyManagement>
@@ -246,14 +247,21 @@
 	  <!-- aliyun -->
 	  <dependency>
 	    <groupId>com.aliyun</groupId>
-	    <artifactId>aliyun-java-sdk-push</artifactId>
-	    <version>${aliyun-java-sdk-push-version}</version>
-	  </dependency>
-	  <dependency>
-	    <groupId>com.aliyun</groupId>
 	    <artifactId>aliyun-java-sdk-core</artifactId>
 	    <version>${aliyun-java-sdk-core-version}</version>
 	  </dependency>
+	  <!-- 推送 -->
+	  <dependency>
+	    <groupId>com.aliyun</groupId>
+	    <artifactId>aliyun-java-sdk-push</artifactId>
+	    <version>${aliyun-java-sdk-push-version}</version>
+	  </dependency>
+	  <!-- 邮件 -->
+      <dependency>
+        <groupId>com.aliyun</groupId>
+        <artifactId>aliyun-java-sdk-dm</artifactId>
+        <version>${aliyun-java-sdk-dm-version}</version>
+      </dependency>
   	</dependencies>
   </dependencyManagement>
   

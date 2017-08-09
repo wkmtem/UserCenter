@@ -1,15 +1,16 @@
 package register;
 
-import java.util.Date;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.compass.examination.common.algorithm.MD5;
+import com.compass.examination.common.email.EmailUtil;
 import com.compass.examination.common.junit.SpringJunitTest;
+import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
+import com.compass.examination.pojo.vo.SendEmailInfoVO;
 
 public class RegisterTest extends SpringJunitTest {
 
@@ -43,7 +44,15 @@ public class RegisterTest extends SpringJunitTest {
 	}
 	
 	@Test
-	public void testMD5() throws Exception {
-		System.out.println(MD5.getMD5(MD5.getMD5(new Date().getTime() + "")).toUpperCase());
+	public void testSendEmail() throws Exception {
+		SendEmailInfoVO sendEmailInfoVO = new SendEmailInfoVO();
+		sendEmailInfoVO.setToAddress("813272417@qq.com"); // 目标email地址
+		// TODO htmlContent
+		sendEmailInfoVO.setHtmlBody(
+				"<html>http://www.baidu.com?"+"0000000000000000000" +"#"+ "11111111111111" + "#" +
+				AliConstant.EMAIL_EXPIRE_MILLIS + "</html>"); // 邮件 html 正文
+		sendEmailInfoVO.setTextBody("textBody"); // 邮件 text 正文
+		String requestId = EmailUtil.sendEmail(sendEmailInfoVO);
+		System.out.println(requestId);
 	}
 }

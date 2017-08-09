@@ -22,17 +22,17 @@ public class Tenant implements Serializable {
 
     private String salt;
 
-    private String registerName;
+    private Long adminUserId;
 
-    private String registerPhone;
+    private Boolean state;
 
     private Date gmtCreate;
 
     private Date gmtModified;
 
-    private Boolean enabled;
+    private Date gmtActive;
 
-    private static final long serialVersionUID = 7971021345748049210L;
+    private static final long serialVersionUID = 3556743822355086828L;
 
     public Long getId() {
         return id;
@@ -106,20 +106,20 @@ public class Tenant implements Serializable {
         this.salt = salt == null ? null : salt.trim();
     }
 
-    public String getRegisterName() {
-        return registerName;
+    public Long getAdminUserId() {
+        return adminUserId;
     }
 
-    public void setRegisterName(String registerName) {
-        this.registerName = registerName == null ? null : registerName.trim();
+    public void setAdminUserId(Long adminUserId) {
+        this.adminUserId = adminUserId;
     }
 
-    public String getRegisterPhone() {
-        return registerPhone;
+    public Boolean getState() {
+        return state;
     }
 
-    public void setRegisterPhone(String registerPhone) {
-        this.registerPhone = registerPhone == null ? null : registerPhone.trim();
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
     public Date getGmtCreate() {
@@ -138,11 +138,11 @@ public class Tenant implements Serializable {
         this.gmtModified = gmtModified;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+    public Date getGmtActive() {
+        return gmtActive;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setGmtActive(Date gmtActive) {
+        this.gmtActive = gmtActive;
     }
 }

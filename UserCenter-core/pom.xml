@@ -195,12 +195,18 @@
 	  <!-- aliyun -->
 	  <dependency>
 	    <groupId>com.aliyun</groupId>
-	    <artifactId>aliyun-java-sdk-push</artifactId>
-	  </dependency>
-	  <dependency>
-	    <groupId>com.aliyun</groupId>
 	    <artifactId>aliyun-java-sdk-core</artifactId>
 	  </dependency>
+	  <!-- 推送 -->
+	  <dependency>
+	    <groupId>com.aliyun</groupId>
+	    <artifactId>aliyun-java-sdk-push</artifactId>
+	  </dependency>
+	  <!-- 邮件 -->
+	  <dependency>
+        <groupId>com.aliyun</groupId>
+        <artifactId>aliyun-java-sdk-dm</artifactId>
+      </dependency>
   </dependencies>
   
   <build>

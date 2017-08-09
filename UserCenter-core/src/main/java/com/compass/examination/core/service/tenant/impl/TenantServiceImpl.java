@@ -1,5 +1,6 @@
 package com.compass.examination.core.service.tenant.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,9 +12,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.examination.common.algorithm.MD5;
+import com.compass.examination.common.algorithm.RandomCode;
+import com.compass.examination.constant.AliConstant;
+import com.compass.examination.core.dao.mapper.EmailValidationMapper;
 import com.compass.examination.core.dao.mapper.TenantMapper;
 import com.compass.examination.core.dao.mapper.UserMapper;
 import com.compass.examination.core.service.tenant.ITenantService;
+import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.TenantExample;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
@@ -35,6 +40,8 @@ public class TenantServiceImpl implements ITenantService {
 	private TenantMapper tenantMapper;
 	@Autowired
 	private UserMapper userMaaper;
+	@Autowired
+	private EmailValidationMapper emailValidationMapper;
 
 	/**
 	 * 
@@ -69,21 +76,36 @@ public class TenantServiceImpl implements ITenantService {
 	@Override
 	public String tenantRegister(RegisterInfoVO registerInfoVO) throws Exception {
 		
-		Date date = new Date();
 		String salt = MD5.get2MD5StrByTimeMillis();
 		int ret = -1;
+		Calendar calendar = Calendar.getInstance();
+		Date date = calendar.getTime();
+		calendar.add(Calendar.MILLISECOND, AliConstant.EMAIL_EXPIRE_MILLIS);
 		
 		Tenant tenant = new Tenant();
-		tenant.setAccount(registerInfoVO.getAccount());
-		tenant.setName(registerInfoVO.getTenantName());
-		tenant.setDescription(registerInfoVO.getTenantName());
+		tenant.setAccount(registerInfoVO.getAccount());// 租户账号
+		tenant.setName(registerInfoVO.getTenantName());// 租户名称
 		tenant.setSalt(salt);
+		tenant.setState(false);// 未激活
 		tenant.setGmtCreate(date);
 		tenant.setGmtModified(date);
-		tenant.setEnabled(true);// 启用
 		ret = tenantMapper.insertSelective(tenant);
 		
 		if(ret > 0){
+			// TODO 激活码
+			byte[] genChances = { 2, 5, 3 }; 
+			char[] code = RandomCode.generateRandomCode(64, genChances);// 宽度，概率
+			System.out.println(String.valueOf(code));
+			
+			// 邮件验证码
+			EmailValidation validation = new EmailValidation();
+			validation.setTenantId(tenant.getId());
+			validation.setActiveCode(String.valueOf(code)); // 激活码
+			validation.setActiveMd5(MD5.getMD5(String.valueOf(code))); // MD5激活码
+			validation.setGmtExpire(calendar.getTime()); // 激活码到期时间
+			validation.setGmtCreate(date);
+			validation.setGmtModified(date);
+			emailValidationMapper.insertSelective(validation);
 			return salt;
 		}
 		return null;

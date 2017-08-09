@@ -7,7 +7,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.push.model.v20150827.PushRequest;
 import com.aliyuncs.push.model.v20150827.PushResponse;
 import com.compass.examination.constant.InitConstant;
-import com.compass.examination.constant.PushConstant;
+import com.compass.examination.constant.AliConstant;
 import com.google.gson.Gson;
 
 
@@ -22,14 +22,14 @@ public class PushUtil{
 	private static DefaultAcsClient client;
 	
 	public PushUtil(String accounts,String phone){
-		APPKEY = PushConstant.APPKEY;
+		APPKEY = AliConstant.APPKEY;
 		DEVICEIDS = accounts;
 		ACCOUNTS = phone;
 		// 推送配置
         client = new DefaultAcsClient(DefaultProfile.getProfile(
-        		PushConstant.REGION_HANGZHOU, 
-        		PushConstant.ACCESSKEYID, 
-        		PushConstant.ACCESSKEYSECRET));
+        		AliConstant.REGION_HANGZHOU, 
+        		AliConstant.ACCESSKEYID, 
+        		AliConstant.ACCESSKEYSECRET));
 	}
 	
 	
