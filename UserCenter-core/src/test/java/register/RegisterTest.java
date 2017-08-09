@@ -25,6 +25,7 @@ public class RegisterTest extends SpringJunitTest {
 		System.out.println(isExist);
 	}
 	
+	// 租户：生成盐，激活码，md5验证码
 	@Test
 	public void testTenantRegister() throws Exception {
 		RegisterInfoVO infoVO = new RegisterInfoVO();
@@ -33,13 +34,14 @@ public class RegisterTest extends SpringJunitTest {
 		System.out.println("result >>>>>>>>>> " + tenantService.tenantRegister(infoVO));
 	}
 	
+	// 用户：发邮件
 	@Test
 	public void testUserRegister() throws Exception {
 		RegisterInfoVO infoVO = new RegisterInfoVO();
 		infoVO.setAccount("testAccount");
 		infoVO.setUsername("wkmtem");
-		infoVO.setPassword(MD5.get2MD5StrBySaltWithPwd("A939FC792C9FD68DC403D440D1F3C873", "123"));
-		infoVO.setEmail("test@qq.com");
+		infoVO.setPassword(MD5.get2MD5StrBySaltWithPwd("09E95B1DD7BA5E5C1FE7698042E4333D", "123"));
+		infoVO.setEmail("813272417@qq.com");
 		System.out.println("register >>>>>>>>>> " + userService.userRegister(infoVO));
 	}
 	

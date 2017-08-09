@@ -92,10 +92,8 @@ public class TenantServiceImpl implements ITenantService {
 		ret = tenantMapper.insertSelective(tenant);
 		
 		if(ret > 0){
-			// TODO 激活码
-			byte[] genChances = { 2, 5, 3 }; 
+			byte[] genChances = { 1, 1, 1 }; 
 			char[] code = RandomCode.generateRandomCode(64, genChances);// 宽度，概率
-			System.out.println(String.valueOf(code));
 			
 			// 邮件验证码
 			EmailValidation validation = new EmailValidation();
