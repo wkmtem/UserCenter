@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.compass.examination.common.algorithm.MD5;
 import com.compass.examination.common.junit.SpringJunitTest;
 import com.compass.examination.core.service.tenant.ITenantService;
+import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 
 public class RegisterTest extends SpringJunitTest {
 
 	@Autowired
 	private ITenantService tenantService;
+	@Autowired
+	private IUserService userService;
 	
 	@Test
 	public void testIsExistAccount() throws Exception {
@@ -36,7 +39,7 @@ public class RegisterTest extends SpringJunitTest {
 		infoVO.setUsername("wkmtem");
 		infoVO.setPassword(MD5.get2MD5StrBySaltWithPwd("A939FC792C9FD68DC403D440D1F3C873", "123"));
 		infoVO.setEmail("test@qq.com");
-		System.out.println("register >>>>>>>>>> " + tenantService.userRegister(infoVO));
+		System.out.println("register >>>>>>>>>> " + userService.userRegister(infoVO));
 	}
 	
 	@Test

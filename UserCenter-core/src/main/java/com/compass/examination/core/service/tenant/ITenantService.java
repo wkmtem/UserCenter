@@ -1,5 +1,8 @@
 package com.compass.examination.core.service.tenant;
 
+import java.util.List;
+
+import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 
 
@@ -25,7 +28,7 @@ public interface ITenantService {
 	String tenantRegister(RegisterInfoVO registerInfoVO) throws Exception;
 
 	/**
-	 * 注册管理员账号
+	 * 根据租户账号，获取租户集合
 	 */
-	boolean userRegister(RegisterInfoVO registerInfoVO) throws Exception;
+	List<Tenant> listTenantByAccount(String account) throws Exception;
 }

@@ -16,7 +16,6 @@ import com.compass.examination.core.dao.mapper.UserMapper;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.TenantExample;
-import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 
 /**
@@ -89,51 +88,21 @@ public class TenantServiceImpl implements ITenantService {
 		}
 		return null;
 	}
-
+	
 	
 	/**
 	 * 
-	 * @Description: 注册管理员账号
-	 * @param registerInfoVO
-	 * @return
-	 * @throws Exception: 
+	 * @Method Name: listTenantByAccount
+	 * @Description: 根据租户账号，获取租户集合
+	 * @params:
 	 * @author: wkm
-	 * @Create date: 2017年8月9日下午12:58:27
+	 * @version: 2.0
+	 * @Create date: 2017年8月9日下午4:11:38
+	 * @param account
+	 * @return
+	 * @throws Exception:
 	 */
-	@Override
-	public boolean userRegister(RegisterInfoVO registerInfoVO) throws Exception {
-		
-		Date date = new Date();
-		int ret = -1;
-		
-		// 获取租户id
-		List<Tenant> list = this.listTenantByAccount(registerInfoVO.getAccount());
-		if (CollectionUtils.isEmpty(list)) {
-			return false;
-		}
-
-		User user = new User();
-		user.setTenantId(list.get(0).getId());
-		user.setUsername(registerInfoVO.getUsername());
-		user.setPassword(registerInfoVO.getPassword());
-		user.setEmail(registerInfoVO.getEmail());
-		user.setGmtCreate(date);
-		user.setGmtModified(date);
-		user.setEnabled(true);// 启用
-		user.setDeleted(false); // 未删除
-		ret = userMaaper.insertSelective(user);
-
-		if(ret > 0){
-			return true;
-		}
-		return false;
-	}
-	
-	
-	/**
-	 * 根据租户账号，获取租户集合
-	 */
-	private List<Tenant> listTenantByAccount(String account) throws Exception {
+	public List<Tenant> listTenantByAccount(String account) throws Exception {
 		TenantExample example = new TenantExample();
 		TenantExample.Criteria criteria = example.createCriteria();
 		criteria.andAccountEqualTo(account);

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.compass.examination.core.annotation.SystemController;
 import com.compass.examination.core.service.tenant.ITenantService;
+import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.bo.ResultBO;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 
@@ -27,6 +28,8 @@ public class RegisterController {
 	
 	@Autowired
 	private ITenantService tenantService;
+	@Autowired
+	private IUserService userService;
 	
 	
 	/**
@@ -120,7 +123,7 @@ public class RegisterController {
 			return ResultBO.empty("电子邮箱");
 		}
 		
-		boolean bool = tenantService.userRegister(registerInfoVO);
+		boolean bool = userService.userRegister(registerInfoVO);
 		if (bool) {
 			return ResultBO.ok(bool);
 		}
