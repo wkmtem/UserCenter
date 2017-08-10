@@ -4,11 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
+	
 	/**
-	 * 校验时间 格式YYYY-MM-DD
 	 * 
 	 * @Method Name: checkDate
-	 * @Description:
+	 * @Description: 校验时间 格式YYYY-MM-DD
 	 * @params:
 	 * @author: wsc
 	 * @version: 2.0
@@ -25,10 +25,9 @@ public class Regex {
 	}
 
 	/**
-	 * 校验时间 格式YYYY-MM-DD HH:mm 或 YYYY-MM 简单的过滤
 	 * 
 	 * @Method Name: checkDateTime
-	 * @Description:
+	 * @Description: 校验时间 格式YYYY-MM-DD HH:mm 或 YYYY-MM 简单的过滤
 	 * @params:
 	 * @author: wsc
 	 * @version: 2.0
@@ -68,10 +67,9 @@ public class Regex {
 	}  
 
 	/**
-	 * 校验正整数
 	 * 
 	 * @Method Name: checkDate
-	 * @Description:
+	 * @Description: 校验正整数
 	 * @params:
 	 * @author: wsc
 	 * @version: 2.0
@@ -88,10 +86,9 @@ public class Regex {
 	}
 
 	/**
-	 * 校验数字或小数点两位
 	 * 
 	 * @Method Name: checkDate
-	 * @Description:
+	 * @Description: 校验数字或小数点两位
 	 * @params:
 	 * @author: wsc
 	 * @version: 2.0
@@ -108,10 +105,9 @@ public class Regex {
 	}
 
 	/**
-	 * 检验性别
 	 * 
 	 * @Method Name: checkGender
-	 * @Description:
+	 * @Description: 检验性别
 	 * @params:
 	 * @author: sm
 	 * @version: 2.0
@@ -128,10 +124,9 @@ public class Regex {
 	}
 
 	/**
-	 * 验证身份证
 	 * 
 	 * @Method Name: checkIdentityNo
-	 * @Description:
+	 * @Description: 验证身份证
 	 * @params:
 	 * @author: sm
 	 * @version: 2.0
@@ -179,5 +174,21 @@ public class Regex {
             }     
         }
         return null;
+	}
+	
+	public static boolean checkEmail(String email) {
+		/**
+		 * 邮箱正则表达式
+		 * p{Alpha}:内容是必选的，和字母字符[\p{Lower}\p{Upper}]等价。如：200896@163.com不是合法的
+		 * w{2,15}: 2~15个[a-zA-Z_0-9]字符；w{}内容是必选的。 如：dyh@152.com是合法的
+		 * [a-z0-9]{3,}：至少三个[a-z0-9]字符,[]内的是必选的；如：dyh200896@16.com是不合法的
+		 * [.]:'.'号时必选的； 如：dyh200896@163com是不合法的
+		 * p{Lower}{2,}小写字母，两个以上。如：dyh200896@163.c是不合法的
+		 */
+		String format = "\\p{Alpha}\\w{2,15}[@][a-z0-9]{3,}[.]\\p{Lower}{2,}";
+		if (email.matches(format)) { 
+			return true;// 合法 
+	    }
+	    return false;
 	}
 }
