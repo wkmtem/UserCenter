@@ -100,7 +100,7 @@ public class TenantServiceImpl implements ITenantService {
 			validation.setTenantId(tenant.getId());
 			validation.setActiveCode(String.valueOf(code)); // 激活码
 			validation.setActiveMd5(MD5.getMD5(String.valueOf(code))); // MD5激活码
-			validation.setGmtExpire(calendar.getTime()); // 激活码到期时间
+			validation.setExpireMillis(calendar.getTime().getTime()); // 激活码到期时间戳
 			validation.setGmtCreate(date);
 			validation.setGmtModified(date);
 			emailValidationMapper.insertSelective(validation);

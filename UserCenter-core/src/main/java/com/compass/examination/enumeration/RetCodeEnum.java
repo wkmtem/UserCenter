@@ -11,7 +11,7 @@ package com.compass.examination.enumeration;
  */
 public enum RetCodeEnum {
 	
-	SUCCEED("1", "SUCCEED"),
+	SUCCEEDED("1", "SUCCEEDED"),
 	FAILED("0", "FAILED");
 
 	public String code;

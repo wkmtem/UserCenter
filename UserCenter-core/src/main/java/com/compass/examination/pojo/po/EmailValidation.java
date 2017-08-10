@@ -12,13 +12,13 @@ public class EmailValidation implements Serializable {
 
     private String activeMd5;
 
-    private Date gmtExpire;
+    private Long expireMillis;
 
     private Date gmtCreate;
 
     private Date gmtModified;
 
-    private static final long serialVersionUID = 6018502552875051026L;
+    private static final long serialVersionUID = -7216585489193968832L;
 
     public Long getId() {
         return id;
@@ -52,12 +52,12 @@ public class EmailValidation implements Serializable {
         this.activeMd5 = activeMd5 == null ? null : activeMd5.trim();
     }
 
-    public Date getGmtExpire() {
-        return gmtExpire;
+    public Long getExpireMillis() {
+        return expireMillis;
     }
 
-    public void setGmtExpire(Date gmtExpire) {
-        this.gmtExpire = gmtExpire;
+    public void setExpireMillis(Long expireMillis) {
+        this.expireMillis = expireMillis;
     }
 
     public Date getGmtCreate() {

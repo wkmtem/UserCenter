@@ -10,11 +10,11 @@ public class RetCodeEnumTest extends SpringJunitTest {
 	@Test
 	public void testRetCodeEnum() throws Exception {
 		
-		System.out.println(RetCodeEnum.SUCCEED);
+		System.out.println(RetCodeEnum.SUCCEEDED);
 		System.out.println(RetCodeEnum.FAILED);
 		System.out.println("---------------------------");
-		System.out.println(RetCodeEnum.SUCCEED.code);
-		System.out.println(RetCodeEnum.SUCCEED.value);
+		System.out.println(RetCodeEnum.SUCCEEDED.code);
+		System.out.println(RetCodeEnum.SUCCEEDED.value);
 		
 		
 	}

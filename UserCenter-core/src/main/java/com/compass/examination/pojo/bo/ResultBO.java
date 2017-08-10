@@ -39,7 +39,7 @@ public class ResultBO implements Serializable {
 	}
 
 	public static ResultBO ok(Object target) {
-		return new ResultBO(RetCodeEnum.SUCCEED.code, RetCodeEnum.SUCCEED.value, target);
+		return new ResultBO(RetCodeEnum.SUCCEEDED.code, RetCodeEnum.SUCCEEDED.value, target);
 	}
 
 	public static ResultBO fail(String msg) {

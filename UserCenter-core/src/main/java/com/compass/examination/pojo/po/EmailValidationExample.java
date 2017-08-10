@@ -12,7 +12,7 @@ public class EmailValidationExample implements Serializable {
 
     protected List<Criteria> oredCriteria;
 
-    private static final long serialVersionUID = 1126438595425779941L;
+    private static final long serialVersionUID = 1779087747094422258L;
 
     protected int limitStart = -1;
 
@@ -388,63 +388,63 @@ public class EmailValidationExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireIsNull() {
-            addCriterion("gmt_expire is null");
+        public Criteria andExpireMillisIsNull() {
+            addCriterion("expire_millis is null");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireIsNotNull() {
-            addCriterion("gmt_expire is not null");
+        public Criteria andExpireMillisIsNotNull() {
+            addCriterion("expire_millis is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireEqualTo(Date value) {
-            addCriterion("gmt_expire =", value, "gmtExpire");
+        public Criteria andExpireMillisEqualTo(Long value) {
+            addCriterion("expire_millis =", value, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireNotEqualTo(Date value) {
-            addCriterion("gmt_expire <>", value, "gmtExpire");
+        public Criteria andExpireMillisNotEqualTo(Long value) {
+            addCriterion("expire_millis <>", value, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireGreaterThan(Date value) {
-            addCriterion("gmt_expire >", value, "gmtExpire");
+        public Criteria andExpireMillisGreaterThan(Long value) {
+            addCriterion("expire_millis >", value, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireGreaterThanOrEqualTo(Date value) {
-            addCriterion("gmt_expire >=", value, "gmtExpire");
+        public Criteria andExpireMillisGreaterThanOrEqualTo(Long value) {
+            addCriterion("expire_millis >=", value, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireLessThan(Date value) {
-            addCriterion("gmt_expire <", value, "gmtExpire");
+        public Criteria andExpireMillisLessThan(Long value) {
+            addCriterion("expire_millis <", value, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireLessThanOrEqualTo(Date value) {
-            addCriterion("gmt_expire <=", value, "gmtExpire");
+        public Criteria andExpireMillisLessThanOrEqualTo(Long value) {
+            addCriterion("expire_millis <=", value, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireIn(List<Date> values) {
-            addCriterion("gmt_expire in", values, "gmtExpire");
+        public Criteria andExpireMillisIn(List<Long> values) {
+            addCriterion("expire_millis in", values, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireNotIn(List<Date> values) {
-            addCriterion("gmt_expire not in", values, "gmtExpire");
+        public Criteria andExpireMillisNotIn(List<Long> values) {
+            addCriterion("expire_millis not in", values, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireBetween(Date value1, Date value2) {
-            addCriterion("gmt_expire between", value1, value2, "gmtExpire");
+        public Criteria andExpireMillisBetween(Long value1, Long value2) {
+            addCriterion("expire_millis between", value1, value2, "expireMillis");
             return (Criteria) this;
         }
 
-        public Criteria andGmtExpireNotBetween(Date value1, Date value2) {
-            addCriterion("gmt_expire not between", value1, value2, "gmtExpire");
+        public Criteria andExpireMillisNotBetween(Long value1, Long value2) {
+            addCriterion("expire_millis not between", value1, value2, "expireMillis");
             return (Criteria) this;
         }
 
