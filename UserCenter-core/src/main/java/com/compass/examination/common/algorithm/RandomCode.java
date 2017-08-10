@@ -30,12 +30,14 @@ public class RandomCode {
      * @param genChances 分别是生成数字、字母、特殊符号的概率
      * @return 生成的随机密码
      */
-    public static char[] generateRandomCode(final int len, final byte[] paramGenChances) throws IllegalArgumentException {
-        if (len < 3) {
+    public static char[] generateRandomCode(final int len, final byte[] paramGenChances) 
+    		throws IllegalArgumentException {
+        
+    	if (len < 3) {
             throw new IllegalArgumentException("len must not smaller than 3, but now is " + len);
         }
         final char[] code = new char[len];
-        // 之所以该复制一份是为了使函数不对外产生影响
+        // 复制一份：为了使函数不对外产生影响
         final byte[] genChances = paramGenChances.clone();
         final byte[] genNums = new byte[genChances.length];
         for (byte i = 0; i < genChances.length; i++) {
@@ -71,6 +73,7 @@ public class RandomCode {
         logChances(genNums); // 打印各类字符的个数
         return code;
     }
+    
 
     /**
      * 根据当前需要生成密码字符的位置,动态调整生成概率
@@ -96,6 +99,7 @@ public class RandomCode {
             }
         }
     }
+    
 
     /**
      * 获取该密码字符的类型
