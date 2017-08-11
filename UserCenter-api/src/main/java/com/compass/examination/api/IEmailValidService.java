@@ -1,4 +1,4 @@
-package com.compass.examination.core.service.email;
+package com.compass.examination.api;
 
 import com.compass.examination.pojo.po.EmailValidation;
 

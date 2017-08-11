@@ -24,16 +24,12 @@
         <snapshotRepository>
             <id>nexus</id>
             <name>Nexus Snapshot</name>
-            <url>http://106.14.217.189:8081/repository/maven-snapshots/</url 
-
->
+            <url>http://106.14.217.189:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
         <site>
             <id>nexus</id>
             <name>Nexus Sites</name>
-            <url>http://106.14.217.189:8081/repository/maven-snapshots/</url 
-
->
+            <url>http://106.14.217.189:8081/repository/maven-snapshots/</url>
         </site>
     </distributionManagement> -->
     <!-- Releases仓库 -->
@@ -41,12 +37,9 @@
         <repository>
             <id>nexus</id>
             <name>Nexus Snapshot</name>
-            <url>http://106.14.217.189:8081/repository/maven-releases/</url 
-
->
+            <url>http://106.14.217.189:8081/repository/maven-releases/</url>
         </repository>
      </distributionManagement>
-  
   
   <build>
     <plugins>

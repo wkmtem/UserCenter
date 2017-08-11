@@ -3,12 +3,12 @@ package register;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.compass.examination.api.ITenantService;
+import com.compass.examination.api.IUserService;
 import com.compass.examination.common.algorithm.MD5;
 import com.compass.examination.common.email.EmailUtil;
 import com.compass.examination.common.junit.SpringJunitTest;
 import com.compass.examination.constant.AliConstant;
-import com.compass.examination.core.service.tenant.ITenantService;
-import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 import com.compass.examination.pojo.vo.SendEmailInfoVO;
 

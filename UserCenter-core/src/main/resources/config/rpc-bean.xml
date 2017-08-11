@@ -39,22 +39,36 @@
 		methodSpecials: 可选，为方法单独配置超时(单位 ms)， 这样接口中的方法可以采用不同的超时时间，
 			优先级高于clientTimeout的超时配置，低于客户端的methodSpecials配置
 	 -->
-	<bean id="personImpl" class="com.compass.examination.rpc.impl.PersonImpl" />
-	<hsf:provider id="person" interface="com.compass.examination.rpc.api.IPerson"
+	 
+	<!-- 租户 -->
+	<bean id="tenantServiceImpl" class="com.compass.examination.core.service.tenant.impl.TenantServiceImpl" />
+	<hsf:provider id="iTenantService" interface="com.compass.examination.api.ITenantService"
 		version="1.0.1" group="test1" clientTimeout="3000" serializeType="hessian"
-		enableTXC="true" ref="personImpl" >
+		enableTXC="true" ref="tenantServiceImpl" >
 		<hsf:methodSpecials>
 			<hsf:methodSpecial name="sum" timeout="2000" />
 		</hsf:methodSpecials>
 	</hsf:provider>
 	
-	<!-- <bean id="personServiceImpl" class="com.compass.service.impl.PersonServiceImpl" />
-	<hsf:provider id="personService" interface="com.compass.service.IPersonService" 
-		ref="personServiceImpl" version="1.0.1" group="test1" clientTimeout="3000" enableTXC="true" 
-	    serializeType="hessian">
+	<!-- 用户 -->
+	<bean id="userServiceImpl" class="com.compass.examination.core.service.user.impl.UserServiceImpl" />
+	<hsf:provider id="iUserService" interface="com.compass.examination.api.IUserService"
+		version="1.0.1" group="test1" clientTimeout="3000" serializeType="hessian"
+		enableTXC="true" ref="userServiceImpl" >
 		<hsf:methodSpecials>
 			<hsf:methodSpecial name="sum" timeout="2000" />
 		</hsf:methodSpecials>
-	</hsf:provider> -->
+	</hsf:provider>
+	
+	<!-- 邮件 -->
+	<bean id="emailValidServiceImpl" class="com.compass.examination.core.service.email.impl.EmailValidServiceImpl" />
+	<hsf:provider id="iEmailValidService" interface="com.compass.examination.api.IEmailValidService"
+		version="1.0.1" group="test1" clientTimeout="3000" serializeType="hessian"
+		enableTXC="true" ref="emailValidServiceImpl" >
+		<hsf:methodSpecials>
+			<hsf:methodSpecial name="sum" timeout="2000" />
+		</hsf:methodSpecials>
+	</hsf:provider>
+
 
 </beans>

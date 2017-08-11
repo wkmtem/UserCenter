@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.compass.examination.api.IEmailValidService;
+import com.compass.examination.api.ITenantService;
+import com.compass.examination.api.IUserService;
 import com.compass.examination.common.constructor.LinkedMapCustom;
 import com.compass.examination.common.uuid.UUIDBuild;
 import com.compass.examination.core.dao.mapper.UserMapper;
-import com.compass.examination.core.service.email.IEmailValidService;
-import com.compass.examination.core.service.tenant.ITenantService;
-import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.enumeration.ErrorMsgEnum;
 import com.compass.examination.pojo.bo.ResultBO;
 import com.compass.examination.pojo.po.EmailValidation;
