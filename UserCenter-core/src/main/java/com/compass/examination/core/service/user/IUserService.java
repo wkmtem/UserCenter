@@ -1,5 +1,8 @@
 package com.compass.examination.core.service.user;
 
+import java.util.List;
+
+import com.compass.examination.pojo.bo.ResultBO;
 import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 
@@ -24,4 +27,19 @@ public interface IUserService {
 	 * 新增用戶
 	 */
 	Long insertUser(User user) throws Exception;
+
+	/**
+	 * 用户登录
+	 */
+	ResultBO login(String account, String username, String password) throws Exception;
+	
+	/**
+	 * 根据租户id、用户名，获取用户集合
+	 */
+	List<User> listUserByTenantIdAndUsername (Long tenantId, String username) throws Exception;
+	
+	/**
+	 * 根据租户id、用户名，获取用户
+	 */
+	User getUserByTenantIdAndUsername (Long tenantId, String username) throws Exception;
 }

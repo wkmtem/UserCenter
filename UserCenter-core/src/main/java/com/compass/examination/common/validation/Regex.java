@@ -134,9 +134,9 @@ public class Regex {
 	 * @param checkIdentityNo
 	 * @return:
 	 */
-	public static boolean checkIdentityNo(String checkIdentityNo) {
+	public static boolean checkIdentityNo(String identityNo) {
 		String regex = "^(\\d{15}$|^\\d{18}$|^\\d{17}(\\d|X|x))$";
-		if (checkIdentityNo.matches(regex)) {
+		if (identityNo.matches(regex)) {
 			return true;
 		}
 		return false;
@@ -176,6 +176,17 @@ public class Regex {
         return null;
 	}
 	
+	/**
+	 * 
+	 * @Method Name: checkEmail
+	 * @Description: 验证邮箱
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月10日下午6:33:13
+	 * @param email
+	 * @return:
+	 */
 	public static boolean checkEmail(String email) {
 		/**
 		 * 邮箱正则表达式
@@ -185,9 +196,9 @@ public class Regex {
 		 * [.]:'.'号时必选的； 如：dyh200896@163com是不合法的
 		 * p{Lower}{2,}小写字母，两个以上。如：dyh200896@163.c是不合法的
 		 */
-		String format = "\\p{Alpha}\\w{2,15}[@][a-z0-9]{3,}[.]\\p{Lower}{2,}";
-		if (email.matches(format)) { 
-			return true;// 合法 
+		String regex = "\\p{Alpha}\\w{2,15}[@][a-z0-9]{3,}[.]\\p{Lower}{2,}";
+		if (email.matches(regex)) { 
+			return true;
 	    }
 	    return false;
 	}

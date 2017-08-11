@@ -32,7 +32,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	
 	/**
 	 * 
-	 * @Description: 
+	 * @Description: 根据租户id，获取激活码对象
 	 * @param tenantId
 	 * @return
 	 * @throws Exception: 
@@ -41,7 +41,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	 */
 	@Transactional(readOnly = true)
 	@Override
-	public EmailValidation getActiveCodeByTenantId(Long tenantId) throws Exception {
+	public EmailValidation getEmailValidationByTenantId(Long tenantId) throws Exception {
 
 		EmailValidationExample example = new EmailValidationExample();
 		EmailValidationExample.Criteria criteria = example.createCriteria();
@@ -51,6 +51,22 @@ public class EmailValidServiceImpl implements IEmailValidService {
 			return list.get(0);
 		}
 		return null;
+	}
+
+	
+	/**
+	 * 
+	 * @Description: 更新激活码对象
+	 * @param emailValidation
+	 * @return
+	 * @throws Exception: 
+	 * @author: wkm
+	 * @Create date: 2017年8月11日下午2:29:25
+	 */
+	@Override
+	public int updateEmailValidation(EmailValidation emailValidation)
+			throws Exception {
+		return emailValidationMapper.updateByPrimaryKeySelective(emailValidation);
 	}
 
 }

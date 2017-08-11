@@ -95,7 +95,16 @@ public class UUIDBuild {
 				.append(format(getCount())).toString();
 	}
 	
-	/** 一次获取1个UUID */
+	/**
+	 * 
+	 * @Method Name: getUUID
+	 * @Description: 获取一个UUID
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月11日下午12:02:40
+	 * @return:
+	 */
 	public static String getUUID() {
 		String s = UUID.randomUUID().toString();
 		return s.substring(0, 8) + s.substring(9, 13) + s.substring(14, 18)
@@ -103,7 +112,15 @@ public class UUIDBuild {
 	}
 	
 	/**
-	 * 一次获取多个UUID
+	 * 
+	 * @Method Name: getUUID
+	 * @Description: 获取指定个数的UUID
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月11日下午12:02:55
+	 * @param number
+	 * @return:
 	 */
 	public static String[] getUUID(int number) {
 		if (number < 1) {
@@ -114,5 +131,20 @@ public class UUIDBuild {
 			ss[i] = getUUID();
 		}
 		return ss;
+	}
+	
+	/**
+	 * 
+	 * @Method Name: getUUID64Bit
+	 * @Description: 获取一个64位的UUID
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月11日下午12:03:20
+	 * @return:
+	 */
+	public static String getUUID64Bit() {
+		String[] uuids = getUUID(2);
+		return uuids[0] + uuids[1];
 	}
 }

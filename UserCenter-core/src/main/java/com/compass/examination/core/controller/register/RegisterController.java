@@ -1,5 +1,7 @@
 package com.compass.examination.core.controller.register;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,10 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.compass.examination.common.validation.Regex;
 import com.compass.examination.core.annotation.SystemController;
+import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
+import com.compass.examination.enumeration.ErrorMsgEnum;
+import com.compass.examination.enumeration.RetCodeEnum;
 import com.compass.examination.pojo.bo.ResultBO;
+import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 
 /**
@@ -30,12 +37,14 @@ public class RegisterController {
 	private ITenantService tenantService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IEmailValidService emailValidService;
 	
 	
 	/**
 	 * 
 	 * @Method Name: isExistAccount
-	 * @Description: 企业账号是否存在
+	 * @Description: 租户账号是否存在
 	 * @params:
 	 * @author: wkm
 	 * @version: 2.0
@@ -50,7 +59,7 @@ public class RegisterController {
 	public ResultBO isExistAccount(String account) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
-			return ResultBO.empty("企业账号");
+			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
 		
 		boolean isExist = tenantService.isExistAccount(account);
@@ -76,18 +85,22 @@ public class RegisterController {
 	public ResultBO tenantRegister(RegisterInfoVO registerInfoVO) throws Exception {
 		
 		if (StringUtils.isBlank(registerInfoVO.getAccount())) {
-			return ResultBO.empty("企业账号");
+			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
 		if (StringUtils.isBlank(registerInfoVO.getTenantName())) {
-			return ResultBO.empty("企业名称");
+			return ResultBO.empty(ErrorMsgEnum.EM02.value); // 企业名称不能为空
 		}
 		
 		String salt = tenantService.tenantRegister(registerInfoVO);
 		if (StringUtils.isNotBlank(salt)) {
+			if (salt.contains(RetCodeEnum.FAILED.value)) {
+				return ResultBO.fail(ErrorMsgEnum.EM20.value); // 企业账号已存在
+			}
 			return ResultBO.ok(salt); // 注册成功，返回散列盐
 		}
-		return ResultBO.fail("企业账号注册失败，请联系客服"); // 否则返回null
+		return ResultBO.fail(ErrorMsgEnum.EM05.value); // 企业账号注册失败,返回null
 	}
+	
 	
 	/** 
 	 * 
@@ -111,22 +124,74 @@ public class RegisterController {
 	public ResultBO register(RegisterInfoVO registerInfoVO) throws Exception {
 		
 		if (StringUtils.isBlank(registerInfoVO.getAccount())) {
-			return ResultBO.empty("企业账号");
+			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
 		if (StringUtils.isBlank(registerInfoVO.getUsername())) {
-			return ResultBO.empty("管理员账号");
+			return ResultBO.empty(ErrorMsgEnum.EM06.value); // 用户名不能为空
 		}
 		if (StringUtils.isBlank(registerInfoVO.getPassword())) {
-			return ResultBO.empty("密码");
+			return ResultBO.empty(ErrorMsgEnum.EM08.value); // 密码不能为空
 		}
 		if (StringUtils.isBlank(registerInfoVO.getEmail())) {
-			return ResultBO.empty("电子邮箱");
+			return ResultBO.empty(ErrorMsgEnum.EM13.value); // 电子邮箱不能为空
+		}
+		if (!Regex.checkEmail(registerInfoVO.getEmail())) {
+			return ResultBO.fail(ErrorMsgEnum.EM14.value); // 电子邮箱格式错误
 		}
 		
 		boolean bool = userService.userRegister(registerInfoVO);
 		if (bool) {
 			return ResultBO.ok(bool);
 		}
-		return ResultBO.fail("管理员账号注册失败，请联系客服");
+		return ResultBO.fail(ErrorMsgEnum.EM10.value); // 用户注册失败
 	}
+	
+	
+	/**
+	 * 
+	 * @Method Name: validateActiveCode
+	 * @Description: 验证邮箱激活码
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月11日下午2:31:24
+	 * @param tenantId
+	 * @param activeMD5
+	 * @return
+	 * @throws Exception:
+	 */
+	@RequestMapping(value = "/validateActiveCode", method = RequestMethod.POST)
+	@SystemController(name = "验证邮箱激活码")
+	@ResponseBody
+	public ResultBO validateActiveCode(Long tenantId, String activeMD5) throws Exception {
+		 
+		if (null == tenantId) {
+			return ResultBO.empty(ErrorMsgEnum.EM15.value); // 租户ID不能为空
+		}
+		if (StringUtils.isBlank(activeMD5)) {
+			return ResultBO.empty(ErrorMsgEnum.EM16.value); // MD5激活码不能为空
+		}
+		
+		EmailValidation emailValidation = 
+				emailValidService.getEmailValidationByTenantId(tenantId);
+		if (null == emailValidation) {
+			return ResultBO.fail(ErrorMsgEnum.EM17.value); // 无效租户ID，或企业尚未注册
+		}
+		
+		Long now = System.currentTimeMillis();
+		Long expireMillis = emailValidation.getExpireMillis();
+		if (now > expireMillis) {
+			return ResultBO.fail(ErrorMsgEnum.EM18.value); // 激活码已过期
+		}
+		// 验证成功，抹掉激活码更新修改时间
+		if (emailValidation.getActiveMd5().equals(activeMD5)) {
+			emailValidation.setActiveCode(RetCodeEnum.SUCCEEDED.value);
+			emailValidation.setActiveMd5(RetCodeEnum.SUCCEEDED.value);
+			emailValidation.setGmtModified(new Date());
+			emailValidService.updateEmailValidation(emailValidation);
+			return ResultBO.ok();
+		}
+		return ResultBO.fail(ErrorMsgEnum.EM19.value); // 激活码错误
+	}
+
 }

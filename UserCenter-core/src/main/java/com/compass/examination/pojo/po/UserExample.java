@@ -12,7 +12,7 @@ public class UserExample implements Serializable {
 
     protected List<Criteria> oredCriteria;
 
-    private static final long serialVersionUID = 5581379744228129536L;
+    private static final long serialVersionUID = 5852344428148847898L;
 
     protected int limitStart = -1;
 
@@ -995,6 +995,66 @@ public class UserExample implements Serializable {
 
         public Criteria andGmtModifiedNotBetween(Date value1, Date value2) {
             addCriterion("gmt_modified not between", value1, value2, "gmtModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginIsNull() {
+            addCriterion("gmt_login is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginIsNotNull() {
+            addCriterion("gmt_login is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginEqualTo(Date value) {
+            addCriterion("gmt_login =", value, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginNotEqualTo(Date value) {
+            addCriterion("gmt_login <>", value, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginGreaterThan(Date value) {
+            addCriterion("gmt_login >", value, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginGreaterThanOrEqualTo(Date value) {
+            addCriterion("gmt_login >=", value, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginLessThan(Date value) {
+            addCriterion("gmt_login <", value, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginLessThanOrEqualTo(Date value) {
+            addCriterion("gmt_login <=", value, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginIn(List<Date> values) {
+            addCriterion("gmt_login in", values, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginNotIn(List<Date> values) {
+            addCriterion("gmt_login not in", values, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginBetween(Date value1, Date value2) {
+            addCriterion("gmt_login between", value1, value2, "gmtLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andGmtLoginNotBetween(Date value1, Date value2) {
+            addCriterion("gmt_login not between", value1, value2, "gmtLogin");
             return (Criteria) this;
         }
 

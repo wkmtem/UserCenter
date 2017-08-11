@@ -4,7 +4,7 @@ import com.compass.examination.pojo.po.EmailValidation;
 
 /**
  * 
- * @Class Name: IEmailValidService
+ * @Class Name: getEmailValidationByTenantId
  * @Description: 
  * @author: wkm
  * @Company: www.compass.com
@@ -16,5 +16,10 @@ public interface IEmailValidService {
 	/**
 	 * 根据租户id，获取激活码对象
 	 */
-	EmailValidation getActiveCodeByTenantId(Long tenantId) throws Exception;
+	EmailValidation getEmailValidationByTenantId(Long tenantId) throws Exception;
+
+	/**
+	 * 更新激活码对象
+	 */
+	int updateEmailValidation(EmailValidation emailValidation) throws Exception;
 }

@@ -31,4 +31,20 @@ public interface ITenantService {
 	 * 根据租户账号，获取租户集合
 	 */
 	List<Tenant> listTenantByAccount(String account) throws Exception;
+
+	/**
+	 * 根据租户账号，获取租户
+	 */
+	Tenant getTenantByAccount(String account) throws Exception;
+	
+	/**
+	 * 根据租户账号，获取散列盐
+	 */
+	String getSaltByAccount(String account) throws Exception;
+
+	/**
+	 * 更新租户对象
+	 */
+	int updateTenant(Tenant tenant) throws Exception;
+	
 }

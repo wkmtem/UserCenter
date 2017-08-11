@@ -47,7 +47,7 @@ public class ResultBO implements Serializable {
 	}
 
 	public static ResultBO empty(String msg) {
-		return fail("未提交\"%s\"数据!", msg);
+		return fail(msg);
 	}
 
 	/**
