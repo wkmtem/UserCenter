@@ -12,15 +12,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.examination.common.algorithm.MD5;
-import com.compass.examination.common.algorithm.RandomCode;
 import com.compass.examination.constant.AliConstant;
-import com.compass.examination.core.dao.mapper.EmailValidationMapper;
 import com.compass.examination.core.dao.mapper.TenantMapper;
 import com.compass.examination.core.dao.mapper.UserMapper;
+import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.enumeration.RetCodeEnum;
-import com.compass.examination.pojo.po.EmailValidation;
-import com.compass.examination.pojo.po.EmailValidationExample;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.TenantExample;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
@@ -43,7 +40,7 @@ public class TenantServiceImpl implements ITenantService {
 	@Autowired
 	private UserMapper userMaaper;
 	@Autowired
-	private EmailValidationMapper emailValidationMapper;
+	private IEmailValidService emailValidService;
 
 	/**
 	 * 
@@ -82,7 +79,6 @@ public class TenantServiceImpl implements ITenantService {
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
 		calendar.add(Calendar.MILLISECOND, AliConstant.EMAIL_EXPIRE_MILLIS);
-		boolean flag = false;
 		
 		// 企业账号已存在
 		boolean isExist = this.isExistAccount(registerInfoVO.getAccount());
@@ -100,27 +96,7 @@ public class TenantServiceImpl implements ITenantService {
 		ret = tenantMapper.insertSelective(tenant);
 		
 		if(ret > 0){
-			byte[] genChances = {1, 1, 1}; 
-			char[] code = RandomCode.generateRandomCode(64, genChances);// 宽度，概率
-			
-			EmailValidation validation = 
-					this.getEmailValidationByTenantId(tenant.getId());
-			if (null == validation) {
-				flag = true;
-				validation = new EmailValidation();
-				validation.setTenantId(tenant.getId());
-				validation.setGmtCreate(date);
-			} 
-			// 邮件验证码
-			validation.setActiveCode(String.valueOf(code)); // 激活码
-			validation.setActiveMd5(MD5.getMD5(String.valueOf(code))); // MD5激活码
-			validation.setExpireMillis(calendar.getTime().getTime()); // 激活码到期时间戳
-			validation.setGmtModified(date);
-			if (flag) {
-				emailValidationMapper.insertSelective(validation);
-			}else {
-				emailValidationMapper.updateByPrimaryKeySelective(validation);
-			}
+			emailValidService.insertOrUpdateEmailValidation(tenant.getId());
 			return salt;
 		}
 		return null;
@@ -212,22 +188,19 @@ public class TenantServiceImpl implements ITenantService {
 	public int updateTenant(Tenant tenant) throws Exception {
 		return tenantMapper.updateByPrimaryKeySelective(tenant);
 	}
-	
-	
-	
+
+
 	/**
-	 * 根据租户id，获取邮箱验证表记录
+	 * 
+	 * @Description: 根据主键，获取租户
+	 * @param tenantId
+	 * @return
+	 * @throws Exception: 
+	 * @author: wkm
+	 * @Create date: 2017年8月11日下午4:47:19
 	 */
-	private EmailValidation getEmailValidationByTenantId(Long tenantId) throws Exception {
-		
-		EmailValidationExample example = new EmailValidationExample();
-		EmailValidationExample.Criteria criteria = example.createCriteria();
-		criteria.andTenantIdEqualTo(tenantId);
-		List<EmailValidation> list = emailValidationMapper.selectByExample(example);
-		if(CollectionUtils.isNotEmpty(list)){
-			return list.get(0);
-		}
-		return null;
-	}
-	
+	@Override
+	public Tenant getTenantById(Long tenantId) throws Exception {
+		return tenantMapper.selectByPrimaryKey(tenantId);
+	}	
 }

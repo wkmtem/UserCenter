@@ -12,9 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.examination.common.constructor.LinkedMapCustom;
-import com.compass.examination.common.email.EmailUtil;
 import com.compass.examination.common.uuid.UUIDBuild;
-import com.compass.examination.core.dao.mapper.TenantMapper;
 import com.compass.examination.core.dao.mapper.UserMapper;
 import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
@@ -26,7 +24,6 @@ import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.po.UserExample;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
-import com.compass.examination.pojo.vo.SendEmailInfoVO;
 
 /**
  * 
@@ -42,9 +39,9 @@ import com.compass.examination.pojo.vo.SendEmailInfoVO;
 public class UserServiceImpl implements IUserService {
 	
 	@Autowired
-	private ITenantService tenantService;
-	@Autowired
 	private UserMapper userMaaper;
+	@Autowired
+	private ITenantService tenantService;
 	@Autowired
 	private IEmailValidService emailValidService;
 
@@ -62,7 +59,6 @@ public class UserServiceImpl implements IUserService {
 	public boolean userRegister(RegisterInfoVO registerInfoVO) throws Exception {
 		
 		Date date = new Date();
-		String activeCode = null;
 		
 		// 获取租户id
 		Tenant tenant = tenantService.getTenantByAccount(registerInfoVO.getAccount());
@@ -71,14 +67,12 @@ public class UserServiceImpl implements IUserService {
 		}
 		Long tenantId = tenant.getId();
 		
-		// 获取激活码
+		// 获取邮箱验证对象
 		EmailValidation emailValidation = 
 				emailValidService.getEmailValidationByTenantId(tenantId);
 		if (null == emailValidation) {
 			return false;
 		}
-		activeCode = emailValidation.getActiveCode();
-		Long expireMillis = emailValidation.getExpireMillis();
 		
 		User user = new User();
 		user.setTenantId(tenantId);
@@ -97,19 +91,8 @@ public class UserServiceImpl implements IUserService {
 			tenant.setId(tenantId);
 			tenant.setAdminUserId(id);
 			tenantService.updateTenant(tenant);
-			/** 发送邮件
-			 *	1.发送邮件包含：激活成功页URL，拼接租户id，激活码原码，有效时间
-			 *	2.点击URL，跳转成功页，Load事件捕获参数，访问激活接口，提交租户id与MD5后的激活码
-			 *	3.后台验证成功，并设置新的随机数更新，此时在点击以前链接时，已失效
-			 */
-			SendEmailInfoVO sendEmailInfoVO = new SendEmailInfoVO();
-			sendEmailInfoVO.setToAddress(registerInfoVO.getEmail()); // 目标email地址
-			// TODO htmlContent
-			sendEmailInfoVO.setHtmlBody(
-					"<html>http://www.baidu.com?"+tenantId +"&"+ activeCode + "&" +
-							expireMillis + "</html>"); // 邮件 html 正文
-			sendEmailInfoVO.setTextBody("textBody"); // 邮件 text 正文
-			String requestId = EmailUtil.singleSendMail(sendEmailInfoVO);
+			// 发送邮件
+			emailValidService.singleSendActiveMail(emailValidation.getId(), registerInfoVO.getEmail());
 			return true;
 		}
 		return false;
@@ -248,6 +231,21 @@ public class UserServiceImpl implements IUserService {
 			return list.get(0);
 		}
 		return null;
+	}
+
+
+	/**
+	 * 
+	 * @Description: 根据用户id，获取用户
+	 * @param adminUserId
+	 * @return
+	 * @throws Exception: 
+	 * @author: wkm
+	 * @Create date: 2017年8月11日下午3:01:24
+	 */
+	@Override
+	public User getUserById(Long id) throws Exception {
+		return userMaaper.selectByPrimaryKey(id);
 	}
 
 }

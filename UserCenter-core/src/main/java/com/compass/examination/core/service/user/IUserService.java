@@ -42,4 +42,9 @@ public interface IUserService {
 	 * 根据租户id、用户名，获取用户
 	 */
 	User getUserByTenantIdAndUsername (Long tenantId, String username) throws Exception;
+
+	/**
+	 * 根据用户id，获取用户
+	 */
+	User getUserById(Long id) throws Exception;
 }

@@ -22,4 +22,14 @@ public interface IEmailValidService {
 	 * 更新激活码对象
 	 */
 	int updateEmailValidation(EmailValidation emailValidation) throws Exception;
+
+	/**
+	 * 创建邮件验证信息
+	 */
+	Long insertOrUpdateEmailValidation(Long tenantId) throws Exception;
+	
+	/**
+	 * 根据邮箱验证对象id，邮箱，发送单封激活邮件
+	 */
+	String singleSendActiveMail(Long validId, String email) throws Exception;
 }

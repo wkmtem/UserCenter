@@ -35,4 +35,5 @@ public class SendEmailInfoVO implements Serializable{
 		return "SendEmailInfoVO [toAddress=" + toAddress + ", htmlBody="
 				+ htmlBody + ", textBody=" + textBody + "]";
 	}
+
 }

@@ -18,6 +18,8 @@ import com.compass.examination.enumeration.ErrorMsgEnum;
 import com.compass.examination.enumeration.RetCodeEnum;
 import com.compass.examination.pojo.bo.ResultBO;
 import com.compass.examination.pojo.po.EmailValidation;
+import com.compass.examination.pojo.po.Tenant;
+import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
 
 /**
@@ -172,26 +174,78 @@ public class RegisterController {
 			return ResultBO.empty(ErrorMsgEnum.EM16.value); // MD5激活码不能为空
 		}
 		
+		Tenant tenant = tenantService.getTenantById(tenantId);
 		EmailValidation emailValidation = 
 				emailValidService.getEmailValidationByTenantId(tenantId);
-		if (null == emailValidation) {
-			return ResultBO.fail(ErrorMsgEnum.EM17.value); // 无效租户ID，或企业尚未注册
+		if (null == tenant || null == emailValidation) {
+			return ResultBO.empty(ErrorMsgEnum.EM17.value); // 无效企业ID，或企业尚未注册
 		}
-		
-		Long now = System.currentTimeMillis();
-		Long expireMillis = emailValidation.getExpireMillis();
-		if (now > expireMillis) {
+		// 当前时间 > 过期时间 = 过期
+		if (System.currentTimeMillis() > emailValidation.getExpireMillis()) {
 			return ResultBO.fail(ErrorMsgEnum.EM18.value); // 激活码已过期
 		}
-		// 验证成功，抹掉激活码更新修改时间
+		
+		Date date = new Date();
+		// 验证成功
 		if (emailValidation.getActiveMd5().equals(activeMD5)) {
+			// 抹掉激活码更新修改时间
 			emailValidation.setActiveCode(RetCodeEnum.SUCCEEDED.value);
 			emailValidation.setActiveMd5(RetCodeEnum.SUCCEEDED.value);
-			emailValidation.setGmtModified(new Date());
+			emailValidation.setGmtModified(date);
 			emailValidService.updateEmailValidation(emailValidation);
+			// 激活租户账户
+			Tenant updateTenant = new Tenant();
+			updateTenant.setId(tenantId);
+			updateTenant.setState(true);// 激活
+			updateTenant.setGmtActive(date);
+			tenantService.updateTenant(updateTenant);
 			return ResultBO.ok();
 		}
 		return ResultBO.fail(ErrorMsgEnum.EM19.value); // 激活码错误
+	}
+	
+	
+	/**
+	 * 
+	 * @Method Name: singleSendActiveMail
+	 * @Description: 发送激活码邮件
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月11日下午2:51:47
+	 * @param tenantId
+	 * @param activeMD5
+	 * @return
+	 * @throws Exception:
+	 */
+	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.POST)
+	@SystemController(name = "发送激活码邮件")
+	@ResponseBody
+	public ResultBO singleSendActiveMail(String account) throws Exception {
+		
+		if (StringUtils.isBlank(account)) {
+			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
+		}
+		
+		Tenant tenant = tenantService.getTenantByAccount(account);
+		if (null == tenant) {
+			return ResultBO.fail(ErrorMsgEnum.EM03.value); // 企业账号不存在
+		}
+		
+		Long adminId = tenant.getAdminUserId();
+		if (null == adminId) {
+			return ResultBO.fail(ErrorMsgEnum.EM21.value); // 未设置管理员账号
+		}
+		User user = userService.getUserById(adminId);
+		if (null == user) {
+			return ResultBO.fail(ErrorMsgEnum.EM22.value); // 用户账号不存在
+		}
+		
+		// 创建邮件激活码
+		Long validId = emailValidService.insertOrUpdateEmailValidation(tenant.getId());
+		// 发送邮件
+		emailValidService.singleSendActiveMail(validId, user.getEmail());
+		return ResultBO.ok();
 	}
 
 }

@@ -46,5 +46,10 @@ public interface ITenantService {
 	 * 更新租户对象
 	 */
 	int updateTenant(Tenant tenant) throws Exception;
+
+	/**
+	 * 根据主键，获取租户
+	 */
+	Tenant getTenantById(Long tenantId) throws Exception;
 	
 }

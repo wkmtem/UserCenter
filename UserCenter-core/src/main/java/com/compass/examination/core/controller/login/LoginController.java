@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compass.examination.common.validation.Regex;
 import com.compass.examination.core.annotation.SystemController;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
@@ -90,9 +89,6 @@ public class LoginController {
 		}
 		if (StringUtils.isBlank(username)) {
 			return ResultBO.empty(ErrorMsgEnum.EM06.value); // 用户名不能为空
-		}
-		if (!Regex.checkEmail(username)) {
-			return ResultBO.fail(ErrorMsgEnum.EM14.value); // 电子邮箱格式错误
 		}
 		if (StringUtils.isBlank(password)) {
 			return ResultBO.empty(ErrorMsgEnum.EM08.value); // 密码不能为空
