@@ -1,4 +1,4 @@
-package com.compass.examination.api;
+package com.compass.examination.core.service.tenant;
 
 import java.util.List;
 

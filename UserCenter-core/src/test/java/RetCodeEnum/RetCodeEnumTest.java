@@ -3,7 +3,7 @@ package RetCodeEnum;
 import org.junit.Test;
 
 import com.compass.examination.common.junit.SpringJunitTest;
-import com.compass.examination.enumeration.RetCodeEnum;
+import com.compass.examination.enums.RetCodeEnum;
 
 public class RetCodeEnumTest extends SpringJunitTest {
 

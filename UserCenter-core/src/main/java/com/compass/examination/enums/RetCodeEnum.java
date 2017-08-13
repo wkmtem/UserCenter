@@ -1,4 +1,4 @@
-package com.compass.examination.enumeration;
+package com.compass.examination.enums;
 
 /**
  * 

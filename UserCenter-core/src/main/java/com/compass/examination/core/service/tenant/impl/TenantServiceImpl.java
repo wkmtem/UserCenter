@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.compass.examination.api.IEmailValidService;
-import com.compass.examination.api.ITenantService;
 import com.compass.examination.common.algorithm.MD5;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.TenantMapper;
 import com.compass.examination.core.dao.mapper.UserMapper;
-import com.compass.examination.enumeration.RetCodeEnum;
+import com.compass.examination.core.service.email.IEmailValidService;
+import com.compass.examination.core.service.tenant.ITenantService;
+import com.compass.examination.enums.RetCodeEnum;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.TenantExample;
 import com.compass.examination.pojo.vo.RegisterInfoVO;
