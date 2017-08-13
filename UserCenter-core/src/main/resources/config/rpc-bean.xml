@@ -41,34 +41,13 @@
 	 -->
 	 
 	<!-- 租户 -->
-	<bean id="tenantServiceImpl" class="com.compass.examination.core.service.tenant.impl.TenantServiceImpl" />
+	<!-- <bean id="tenantServiceImpl" class="com.compass.examination.core.service.tenant.impl.TenantServiceImpl" />
 	<hsf:provider id="iTenantService" interface="com.compass.examination.api.ITenantService"
 		version="1.0.1" group="test1" clientTimeout="3000" serializeType="hessian"
 		enableTXC="true" ref="tenantServiceImpl" >
 		<hsf:methodSpecials>
 			<hsf:methodSpecial name="sum" timeout="2000" />
 		</hsf:methodSpecials>
-	</hsf:provider>
+	</hsf:provider> -->
 	
-	<!-- 用户 -->
-	<bean id="userServiceImpl" class="com.compass.examination.core.service.user.impl.UserServiceImpl" />
-	<hsf:provider id="iUserService" interface="com.compass.examination.api.IUserService"
-		version="1.0.1" group="test1" clientTimeout="3000" serializeType="hessian"
-		enableTXC="true" ref="userServiceImpl" >
-		<hsf:methodSpecials>
-			<hsf:methodSpecial name="sum" timeout="2000" />
-		</hsf:methodSpecials>
-	</hsf:provider>
-	
-	<!-- 邮件 -->
-	<bean id="emailValidServiceImpl" class="com.compass.examination.core.service.email.impl.EmailValidServiceImpl" />
-	<hsf:provider id="iEmailValidService" interface="com.compass.examination.api.IEmailValidService"
-		version="1.0.1" group="test1" clientTimeout="3000" serializeType="hessian"
-		enableTXC="true" ref="emailValidServiceImpl" >
-		<hsf:methodSpecials>
-			<hsf:methodSpecial name="sum" timeout="2000" />
-		</hsf:methodSpecials>
-	</hsf:provider>
-
-
 </beans>

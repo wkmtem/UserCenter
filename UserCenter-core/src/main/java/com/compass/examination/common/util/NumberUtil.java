@@ -20,14 +20,14 @@ public class NumberUtil {
 	 * @params:
 	 * @author: wkm
 	 * @version: 2.0
-	 * @Create date: 2016-11-29上午9:36:32
+	 * @Create date: 2017年8月13日下午12:01:36
 	 * @param num
+	 * @param formatPattern
 	 * @return
-	 * @throws Exception
-	 *             :
+	 * @throws Exception:
 	 */
-	public static String getStrNumber(Integer num, String format) throws Exception {
-		NumberFormat numberFormat = new DecimalFormat(format);
+	public static String getStrNumber(Integer num, String formatPattern) throws Exception {
+		NumberFormat numberFormat = new DecimalFormat(formatPattern);
 		return numberFormat.format(num);
 	}
 }

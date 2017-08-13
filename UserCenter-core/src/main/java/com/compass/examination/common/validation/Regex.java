@@ -7,7 +7,7 @@ public class Regex {
 	
 	/**
 	 * 
-	 * @Method Name: checkDate
+	 * @Method Name: checkStrDate
 	 * @Description: 校验时间 格式YYYY-MM-DD
 	 * @params:
 	 * @author: wsc
@@ -16,7 +16,7 @@ public class Regex {
 	 * @param date
 	 * @return:
 	 */
-	public static boolean checkDate(String date) {
+	public static boolean checkStrDate(String date) {
 		String regex = "^(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29)$";
 		if (date.matches(regex)) {
 			return true;
@@ -26,7 +26,7 @@ public class Regex {
 
 	/**
 	 * 
-	 * @Method Name: checkDateTime
+	 * @Method Name: checkStrDateTime
 	 * @Description: 校验时间 格式YYYY-MM-DD HH:mm 或 YYYY-MM 简单的过滤
 	 * @params:
 	 * @author: wsc
@@ -35,7 +35,7 @@ public class Regex {
 	 * @param date
 	 * @return:
 	 */
-	public static boolean checkDateTime(String date) {
+	public static boolean checkStrDateTime(String date) {
 		String regex = "^(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2})|(\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})|(\\d{4}-\\d{2})|(\\d{4}/\\d{2})$";
 		if (date.matches(regex)) {
 			return true;
@@ -45,7 +45,7 @@ public class Regex {
 
 	/**
 	 * 
-	 * @Method Name: isCellphoneNo
+	 * @Method Name: checkCellphoneNo
 	 * @Description: 校验手机号码
 	 * 移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
 	 * 联通：130、131、132、152、155、156、185、186、176
@@ -57,7 +57,7 @@ public class Regex {
 	 * @param mobiles
 	 * @return:
 	 */
-	public static boolean isCellphoneNo(String cellphone){  
+	public static boolean checkCellphoneNo(String cellphone){  
 		// 手机号正则表达式（13、15、17、18）  
 		Pattern cellphonePattern = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(17[6-8])|(18[0,5-9]))\\d{8}$");  
 		// 通过Pattern获得Matcher  
@@ -68,7 +68,7 @@ public class Regex {
 
 	/**
 	 * 
-	 * @Method Name: checkDate
+	 * @Method Name: checkUnsignedNum
 	 * @Description: 校验正整数
 	 * @params:
 	 * @author: wsc
@@ -77,7 +77,7 @@ public class Regex {
 	 * @param date
 	 * @return:
 	 */
-	public static boolean checkNum(String num) {
+	public static boolean checkUnsignedNum(String num) {
 		String regex = "^\\+?[0-9][0-9]*$";
 		if (num.matches(regex)) {
 			return true;
@@ -87,7 +87,7 @@ public class Regex {
 
 	/**
 	 * 
-	 * @Method Name: checkDate
+	 * @Method Name: checkDecimal
 	 * @Description: 校验数字或小数点两位
 	 * @params:
 	 * @author: wsc

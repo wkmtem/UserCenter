@@ -125,7 +125,14 @@ public class RandomCode {
 
 
     /**
-     * 打印生成密码中各类字符的个数
+     * 
+     * @Method Name: logChances
+     * @Description: 打印生成密码中各类字符的个数
+     * @params:
+     * @author: wkm
+     * @version: 2.0
+     * @Create date: 2017年8月13日下午12:11:26
+     * @param genNums:
      */
     private static void logChances(byte[] genNums) {
         StringBuilder sb = new StringBuilder();

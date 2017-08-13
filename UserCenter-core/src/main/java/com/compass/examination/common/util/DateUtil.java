@@ -19,57 +19,57 @@ public class DateUtil {
 	
 	/**
 	 * 
-	 * @Method Name: stringToDate
+	 * @Method Name: strDateToDate
 	 * @Description: 字符串日期转Date类型
 	 * @params:
 	 * @author: wkm
 	 * @version: 2.0
-	 * @Create date: 2017年3月21日下午7:00:49
-	 * @param pattern
-	 * @param sDate
+	 * @Create date: 2017年8月13日上午11:40:04
+	 * @param strDate
+	 * @param formatPattern
 	 * @return
 	 * @throws Exception:
 	 */
-	public static Date stringToDate(String pattern, String sDate) throws Exception {
+	public static Date strDateToDate(String strDate, String formatPattern) throws Exception {
 		DateFormat dateFormat = 
-				new SimpleDateFormat(pattern);
-		return dateFormat.parse(sDate);
+				new SimpleDateFormat(formatPattern);
+		return dateFormat.parse(strDate);
 	}
 	
 	
 	/**
 	 * 
-	 * @Method Name: dateToStamp
-	 * @Description: 时间转换为时间戳
+	 * @Method Name: strDateToStamp
+	 * @Description: 字符串日期转Stamp时间戳
 	 * @params:
 	 * @author: wkm
 	 * @version: 2.0
-	 * @Create date: 2017年3月14日下午8:48:16
-	 * @param sDate
-	 * @param format
+	 * @Create date: 2017年8月13日上午11:41:14
+	 * @param strDate
+	 * @param formatPattern
 	 * @return
 	 * @throws ParseException:
 	 */
-    public static String dateToStamp(String sDate, String format) throws ParseException{
-        DateFormat dateFormat = new SimpleDateFormat(format);
-        return String.valueOf(dateFormat.parse(sDate).getTime());
+    public static String strDateToStamp(String strDate, String formatPattern) throws ParseException{
+        DateFormat dateFormat = new SimpleDateFormat(formatPattern);
+        return String.valueOf(dateFormat.parse(strDate).getTime());
     }
     
     
     /**
      * 
-     * @Method Name: stampToDate
-     * @Description: 时间戳转换为时间
+     * @Method Name: stampToStrDate
+     * @Description: stamp时间戳转字符串日期
      * @params:
      * @author: wkm
      * @version: 2.0
-     * @Create date: 2017年3月14日下午8:43:42
-     * @param stamp: 13位毫秒值
-     * @param format: 日期字符串格式yyyy-MM-dd HH:mm:ss
+     * @Create date: 2017年8月13日上午11:42:32
+     * @param stamp
+     * @param formatPattern
      * @return:
      */
-    public static String stampToDate(Long stamp, String format){
-        DateFormat dateFormat = new SimpleDateFormat(format);
+    public static String stampToStrDate(Long stamp, String formatPattern){
+        DateFormat dateFormat = new SimpleDateFormat(formatPattern);
         return dateFormat.format(new Date(stamp));
     }
 

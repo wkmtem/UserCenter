@@ -40,36 +40,71 @@ public class JsonMapper {
 	  }
 
 	  /**
-	   * 创建输出全部属性到Json字符串的Mapper.
+	   * 
+	   * @Method Name: buildNormalMapper
+	   * @Description: 创建输出全部属性到Json字符串的Mapper
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:26:19
+	   * @return:
 	   */
 	  public static JsonMapper buildNormalMapper() {
 	    return new JsonMapper(Include.ALWAYS);
 	  }
 
 	  /**
-	   * 创建只输出非空属性到Json字符串的Mapper.
+	   * 
+	   * @Method Name: buildNonNullMapper
+	   * @Description: 创建只输出非空属性到Json字符串的Mapper
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:26:27
+	   * @return:
 	   */
 	  public static JsonMapper buildNonNullMapper() {
 	    return new JsonMapper(Include.NON_NULL);
 	  }
 
 	  /**
-	   * 创建只输出初始值被改变的属性到Json字符串的Mapper.
+	   * 
+	   * @Method Name: buildNonDefaultMapper
+	   * @Description: 创建只输出初始值被改变的属性到Json字符串的Mapper
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:26:36
+	   * @return:
 	   */
 	  public static JsonMapper buildNonDefaultMapper() {
 	    return new JsonMapper(Include.NON_DEFAULT);
 	  }
 
 	  /**
-	   * 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper.
+	   * 
+	   * @Method Name: buildNonEmptyMapper
+	   * @Description: 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:26:47
+	   * @return:
 	   */
 	  public static JsonMapper buildNonEmptyMapper() {
 	    return new JsonMapper(Include.NON_EMPTY);
 	  }
 
 	  /**
-	   * 如果对象为Null, 返回"null".
-	   * 如果集合为空集合, 返回"[]".
+	   * 
+	   * @Method Name: toJson
+	   * @Description: 如果对象为Null, 返回"null"； 如果集合为空集合, 返回"[]"
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:26:58
+	   * @param object
+	   * @return:
 	   */
 	  public String toJson(Object object) {
 
@@ -81,11 +116,18 @@ public class JsonMapper {
 	  }
 
 	  /**
-	   * 如果JSON字符串为Null或"null"字符串, 返回Null.
-	   * 如果JSON字符串为"[]", 返回空集合.
 	   * 
-	   * 如需读取集合如List/Map, 且不是List<String>这种简单类型时,先使用函數constructParametricType构造类型.
+	   * @Method Name: fromJson
+	   * @Description: 如果JSON字符串为Null或"null"字符串, 返回Null；如果JSON字符串为"[]", 返回空集合
+	   * 			      如需读取集合如List/Map, 且不是List<String>这种简单类型时,先使用函數constructParametricType构造类型
 	   * @see #constructParametricType(Class, Class...)
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:27:28
+	   * @param jsonString
+	   * @param clazz
+	   * @return:
 	   */
 	  public <T> T fromJson(String jsonString, Class<T> clazz) {
 	    if (StringUtils.isEmpty(jsonString)) {
@@ -101,11 +143,18 @@ public class JsonMapper {
 	  }
 
 	  /**
-	   * 如果JSON字符串为Null或"null"字符串, 返回Null.
-	   * 如果JSON字符串为"[]", 返回空集合.
 	   * 
-	   * 如需读取集合如List/Map, 且不是List<String>这种简单类型时,先使用函數constructParametricType构造类型.
+	   * @Method Name: fromJson
+	   * @Description: 如果JSON字符串为Null或"null"字符串, 返回Null；如果JSON字符串为"[]", 返回空集合
+	   *               如需读取集合如List/Map, 且不是List<String>这种简单类型时,先使用函數constructParametricType构造类型
 	   * @see #constructParametricType(Class, Class...)
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:28:18
+	   * @param jsonString
+	   * @param javaType
+	   * @return:
 	   */
 	  @SuppressWarnings("unchecked")
 	  public <T> T fromJson(String jsonString, JavaType javaType) {
@@ -131,15 +180,33 @@ public class JsonMapper {
 	  }
 	  
 	  /**
-	   * 構造泛型的Type如List<MyBean>, 则调用constructParametricType(ArrayList.class,MyBean.class)
-	   *             Map<String,MyBean>则调用(HashMap.class,String.class, MyBean.class)
+	   * 
+	   * @Method Name: constructParametricType
+	   * @Description: 構造泛型的Type如List<MyBean>, 则调用constructParametricType(ArrayList.class,MyBean.class)
+	   *               Map<String,MyBean>则调用(HashMap.class,String.class, MyBean.class)
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:29:12
+	   * @param parametrized
+	   * @param parameterClasses
+	   * @return:
 	   */
 	  public JavaType constructParametricType(Class<?> parametrized, Class<?>... parameterClasses) {
 	    return mapper.getTypeFactory().constructParametricType(parametrized, parameterClasses);
 	  }
 
 	  /**
-	   * 當JSON裡只含有Bean的部分屬性時，更新一個已存在Bean，只覆蓋該部分的屬性.
+	   * 
+	   * @Method Name: update
+	   * @Description: 當JSON裡只含有Bean的部分屬性時，更新一個已存在Bean，只覆蓋該部分的屬性
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:29:33
+	   * @param object
+	   * @param jsonString
+	   * @return:
 	   */
 	  @SuppressWarnings("unchecked")
 	  public <T> T update(T object, String jsonString) {
@@ -154,14 +221,30 @@ public class JsonMapper {
 	  }
 
 	  /**
-	   * 輸出JSONP格式數據.
+	   * 
+	   * @Method Name: toJsonP
+	   * @Description: 輸出JSONP格式数据
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:30:15
+	   * @param functionName
+	   * @param object
+	   * @return:
 	   */
 	  public String toJsonP(String functionName, Object object) {
 	    return toJson(new JSONPObject(functionName, object));
 	  }
 
 	  /**
-	   * 取出Mapper做进一步的设置或使用其他序列化API.
+	   * 
+	   * @Method Name: getMapper
+	   * @Description: 取出Mapper做进一步的设置或使用其他序列化API
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:30:29
+	   * @return:
 	   */
 	  public ObjectMapper getMapper() {
 	    return mapper;
@@ -176,36 +259,60 @@ public class JsonMapper {
 	  }
 	  
 	  /**
-	   * 输出全部属性
+	   * 
+	   * @Method Name: toNormalJson
+	   * @Description: 输出全部属性
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:30:50
 	   * @param object
-	   * @return
+	   * @return:
 	   */
 	  public static String toNormalJson(Object object){
 	    return new JsonMapper(Include.ALWAYS).toJson(object);
 	  }
 	  
 	  /**
-	   * 输出非空属性
+	   * 
+	   * @Method Name: toNonNullJson
+	   * @Description: 输出非空属性
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:30:58
 	   * @param object
-	   * @return
+	   * @return:
 	   */
 	  public static String toNonNullJson(Object object){
 	    return new JsonMapper(Include.NON_NULL).toJson(object);
 	  }
 	  
 	  /**
-	   * 输出初始值被改变部分的属性
+	   * 
+	   * @Method Name: toNonDefaultJson
+	   * @Description: 输出初始值被改变部分的属性
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:31:04
 	   * @param object
-	   * @return
+	   * @return:
 	   */
 	  public static String toNonDefaultJson(Object object){
 	    return new JsonMapper(Include.NON_DEFAULT).toJson(object);
 	  }
 	  
 	  /**
-	   * 输出非Null且非Empty(如List.isEmpty)的属性
+	   * 
+	   * @Method Name: toNonEmptyJson
+	   * @Description: 输出非Null且非Empty(如List.isEmpty)的属性
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:31:12
 	   * @param object
-	   * @return
+	   * @return:
 	   */
 	  public static String toNonEmptyJson(Object object){
 	    return new JsonMapper(Include.NON_EMPTY).toJson(object);
@@ -222,7 +329,15 @@ public class JsonMapper {
 	  }
 	  
 	  /**
-	   * 输出非Null且非Empty(如List.isEmpty)带自定义时间格式的属性
+	   * 
+	   * @Method Name: toLogJson1
+	   * @Description: 输出非Null且非Empty(如List.isEmpty)带自定义时间格式的属性
+	   * @params:
+	   * @author: wkm
+	   * @version: 2.0
+	   * @Create date: 2017年8月13日上午11:31:19
+	   * @param object
+	   * @return:
 	   */
 	  public static String toLogJson1(Object object){
 		    JsonMapper jsonMapper = new JsonMapper(Include.NON_EMPTY);

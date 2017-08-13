@@ -18,6 +18,15 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.common.base.Charsets;
 
+/**
+ * 
+ * @Class Name: httpUtil
+ * @Description: 
+ * @author: wkm
+ * @Company: www.compass.com
+ * @Create date: 2017年8月13日上午11:43:02
+ * @version: 2.0
+ */
 public class httpUtil {
 	
 	/**
@@ -33,7 +42,9 @@ public class httpUtil {
 	 * @throws Exception:
 	 */
 	public static String getIPaddress(HttpServletRequest request) throws Exception {
+		
 		String ipUser = request.getHeader("x-forwarded-for");
+		
 		if (ipUser == null || ipUser.length() == 0
 				|| "unknown".equalsIgnoreCase(ipUser)) {
 			ipUser = request.getHeader("Proxy-Client-IP");
@@ -58,15 +69,18 @@ public class httpUtil {
 	}
 	
 	/**
-     * 向指定URL发送GET方法的请求
-     * 
-     * @param url
-     *            发送请求的URL
-     * @param param
-     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
-     * @return URL 所代表远程资源的响应结果
-     */
-    public static String sendGet(String url, String user) {
+	 * 
+	 * @Method Name: sendGet
+	 * @Description: 向指定URL发送GET方法的请求
+	 * @params: 
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月13日上午11:51:09
+	 * @param url 发送请求的URL
+	 * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式
+	 * @return: result 所代表远程资源的响应结果
+	 */
+    public static String sendGet(String url, String param) {
         String result = "";
         BufferedReader in = null;
         try {
@@ -75,7 +89,7 @@ public class httpUtil {
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();
             // 设置通用的请求属性
-            connection.setRequestProperty("Cookie", user);
+            connection.setRequestProperty("Cookie", param);
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
@@ -91,7 +105,7 @@ public class httpUtil {
             System.out.println("发送GET请求出现异常！" + e);
             e.printStackTrace();
         }
-        // 使用finally块来关闭输入流
+        // 关闭输入流
         finally {
             try {
                 if (in != null) {
@@ -105,14 +119,17 @@ public class httpUtil {
     }
 
     /**
-     * 向指定 URL 发送POST方法的请求
-     * 
-     * @param url
-     *            发送请求的 URL
-     * @param param
-     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
-     * @return 所代表远程资源的响应结果
-     */
+	 * 
+	 * @Method Name: sendPost
+	 * @Description: 向指定 URL发送POST方法的请求
+	 * @params: 
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月13日上午11:51:09
+	 * @param url 发送请求的URL
+	 * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式
+	 * @return: result 所代表远程资源的响应结果
+	 */
     public static String sendPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
@@ -146,7 +163,7 @@ public class httpUtil {
             System.out.println("发送 POST 请求出现异常！"+e);
             e.printStackTrace();
         }
-        //使用finally块来关闭输出流、输入流
+        // 关闭输出流、输入流
         finally{
             try{
                 if(out!=null){
@@ -163,19 +180,19 @@ public class httpUtil {
         return result;
     }  
     
-    
     /**
-     * 向指定URL发送GET方法的请求
      * 
-     * @param url
-     *            发送请求的URL
-     * @param param
-     *            httprequest请求参数。
-     * @param headers
-     *            需要添加的httpheader参数
-     * @param timeout
-     *            请求超时时间
-     * @return result 所代表远程资源的响应结果
+     * @Method Name: Get
+     * @Description: 向指定URL发送GET方法的请求
+     * @params:
+     * @author: wkm
+     * @version: 2.0
+     * @Create date: 2017年8月13日上午11:55:20
+     * @param url 发送请求的URL
+     * @param param httprequest请求参数
+     * @param headers 需要添加的httpheader参数
+     * @param timeout 请求超时时间
+     * @return: result 所代表远程资源的响应结果
      */
     public static String Get(String url, String param, Map<String, String> headers, int timeout) {
         String result = "";

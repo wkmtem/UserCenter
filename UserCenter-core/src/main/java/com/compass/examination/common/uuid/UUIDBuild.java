@@ -1,9 +1,5 @@
 package com.compass.examination.common.uuid;
-/*****************************************************
-* HISTORY
-* 
-* 2016-10-19下午16:55:04 wkmtem 创建文件
-*******************************************************/
+
 import java.net.InetAddress;
 import java.util.UUID;
 
@@ -18,14 +14,11 @@ import java.util.UUID;
  * @version: 2.0
  */
 public class UUIDBuild {
+	
 	private String sep = "";
-
 	private static final int IP;
-
 	private static short counter = (short) 0;
-
 	private static final int JVM = (int) (System.currentTimeMillis() >>> 8);
-
 	private static UUIDBuild uuidgen = new UUIDBuild();
 
 	static {
