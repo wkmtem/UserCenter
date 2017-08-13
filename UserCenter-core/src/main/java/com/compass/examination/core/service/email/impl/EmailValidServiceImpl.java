@@ -73,9 +73,9 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	 * @Create date: 2017年8月11日下午2:29:25
 	 */
 	@Override
-	public int updateEmailValidation(EmailValidation emailValidation)
+	public int updateEmailValidation(EmailValidation emailValidationPO)
 			throws Exception {
-		return emailValidationMapper.updateByPrimaryKeySelective(emailValidation);
+		return emailValidationMapper.updateByPrimaryKeySelective(emailValidationPO);
 	}
 
 
@@ -97,23 +97,23 @@ public class EmailValidServiceImpl implements IEmailValidService {
 		Long expireMillis = System.currentTimeMillis() + AliConstant.EMAIL_EXPIRE_MILLIS;
 		
 		// 保存到数据库
-		EmailValidation emailValidation = this.getEmailValidationByTenantId(tenantId);
-		if (null == emailValidation) {
+		EmailValidation emailValidationPO = this.getEmailValidationByTenantId(tenantId);
+		if (null == emailValidationPO) {
 			flag = true;
-			emailValidation = new EmailValidation();
-			emailValidation.setTenantId(tenantId);
-			emailValidation.setGmtCreate(date);
+			emailValidationPO = new EmailValidation();
+			emailValidationPO.setTenantId(tenantId);
+			emailValidationPO.setGmtCreate(date);
 		}
-		emailValidation.setActiveCode(activeCode);
-		emailValidation.setActiveMd5(MD5.getMD5(activeCode));
-		emailValidation.setExpireMillis(expireMillis);
-		emailValidation.setGmtModified(date);
+		emailValidationPO.setActiveCode(activeCode);
+		emailValidationPO.setActiveMd5(MD5.getMD5(activeCode));
+		emailValidationPO.setExpireMillis(expireMillis);
+		emailValidationPO.setGmtModified(date);
 		if (flag) {
-			emailValidationMapper.insertSelective(emailValidation);
+			emailValidationMapper.insertSelective(emailValidationPO);
 		} else {
-			emailValidationMapper.updateByPrimaryKeySelective(emailValidation);
+			emailValidationMapper.updateByPrimaryKeySelective(emailValidationPO);
 		}
-		return emailValidation.getId();
+		return emailValidationPO.getId();
 	}
 	
 	
@@ -130,7 +130,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	@Override
 	public String singleSendActiveMail(Long validId, String email) throws Exception {
 		
-		EmailValidation emailValidation = emailValidationMapper.selectByPrimaryKey(validId);
+		EmailValidation emailValidationPO = emailValidationMapper.selectByPrimaryKey(validId);
 		
 		/** 发送邮件
 		 *	1.发送邮件包含：激活成功页URL，拼接租户id，激活码原码，有效时间
@@ -142,9 +142,9 @@ public class EmailValidServiceImpl implements IEmailValidService {
  		// TODO htmlContent
  		sendEmailInfoVO.setHtmlBody(
  				"<html>http://www.baidu.com?" 
- 						+ emailValidation.getTenantId() +"&" 
- 						+ emailValidation.getActiveCode() + "&" 
- 						+ emailValidation.getExpireMillis() + "</html>"); // 邮件 html 正文
+ 						+ emailValidationPO.getTenantId() +"&" 
+ 						+ emailValidationPO.getActiveCode() + "&" 
+ 						+ emailValidationPO.getExpireMillis() + "</html>"); // 邮件 html 正文
  		sendEmailInfoVO.setTextBody("textBody"); // 邮件 text 正文
  		return EmailUtil.singleSendMail(sendEmailInfoVO);
 	}

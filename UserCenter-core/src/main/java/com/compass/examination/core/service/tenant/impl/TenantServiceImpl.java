@@ -86,17 +86,17 @@ public class TenantServiceImpl implements ITenantService {
 			return RetCodeEnum.FAILED.value;
 		}
 		
-		Tenant tenant = new Tenant();
-		tenant.setAccount(registerInfoVO.getAccount());// 租户账号
-		tenant.setName(registerInfoVO.getTenantName());// 租户名称
-		tenant.setSalt(salt);
-		tenant.setState(false);// 未激活
-		tenant.setGmtCreate(date);
-		tenant.setGmtModified(date);
-		ret = tenantMapper.insertSelective(tenant);
+		Tenant tenantPO = new Tenant();
+		tenantPO.setAccount(registerInfoVO.getAccount());// 租户账号
+		tenantPO.setName(registerInfoVO.getTenantName());// 租户名称
+		tenantPO.setSalt(salt);
+		tenantPO.setState(false);// 未激活
+		tenantPO.setGmtCreate(date);
+		tenantPO.setGmtModified(date);
+		ret = tenantMapper.insertSelective(tenantPO);
 		
 		if(ret > 0){
-			emailValidService.insertOrUpdateEmailValidation(tenant.getId());
+			emailValidService.insertOrUpdateEmailValidation(tenantPO.getId());
 			return salt;
 		}
 		return null;
@@ -160,15 +160,15 @@ public class TenantServiceImpl implements ITenantService {
 	@Override
 	public String getSaltByAccount(String account) throws Exception {
 		
-		Tenant tenant = this.getTenantByAccount(account);
+		Tenant tenantPO = this.getTenantByAccount(account);
 
 		// 账号不存在
-		if (null == tenant) {
+		if (null == tenantPO) {
 			return null;
 		}
 		// 已激活，返回散列盐
-		if (tenant.getState()) {
-			return tenant.getSalt();
+		if (tenantPO.getState()) {
+			return tenantPO.getSalt();
 		}
 		// 未激活
 		return RetCodeEnum.FAILED.value;
@@ -185,8 +185,8 @@ public class TenantServiceImpl implements ITenantService {
 	 * @Create date: 2017年8月11日下午2:35:56
 	 */
 	@Override
-	public int updateTenant(Tenant tenant) throws Exception {
-		return tenantMapper.updateByPrimaryKeySelective(tenant);
+	public int updateTenant(Tenant tenantPO) throws Exception {
+		return tenantMapper.updateByPrimaryKeySelective(tenantPO);
 	}
 
 

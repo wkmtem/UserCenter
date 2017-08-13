@@ -61,38 +61,38 @@ public class UserServiceImpl implements IUserService {
 		Date date = new Date();
 		
 		// 获取租户id
-		Tenant tenant = tenantService.getTenantByAccount(registerInfoVO.getAccount());
-		if (null == tenant) {
+		Tenant tenantPO = tenantService.getTenantByAccount(registerInfoVO.getAccount());
+		if (null == tenantPO) {
 			return false;
 		}
-		Long tenantId = tenant.getId();
+		Long tenantId = tenantPO.getId();
 		
 		// 获取邮箱验证对象
-		EmailValidation emailValidation = 
+		EmailValidation emailValidationPO = 
 				emailValidService.getEmailValidationByTenantId(tenantId);
-		if (null == emailValidation) {
+		if (null == emailValidationPO) {
 			return false;
 		}
 		
-		User user = new User();
-		user.setTenantId(tenantId);
-		user.setUsername(registerInfoVO.getUsername());
-		user.setPassword(registerInfoVO.getPassword());
-		user.setEmail(registerInfoVO.getEmail());
-		user.setGmtCreate(date);
-		user.setGmtModified(date);
-		user.setEnabled(true);// 启用
-		user.setDeleted(false); // 未删除
-		Long id = this.insertUser(user);
+		User userPO = new User();
+		userPO.setTenantId(tenantId);
+		userPO.setUsername(registerInfoVO.getUsername());
+		userPO.setPassword(registerInfoVO.getPassword());
+		userPO.setEmail(registerInfoVO.getEmail());
+		userPO.setGmtCreate(date);
+		userPO.setGmtModified(date);
+		userPO.setEnabled(true);// 启用
+		userPO.setDeleted(false); // 未删除
+		Long id = this.insertUser(userPO);
 
 		if(null != id){
 			// 更新租户信息
-			tenant = new Tenant();
-			tenant.setId(tenantId);
-			tenant.setAdminUserId(id);
-			tenantService.updateTenant(tenant);
+			tenantPO = new Tenant();
+			tenantPO.setId(tenantId);
+			tenantPO.setAdminUserId(id);
+			tenantService.updateTenant(tenantPO);
 			// 发送邮件
-			emailValidService.singleSendActiveMail(emailValidation.getId(), registerInfoVO.getEmail());
+			emailValidService.singleSendActiveMail(emailValidationPO.getId(), registerInfoVO.getEmail());
 			return true;
 		}
 		return false;
@@ -109,10 +109,10 @@ public class UserServiceImpl implements IUserService {
 	 * @Create date: 2017年8月9日下午4:20:05
 	 */
 	@Override
-	public Long insertUser(User user) throws Exception {
-		int ret = userMaaper.insertSelective(user);
+	public Long insertUser(User userPO) throws Exception {
+		int ret = userMaaper.insertSelective(userPO);
 		if (ret > 0) {
-			return user.getId();
+			return userPO.getId();
 		}
 		return null;
 	}
@@ -134,12 +134,12 @@ public class UserServiceImpl implements IUserService {
 			throws Exception {
 		
 		// 获取租户
-		Tenant tenant = tenantService.getTenantByAccount(account);
-		if (null == tenant) {
+		Tenant tenantPO = tenantService.getTenantByAccount(account);
+		if (null == tenantPO) {
 			return ResultBO.fail(ErrorMsgEnum.EM03.value); // 企业账号不存在
 		}
-		Boolean state = tenant.getState();
-		Long tenantId = tenant.getId();
+		Boolean state = tenantPO.getState();
+		Long tenantId = tenantPO.getId();
 		
 		// 获取租户状态
 		if (!state) {
@@ -147,13 +147,13 @@ public class UserServiceImpl implements IUserService {
 		}
 		
 		// 获取用户
-		User user = this.getUserByTenantIdAndUsername(tenantId, username);
-		if (null == user) {
+		User userPO = this.getUserByTenantIdAndUsername(tenantId, username);
+		if (null == userPO) {
 			return ResultBO.fail(ErrorMsgEnum.EM07.value); // 用户名不存在
 		}
-		Boolean enabled = user.getEnabled();
-		Boolean deleted = user.getDeleted();
-		String dbPwd = user.getPassword();
+		Boolean enabled = userPO.getEnabled();
+		Boolean deleted = userPO.getDeleted();
+		String dbPwd = userPO.getPassword();
 		
 		// 判断状态
 		if (deleted) {
@@ -170,16 +170,16 @@ public class UserServiceImpl implements IUserService {
 		String token = UUIDBuild.getUUID64Bit();
 		
 		// 更新用户
-		User updateUser = new User();
-		updateUser.setId(user.getId());
-		updateUser.setToken(token);
-		updateUser.setGmtLogin(new Date());
-		userMaaper.updateByPrimaryKeySelective(updateUser);
+		User updateUserPO = new User();
+		updateUserPO.setId(userPO.getId());
+		updateUserPO.setToken(token);
+		updateUserPO.setGmtLogin(new Date());
+		userMaaper.updateByPrimaryKeySelective(updateUserPO);
 
 		Map<String, Object> map = new LinkedMapCustom.Builder()
-				.put("id", user.getId())
-				.put("nickname", user.getNickname())
-				.put("headUrl", user.getHeadUrl())
+				.put("id", userPO.getId())
+				.put("nickname", userPO.getNickname())
+				.put("headUrl", userPO.getHeadUrl())
 				.put("token", token)
 				.builder();
 		
