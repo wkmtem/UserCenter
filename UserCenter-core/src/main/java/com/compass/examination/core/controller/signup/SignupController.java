@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.compass.common.enums.ErrorMsgEnum;
 import com.compass.common.enums.RetCodeEnum;
 import com.compass.common.validation.Regex;
-import com.compass.examination.annotation.SystemController;
+import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
@@ -55,8 +55,8 @@ public class SignupController {
 	 * @return
 	 * @throws Exception:
 	 */
-	@RequestMapping(value = "/isExistAccount", method = RequestMethod.POST)
-	@SystemController(name = "租户账号是否存在")
+	@RequestMapping(value = "/isExistAccount", method = RequestMethod.GET)
+	@LogExceController(name = "租户账号是否存在")
 	@ResponseBody
 	public ResultBO isExistAccount(String account) throws Exception {
 		
@@ -81,8 +81,8 @@ public class SignupController {
 	 * @return 返回散列盐
 	 * @throws Exception:
 	 */
-	@RequestMapping(value = "/tenantRegister", method = RequestMethod.POST)
-	@SystemController(name = "注册租户账号")
+	@RequestMapping(value = "/tenantRegister", method = RequestMethod.GET)
+	@LogExceController(name = "注册租户账号")
 	@ResponseBody
 	public ResultBO tenantRegister(RegisterInfoVO registerInfoVO) throws Exception {
 		
@@ -100,7 +100,7 @@ public class SignupController {
 			}
 			return ResultBO.ok(salt); // 注册成功，返回散列盐
 		}
-		return ResultBO.fail(ErrorMsgEnum.EM05.value); // 企业账号注册失败,返回null
+		return ResultBO.fail(ErrorMsgEnum.EM05.value); // 企业账号注册失败
 	}
 	
 	
@@ -120,8 +120,8 @@ public class SignupController {
 	 * @return
 	 * @throws Exception:
 	 */
-	@RequestMapping(value = "/userRegister", method = RequestMethod.POST)
-	@SystemController(name = "注册管理员账号")
+	@RequestMapping(value = "/userRegister", method = RequestMethod.GET)
+	@LogExceController(name = "注册管理员账号")
 	@ResponseBody
 	public ResultBO register(RegisterInfoVO registerInfoVO) throws Exception {
 		
@@ -162,8 +162,8 @@ public class SignupController {
 	 * @return
 	 * @throws Exception:
 	 */
-	@RequestMapping(value = "/validateActiveCode", method = RequestMethod.POST)
-	@SystemController(name = "验证邮箱激活码")
+	@RequestMapping(value = "/validateActiveCode", method = RequestMethod.GET)
+	@LogExceController(name = "验证邮箱激活码")
 	@ResponseBody
 	public ResultBO validateActiveCode(Long tenantId, String activeMD5) throws Exception {
 		 
@@ -218,8 +218,8 @@ public class SignupController {
 	 * @return
 	 * @throws Exception:
 	 */
-	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.POST)
-	@SystemController(name = "发送激活码邮件")
+	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.GET)
+	@LogExceController(name = "发送激活码邮件")
 	@ResponseBody
 	public ResultBO singleSendActiveMail(String account) throws Exception {
 		

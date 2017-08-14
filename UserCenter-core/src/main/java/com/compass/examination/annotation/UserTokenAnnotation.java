@@ -8,16 +8,16 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * @Class Name: SystemService
- * @Description: 自定义注解,拦截Service
+ * @Class Name: UserTokenAnnotation
+ * @Description: 自定义注解，AOP拦截用户登录
  * @author: wkm
  * @Company: www.compass.com
- * @Create date: 2017年7月27日下午7:30:35
+ * @Create date: 2017年8月14日下午5:52:20
  * @version: 2.0
  */
 @Target({ElementType.PARAMETER, ElementType.METHOD})    
 @Retention(RetentionPolicy.RUNTIME)    
-@Documented    
-public @interface SystemService {    
-    String name() default "";    
-} 
+@Documented
+public @interface UserTokenAnnotation {
+	String name() default "";
+}

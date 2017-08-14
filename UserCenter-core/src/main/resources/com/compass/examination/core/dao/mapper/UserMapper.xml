@@ -15,7 +15,7 @@
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
-    <result column="gmt_login" property="gmtLogin" jdbcType="TIMESTAMP" />
+    <result column="gmt_login" property="gmtLogin" jdbcType="BIGINT" />
     <result column="enabled" property="enabled" jdbcType="BIT" />
     <result column="deleted" property="deleted" jdbcType="BIT" />
   </resultMap>
@@ -119,14 +119,12 @@
       token, realname, nickname, 
       cellphone, email, head_url, 
       description, gmt_create, gmt_modified, 
-      gmt_login, enabled, deleted
-      )
+      gmt_login, enabled, deleted)
     values (#{tenantId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{token,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{cellphone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{gmtLogin,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT}, #{deleted,jdbcType=BIT}
-      )
+      #{gmtLogin,jdbcType=BIGINT}, #{enabled,jdbcType=BIT}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.compass.examination.pojo.po.User" useGeneratedKeys="true" keyProperty="id" >
     insert into user
@@ -215,7 +213,7 @@
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtLogin != null" >
-        #{gmtLogin,jdbcType=TIMESTAMP},
+        #{gmtLogin,jdbcType=BIGINT},
       </if>
       <if test="enabled != null" >
         #{enabled,jdbcType=BIT},
@@ -274,7 +272,7 @@
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
       <if test="record.gmtLogin != null" >
-        gmt_login = #{record.gmtLogin,jdbcType=TIMESTAMP},
+        gmt_login = #{record.gmtLogin,jdbcType=BIGINT},
       </if>
       <if test="record.enabled != null" >
         enabled = #{record.enabled,jdbcType=BIT},
@@ -302,7 +300,7 @@
       description = #{record.description,jdbcType=VARCHAR},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      gmt_login = #{record.gmtLogin,jdbcType=TIMESTAMP},
+      gmt_login = #{record.gmtLogin,jdbcType=BIGINT},
       enabled = #{record.enabled,jdbcType=BIT},
       deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null" >
@@ -349,7 +347,7 @@
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtLogin != null" >
-        gmt_login = #{gmtLogin,jdbcType=TIMESTAMP},
+        gmt_login = #{gmtLogin,jdbcType=BIGINT},
       </if>
       <if test="enabled != null" >
         enabled = #{enabled,jdbcType=BIT},
@@ -374,7 +372,7 @@
       description = #{description,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      gmt_login = #{gmtLogin,jdbcType=TIMESTAMP},
+      gmt_login = #{gmtLogin,jdbcType=BIGINT},
       enabled = #{enabled,jdbcType=BIT},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}

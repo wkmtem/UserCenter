@@ -16,4 +16,5 @@ public class SysConstant {
 	public final static int TOTAL_PAGE = 0; // 总页数
 	public final static int TOTAL_COUNT = -1; // 总条数
 
+	public final static int EXPIRE_MILLIS = 30*60*60; // 有效毫秒
 }

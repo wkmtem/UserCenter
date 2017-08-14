@@ -23,10 +23,6 @@
      					   http://www.springframework.org/schema/task/spring-task-4.3.xsd"
      					   default-autowire="byName">
 
-	
-	<!-- Local Session -->
-	<bean id="sessionProvider" class="com.compass.examination.common.session.HttpSessionProvider" />
-	
 	<!-- Memcached Session -->
 	<!-- <bean id="sessionProvider" class="com.compass.common.session.CacheSessionProvider" >
 		缓存失效时间(秒)

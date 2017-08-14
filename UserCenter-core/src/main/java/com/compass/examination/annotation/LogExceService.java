@@ -8,16 +8,16 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * @Class Name: SystemController
- * @Description: 自定义注解，拦截Controller
+ * @Class Name: LogExceService
+ * @Description: 自定义注解,AOP拦截Service
  * @author: wkm
  * @Company: www.compass.com
- * @Create date: 2017年7月27日下午7:30:22
+ * @Create date: 2017年7月27日下午7:30:35
  * @version: 2.0
  */
 @Target({ElementType.PARAMETER, ElementType.METHOD})    
 @Retention(RetentionPolicy.RUNTIME)    
 @Documented    
-public @interface SystemController {    
+public @interface LogExceService {    
     String name() default "";    
 } 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.compass.common.enums.ErrorMsgEnum;
 import com.compass.common.enums.RetCodeEnum;
-import com.compass.examination.annotation.SystemController;
+import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.bo.ResultBO;
@@ -45,8 +45,8 @@ public class LoginController {
 	 * @return
 	 * @throws Exception:
 	 */
-	@RequestMapping(value = "/getSaltByTenantAcc", method = RequestMethod.POST)
-	@SystemController(name = "根据租户账号，获取散列盐")
+	@RequestMapping(value = "/getSaltByTenantAcc", method = RequestMethod.GET)
+	@LogExceController(name = "根据租户账号，获取散列盐")
 	@ResponseBody
 	public ResultBO getSaltByTenantAcc(String account) throws Exception {
 		
@@ -79,8 +79,8 @@ public class LoginController {
 	 * @return
 	 * @throws Exception:
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	@SystemController(name = "根据租户账号，用户名登录")
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@LogExceController(name = "根据租户账号，用户名登录")
 	@ResponseBody
 	public ResultBO login(String account, String username, String password) throws Exception {
 		

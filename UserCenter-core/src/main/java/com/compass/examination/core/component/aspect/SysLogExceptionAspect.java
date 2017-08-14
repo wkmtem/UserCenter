@@ -22,8 +22,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.compass.common.constant.Constant;
 import com.compass.common.json.JsonMapper;
-import com.compass.examination.annotation.SystemController;
-import com.compass.examination.annotation.SystemService;
+import com.compass.examination.annotation.LogExceController;
+import com.compass.examination.annotation.LogExceService;
 
 /**
  * 
@@ -47,13 +47,13 @@ public class SysLogExceptionAspect {
 	private SysOperationLogMapper operationLogMapper;*/
 	
 	// 异常切点
-	@Pointcut("@annotation(com.compass.examination.annotation.SystemController)||" +
-			  "@annotation(com.compass.examination.annotation.SystemService)")// CGLIB
+	@Pointcut("@annotation(com.compass.examination.annotation.LogExceController)||" +
+			  "@annotation(com.compass.examination.annotation.LogExceService)")// CGLIB
 	public void afterThrowing() {}
 
 	// 环绕切点
-	@Pointcut("@annotation(com.compass.examination.annotation.SystemController)||" +
-			  "@annotation(com.compass.examination.annotation.SystemService)")// CGLIB
+	@Pointcut("@annotation(com.compass.examination.annotation.LogExceController)||" +
+			  "@annotation(com.compass.examination.annotation.LogExceService)")// CGLIB
 	public void around() {}
 	
 
@@ -127,6 +127,7 @@ public class SysLogExceptionAspect {
 		System.out.println(">>>>>>>> 请求参数: " + params);
 		System.out.println(">>>>>>>> 响应时间: " + postTime + " ms");
 		System.out.println("======================== Controller/Service Log around advice   end ========================");
+		// 阿里日志捕获
 		logger.info("请求时间: {}&&请求  IP: {}&&租户账号: {}&&操作账号: {}&&操 作 人: {}&&注解描述: {}&&请求函数: {}&&请求参数: {}&&响应时间: {}", 
 				currentDateTime, requestIp, account, username, realname, annotationMethodName, targetClassName + "." + mothodName + "()", params, postTime + " ms");
 		
@@ -169,7 +170,6 @@ public class SysLogExceptionAspect {
 		String realname = "";
 		String controllerMethodName = null;
 		String serviceMthodName = null;
-		String annotationMethodName = null;
 		DateFormat dateFormat = new SimpleDateFormat(Constant.DATE_FORMAT_DATETIME);
 		String currentDateTime = dateFormat.format(new Date());
 		
@@ -201,52 +201,49 @@ public class SysLogExceptionAspect {
 			else if(targetClassName.contains("controller")) {
 				controllerMethodName = getControllerMethodName(joinPoint);				
 			}
-			
-			annotationMethodName = StringUtils.isNotBlank(controllerMethodName)? controllerMethodName : serviceMthodName;
-			
-			System.out.println("======================== Controller/Service afterThrowing advice begin ========================");
-			System.out.println(">>>>>>>> 异常时间: " + currentDateTime);
-			System.out.println(">>>>>>>> 请求  IP: " + requestIp);
-			System.out.println(">>>>>>>> 租户账号: " + account);
-			System.out.println(">>>>>>>> 操作账号: " + username);
-			System.out.println(">>>>>>>> 操 作 人: " + realname);
-			System.out.println(">>>>>>>> 注解描述: " + annotationMethodName);
-			System.out.println(">>>>>>>> 异常函数: "+ (targetClassName + "." + mothodName + "()"));
-			System.out.println(">>>>>>>> 异常名称: " + exceptionName);
-			System.out.println(">>>>>>>> 异常信息: " + exceptionMsg);
-			System.out.println(">>>>>>>> 请求参数: " + params);
-			System.out.println("======================== Controller/Service afterThrowing advice   end ========================");
-			logger.info("异常时间: {}&&请求  IP: {}&&租户账号: {}&&操作账号: {}&&操 作 人: {}&&注解描述: {}&&异常函数: {}&&异常名称: {}&&异常信息: {}&&请求参数: {}", 
-					currentDateTime, requestIp, account, username, realname, annotationMethodName, targetClassName + "." + mothodName + "()", exceptionName, exceptionMsg, params);
-			
-			// 异常日志
-			// TODO 异常日志保存
-			/*SysExceptionLog exceptionLog = new SysExceptionLog();
-			exceptionLog.setId(UUIDBuild.getUUID());
-			exceptionLog.setRequestIp(requestIp);
-			exceptionLog.setAnnoName(annotationMethodName);
-			exceptionLog.setSource(SysConstant.PC);
-			exceptionLog.setExceMethod(targetClassName + "." + mothodName + "()");
-			exceptionLog.setExceName(exceptionName);
-			exceptionLog.setExceMsg(exceptionMsg);
-			exceptionLog.setRequestParams(params);
-			exceptionLog.setExceTime(new Date());
-			exceptionLogService.addExceptionLog(exceptionLog);*/
-			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error("异常信息:{}", ex.getMessage());
-		} finally {
-			logger.error("\r\n异常时间: {}\r\n请求IP: {}\r\n注解描述: {}\r\n异常方法: {}\r\n异常代码: {}\r\n异常信息: {}\r\n请求参数: {}", 
-					currentDateTime, requestIp, annotationMethodName, targetClassName + "." + mothodName + "()", exceptionName, exceptionMsg, params);
 		}
+		String annotationMethodName = StringUtils.isNotBlank(controllerMethodName)? controllerMethodName : serviceMthodName;
+		
+		System.out.println("======================== Controller/Service afterThrowing advice begin ========================");
+		System.out.println(">>>>>>>> 异常时间: " + currentDateTime);
+		System.out.println(">>>>>>>> 请求  IP: " + requestIp);
+		System.out.println(">>>>>>>> 租户账号: " + account);
+		System.out.println(">>>>>>>> 操作账号: " + username);
+		System.out.println(">>>>>>>> 操 作 人: " + realname);
+		System.out.println(">>>>>>>> 注解描述: " + annotationMethodName);
+		System.out.println(">>>>>>>> 异常函数: "+ (targetClassName + "." + mothodName + "()"));
+		System.out.println(">>>>>>>> 异常名称: " + exceptionName);
+		System.out.println(">>>>>>>> 异常信息: " + exceptionMsg);
+		System.out.println(">>>>>>>> 请求参数: " + params);
+		System.out.println("======================== Controller/Service afterThrowing advice   end ========================");
+		// 阿里日志捕获
+		logger.info("异常时间: {}&&请求  IP: {}&&租户账号: {}&&操作账号: {}&&操 作 人: {}&&注解描述: {}&&异常函数: {}&&异常名称: {}&&异常信息: {}&&请求参数: {}", 
+				currentDateTime, requestIp, account, username, realname, annotationMethodName, targetClassName + "." + mothodName + "()", exceptionName, exceptionMsg, params);
+		
+		// 异常日志
+		// TODO 异常日志保存
+		/*SysExceptionLog exceptionLog = new SysExceptionLog();
+		exceptionLog.setId(UUIDBuild.getUUID());
+		exceptionLog.setRequestIp(requestIp);
+		exceptionLog.setAnnoName(annotationMethodName);
+		exceptionLog.setSource(SysConstant.PC);
+		exceptionLog.setExceMethod(targetClassName + "." + mothodName + "()");
+		exceptionLog.setExceName(exceptionName);
+		exceptionLog.setExceMsg(exceptionMsg);
+		exceptionLog.setRequestParams(params);
+		exceptionLog.setExceTime(new Date());
+		exceptionLogService.addExceptionLog(exceptionLog);*/
+			
 	}
 	
 
 	/**
 	 * 获取Controller层注解名称
 	 */
-	public static String getControllerMethodName(JoinPoint joinPoint) throws Exception {
+	private static String getControllerMethodName(JoinPoint joinPoint) throws Exception {
 		String name = "";
 		String targetName = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
@@ -257,7 +254,7 @@ public class SysLogExceptionAspect {
 			if (method.getName().equals(methodName)) {
 				Class<?>[] clazzs = method.getParameterTypes();
 				if (clazzs.length == arguments.length) {
-					name = method.getAnnotation(SystemController.class).name();
+					name = method.getAnnotation(LogExceController.class).name();
 					break;
 				}
 			}
@@ -269,7 +266,7 @@ public class SysLogExceptionAspect {
 	/**
 	 * 获取service层注解名称
 	 */
-	public static String getServiceMthodName(JoinPoint joinPoint)
+	private static String getServiceMthodName(JoinPoint joinPoint)
 			throws Exception {
 		String name = "";
 		String targetName = joinPoint.getTarget().getClass().getName();
@@ -281,7 +278,7 @@ public class SysLogExceptionAspect {
 			if (method.getName().equals(methodName)) {
 				Class<?>[] clazzs = method.getParameterTypes();
 				if (clazzs.length == arguments.length) {
-					name = method.getAnnotation(SystemService.class).name();
+					name = method.getAnnotation(LogExceService.class).name();
 					break;
 				}
 			}

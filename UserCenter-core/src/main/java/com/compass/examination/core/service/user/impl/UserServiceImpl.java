@@ -173,7 +173,7 @@ public class UserServiceImpl implements IUserService {
 		User updateUserPO = new User();
 		updateUserPO.setId(userPO.getId());
 		updateUserPO.setToken(token);
-		updateUserPO.setGmtLogin(new Date());
+		updateUserPO.setGmtLogin(System.currentTimeMillis());
 		userMaaper.updateByPrimaryKeySelective(updateUserPO);
 
 		Map<String, Object> map = new LinkedMapCustom.Builder()

@@ -30,13 +30,13 @@ public class User implements Serializable {
 
     private Date gmtModified;
 
-    private Date gmtLogin;
+    private Long gmtLogin;
 
     private Boolean enabled;
 
     private Boolean deleted;
 
-    private static final long serialVersionUID = 8439921421520050655L;
+    private static final long serialVersionUID = 2058804315479726830L;
 
     public Long getId() {
         return id;
@@ -142,11 +142,11 @@ public class User implements Serializable {
         this.gmtModified = gmtModified;
     }
 
-    public Date getGmtLogin() {
+    public Long getGmtLogin() {
         return gmtLogin;
     }
 
-    public void setGmtLogin(Date gmtLogin) {
+    public void setGmtLogin(Long gmtLogin) {
         this.gmtLogin = gmtLogin;
     }
 
