@@ -17,6 +17,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class) // spring提供，结合junit
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath:application-context.xml")
-public class SpringJunitTest {
+public abstract class SpringJunitTest {
 	// extends AbstractTransactionalJUnit4SpringContextTests 测试用例，数据回滚
 }
