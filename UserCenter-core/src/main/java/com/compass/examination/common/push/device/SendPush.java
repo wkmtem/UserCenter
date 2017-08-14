@@ -1,4 +1,4 @@
-package com.compass.examination.common.push;
+package com.compass.examination.common.push.device;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +47,7 @@ public class SendPush {
 			extraMap.put("type", type);
 		}
 		
-		if (InitConstant.FLAG) {
+		if (InitConstant.PUSH_SWITCH) {
 			PushParameter parameter = new PushParameter();
 			parameter.setExtraMap(extraMap);
 			parameter.setTitle(title);

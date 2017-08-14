@@ -1,4 +1,4 @@
-package com.compass.examination.core.controller.register;
+package com.compass.examination.core.controller.signup;
 
 import java.util.Date;
 
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.compass.common.enums.ErrorMsgEnum;
+import com.compass.common.enums.RetCodeEnum;
 import com.compass.common.validation.Regex;
 import com.compass.examination.core.annotation.SystemController;
 import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
-import com.compass.examination.enums.ErrorMsgEnum;
-import com.compass.examination.enums.RetCodeEnum;
 import com.compass.examination.pojo.bo.ResultBO;
 import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.po.Tenant;
@@ -24,7 +24,7 @@ import com.compass.examination.pojo.vo.RegisterInfoVO;
 
 /**
  * 
- * @Class Name: RegisterController
+ * @Class Name: SignupController
  * @Description: 租户注册
  * @author: wkm
  * @Company: www.compass.com
@@ -32,8 +32,8 @@ import com.compass.examination.pojo.vo.RegisterInfoVO;
  * @version: 2.0
  */
 @Controller
-@RequestMapping(value = "/register")
-public class RegisterController {
+@RequestMapping(value = "/signup")
+public class SignupController {
 	
 	@Autowired
 	private ITenantService tenantService;

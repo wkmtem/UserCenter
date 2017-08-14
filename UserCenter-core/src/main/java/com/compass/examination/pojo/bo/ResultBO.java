@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.compass.examination.enums.RetCodeEnum;
+import com.compass.common.enums.RetCodeEnum;
 
 /**
  * 

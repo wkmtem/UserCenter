@@ -10,12 +10,6 @@ package com.compass.examination.constant;
  */
 public class SysConstant {
 
-	// 日期时间格式
-	public final static String DATE_FORMAT_DATETIME = "yyyy-MM-dd HH:mm:ss";
-	public final static String DATE_FORMAT_DATE = "yyyy-MM-dd";
-	public final static String DATE_FORMAT_MONTH = "yyyy-MM";
-	public final static String DATE_FORMAT_TIME = "HH:mm:ss";
-
 	// 分页字段
 	public final static int PAGE_SIZE = 20; // 每页显示条数
 	public final static int CURRENT_PAGE = 1; // 当前页

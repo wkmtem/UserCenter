@@ -9,7 +9,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
-import com.compass.examination.constant.SysConstant;
+import com.compass.common.constant.Constant;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -40,7 +40,7 @@ public class JsonDateMutualUtil {
 
 	static {
 		// yyyy-MM-dd HH:mm:ss
-		DateFormat dateFormat = new SimpleDateFormat(SysConstant.DATE_FORMAT_DATETIME);
+		DateFormat dateFormat = new SimpleDateFormat(Constant.DATE_FORMAT_DATETIME);
 
 		mapper = new ObjectMapper();
 		mapper.setDateFormat(dateFormat);
@@ -55,7 +55,7 @@ public class JsonDateMutualUtil {
 					AnnotatedElement m = a.getAnnotated();
 					DateTimeFormat an = m.getAnnotation(DateTimeFormat.class);
 					if (an != null) {
-						if (!SysConstant.DATE_FORMAT_DATETIME.equals(an.pattern())) {
+						if (!Constant.DATE_FORMAT_DATETIME.equals(an.pattern())) {
 							return new JsonDateSerializer(an.pattern());
 						}
 					}

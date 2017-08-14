@@ -1,4 +1,4 @@
-package com.compass.examination.common.push;
+package com.compass.examination.common.push.device;
 
 import java.util.Map;
 

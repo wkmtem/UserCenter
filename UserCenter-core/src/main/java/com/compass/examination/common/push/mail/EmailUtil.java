@@ -1,4 +1,4 @@
-package com.compass.examination.common.email;
+package com.compass.examination.common.push.mail;
 
 import org.apache.commons.lang3.StringUtils;
 

@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.compass.common.enums.ErrorMsgEnum;
+import com.compass.common.enums.RetCodeEnum;
 import com.compass.examination.core.annotation.SystemController;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
-import com.compass.examination.enums.ErrorMsgEnum;
-import com.compass.examination.enums.RetCodeEnum;
 import com.compass.examination.pojo.bo.ResultBO;
 
 /**

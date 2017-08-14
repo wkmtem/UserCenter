@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.compass.common.constant.Constant;
 import com.compass.common.json.JsonMapper;
-import com.compass.examination.constant.SysConstant;
 import com.compass.examination.core.annotation.SystemController;
 import com.compass.examination.core.annotation.SystemService;
 
@@ -78,7 +78,7 @@ public class SysLogExceptionAspect {
 		String realname = "";
 		String controllerMethodName = null;
 		String serviceMthodName = null;
-		DateFormat dateFormat = new SimpleDateFormat(SysConstant.DATE_FORMAT_DATETIME);
+		DateFormat dateFormat = new SimpleDateFormat(Constant.DATE_FORMAT_DATETIME);
 		String currentDateTime = dateFormat.format(new Date());
 		
 		HttpServletRequest request = 
@@ -170,7 +170,7 @@ public class SysLogExceptionAspect {
 		String controllerMethodName = null;
 		String serviceMthodName = null;
 		String annotationMethodName = null;
-		DateFormat dateFormat = new SimpleDateFormat(SysConstant.DATE_FORMAT_DATETIME);
+		DateFormat dateFormat = new SimpleDateFormat(Constant.DATE_FORMAT_DATETIME);
 		String currentDateTime = dateFormat.format(new Date());
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder

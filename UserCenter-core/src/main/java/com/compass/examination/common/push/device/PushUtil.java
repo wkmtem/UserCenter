@@ -1,4 +1,4 @@
-package com.compass.examination.common.push;
+package com.compass.examination.common.push.device;
 
 import java.util.Map;
 
@@ -58,7 +58,7 @@ public class PushUtil{
         // 推送配置: iOS
         pushRequest.setiOSBadge("5"); // iOS应用图标右上角角标
         pushRequest.setiOSMusic("default"); // iOS通知声音
-        if (InitConstant.APNSENV) {
+        if (InitConstant.PUSH_IOS_ENVIRONMENT) {
         	pushRequest.setApnsEnv("PRODUCT");
         } else {
         	pushRequest.setApnsEnv("DEV");

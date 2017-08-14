@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.common.algorithm.MD5;
 import com.compass.common.algorithm.RandomCode;
-import com.compass.examination.common.email.EmailUtil;
+import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.EmailValidationMapper;
 import com.compass.examination.core.service.email.IEmailValidService;

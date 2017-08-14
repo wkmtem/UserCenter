@@ -6,8 +6,8 @@ public class InitConstant {
 	public static final boolean RUNTIME_ENVIRONMENT = true;
 	
 	// 短信开关： true:开，false:关
-	public static final boolean FLAG = true;
+	public static final boolean PUSH_SWITCH = true;
 	// IOS推送配置: true:PRODUCT线网用户，false:DEV测试用户
-	public static final boolean APNSENV = true;
+	public static final boolean PUSH_IOS_ENVIRONMENT = true;
 	
 }
