@@ -131,16 +131,12 @@ public class ValidUserAspect {
 			}
 			return ResultBO.fail(ErrorMsgEnum.EM27.value); // 用户账号已停用
 		}
-		// 验证token
+		// 验证token,登录超时验证:当前时间-上次登录时间 >= 设定值
 		String dbToken = dbUserPO.getToken();
-		if(StringUtils.isBlank(dbToken) || !dbToken.equals(token)){
-			if(logger.isInfoEnabled()){
-				logger.info("IP: [" + ip + "] Request faild: 用户登录超时");
-			}
-			return ResultBO.fail(ErrorMsgEnum.EM28.value); // 用户登录超时
-		}
-		// 登录超时验证:当前时间-上次登录时间 >= 设定值
-		if ((System.currentTimeMillis() - dbUserPO.getGmtLogin()) >= SysConstant.EXPIRE_MILLIS) {
+		Long last = dbUserPO.getGmtLogin();
+		Long now = System.currentTimeMillis();
+		if(StringUtils.isBlank(dbToken) || !dbToken.equals(token)
+				|| (now - last) >= SysConstant.EXPIRE_MILLIS){
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户登录超时");
 			}
