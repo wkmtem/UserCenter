@@ -122,14 +122,14 @@ public class ValidUserAspect {
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户账号已删除");
 			}
-			return ResultBO.fail(ErrorMsgEnum.EM26.value); // 用户账号已删除
+			return ResultBO.fail(ErrorMsgEnum.EM11.value); // 用户账号已删除
 		}
 		// 用户是否启用
 		if(!dbUserPO.getEnabled()){
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户账号已停用");
 			}
-			return ResultBO.fail(ErrorMsgEnum.EM27.value); // 用户账号已停用
+			return ResultBO.fail(ErrorMsgEnum.EM12.value); // 用户账号已停用
 		}
 		// 验证token,登录超时验证:当前时间-上次登录时间 >= 设定值
 		String dbToken = dbUserPO.getToken();
@@ -170,8 +170,7 @@ public class ValidUserAspect {
 			if (method.getName().equals(methodName)) {
 				Class<?>[] clazzs = method.getParameterTypes();
 				if (clazzs.length == arguments.length) {
-					name = method.getAnnotation(UserTokenAnnotation.class)
-							.name();
+					name = method.getAnnotation(UserTokenAnnotation.class).name();
 					break;
 				}
 			}
