@@ -22,8 +22,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.compass.common.constant.Constant;
 import com.compass.common.json.JsonMapper;
-import com.compass.examination.core.annotation.SystemController;
-import com.compass.examination.core.annotation.SystemService;
+import com.compass.examination.annotation.SystemController;
+import com.compass.examination.annotation.SystemService;
 
 /**
  * 
@@ -47,13 +47,13 @@ public class SysLogExceptionAspect {
 	private SysOperationLogMapper operationLogMapper;*/
 	
 	// 异常切点
-	@Pointcut("@annotation(com.compass.examination.core.annotation.SystemController)||" +
-			  "@annotation(com.compass.examination.core.annotation.SystemService)")// CGLIB
+	@Pointcut("@annotation(com.compass.examination.annotation.SystemController)||" +
+			  "@annotation(com.compass.examination.annotation.SystemService)")// CGLIB
 	public void afterThrowing() {}
 
 	// 环绕切点
-	@Pointcut("@annotation(com.compass.examination.core.annotation.SystemController)||" +
-			  "@annotation(com.compass.examination.core.annotation.SystemService)")// CGLIB
+	@Pointcut("@annotation(com.compass.examination.annotation.SystemController)||" +
+			  "@annotation(com.compass.examination.annotation.SystemService)")// CGLIB
 	public void around() {}
 	
 

@@ -23,8 +23,5 @@
      					   http://www.springframework.org/schema/task/spring-task-4.3.xsd"
      					   default-autowire="byName">
 
-	
-	<!-- 取得存储在静态变量中的ApplicationContext -->
-	<bean id="springContextHolder" class="com.compass.examination.common.context.SpringContextHolder" />
-	
+
 </beans>

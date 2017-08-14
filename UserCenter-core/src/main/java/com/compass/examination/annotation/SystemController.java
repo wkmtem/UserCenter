@@ -1,4 +1,4 @@
-package com.compass.examination.core.annotation;
+package com.compass.examination.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
