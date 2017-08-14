@@ -16,17 +16,60 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface SessionProvider {
 
-	/***往Session设置值(调用者传入request,response)***/
-	//name = key：Constants常量值xxx_session
-	//value = value：用户对象:必须实现序列化接口(调用者传入request,response)
+	/**
+	 * 
+	 * @Method Name: setAttribute
+	 * @Description: 往Session设置值(调用者传入request,response)
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月13日下午12:54:49
+	 * @param request
+	 * @param response
+	 * @param name key：session名称
+	 * @param value: value：用户对象:必须实现序列化接口(调用者传入request,response)
+	 */
 	void setAttribute(HttpServletRequest request, HttpServletResponse response, String name,Serializable value);
 	
-	/***从Session中取值(调用者传入request,response)***/
+	/**
+	 * 
+	 * @Method Name: getAttribute
+	 * @Description: 从Session中取值(调用者传入request,response)
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月13日下午12:57:20
+	 * @param request
+	 * @param response
+	 * @param name
+	 * @return:
+	 */
 	Serializable getAttribute(HttpServletRequest request, HttpServletResponse response, String name);
 	
-	/***退出登陆(调用者传入request,response)***/
+	/**
+	 * 
+	 * @Method Name: logout
+	 * @Description: 退出登陆(调用者传入request,response)
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月13日下午12:57:28
+	 * @param request
+	 * @param response:
+	 */
 	void logout(HttpServletRequest request, HttpServletResponse response);
 	
-	/***获取SessionID(调用者传入request,response)***/
+	/**
+	 * 
+	 * @Method Name: getSessionId
+	 * @Description: 获取SessionID(调用者传入request,response)
+	 * @params:
+	 * @author: wkm
+	 * @version: 2.0
+	 * @Create date: 2017年8月13日下午12:57:43
+	 * @param request
+	 * @param response
+	 * @return:
+	 */
 	String getSessionId(HttpServletRequest request, HttpServletResponse response);
 }
