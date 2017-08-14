@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 
 import org.junit.Test;
 
+import com.compass.common.validation.Regex;
 import com.compass.examination.common.junit.SpringJunitTest;
-import com.compass.examination.common.validation.Regex;
 
 public class RegexTest extends SpringJunitTest {
 

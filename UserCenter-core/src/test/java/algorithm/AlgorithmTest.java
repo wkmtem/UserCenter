@@ -2,7 +2,7 @@ package algorithm;
 
 import org.junit.Test;
 
-import com.compass.examination.common.algorithm.RandomCode;
+import com.compass.common.algorithm.RandomCode;
 import com.compass.examination.common.junit.SpringJunitTest;
 
 public class AlgorithmTest extends SpringJunitTest {

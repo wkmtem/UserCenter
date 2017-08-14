@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.compass.examination.common.constructor.LinkedMapCustom;
+import com.compass.common.constructor.LinkedMapCustom;
 import com.compass.examination.common.uuid.UUIDBuild;
 import com.compass.examination.core.dao.mapper.UserMapper;
 import com.compass.examination.core.service.email.IEmailValidService;

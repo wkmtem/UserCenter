@@ -3,7 +3,7 @@ package register;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.compass.examination.common.algorithm.MD5;
+import com.compass.common.algorithm.MD5;
 import com.compass.examination.common.email.EmailUtil;
 import com.compass.examination.common.junit.SpringJunitTest;
 import com.compass.examination.constant.AliConstant;

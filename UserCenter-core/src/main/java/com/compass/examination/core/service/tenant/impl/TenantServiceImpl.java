@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.compass.examination.common.algorithm.MD5;
+import com.compass.common.algorithm.MD5;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.TenantMapper;
 import com.compass.examination.core.dao.mapper.UserMapper;

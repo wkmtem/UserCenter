@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.compass.examination.common.algorithm.MD5;
-import com.compass.examination.common.algorithm.RandomCode;
+import com.compass.common.algorithm.MD5;
+import com.compass.common.algorithm.RandomCode;
 import com.compass.examination.common.email.EmailUtil;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.EmailValidationMapper;

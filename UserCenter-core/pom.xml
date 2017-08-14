@@ -207,6 +207,12 @@
         <groupId>com.aliyun</groupId>
         <artifactId>aliyun-java-sdk-dm</artifactId>
       </dependency>
+      
+      <!-- compass -->
+      <dependency>
+      	<groupId>com.compass</groupId>
+  		<artifactId>commons</artifactId>
+  	  </dependency>
   </dependencies>
   
   <build>
