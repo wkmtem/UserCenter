@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 /**
  * 
- * @Class Name: UserIdTokenVO
- * @Description: 验证有效用户AOP值对象
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月14日下午6:07:53
- * @version: 2.0
+ * <p>Class Name: UserIdTokenVO</p>
+ * <p>Description: 验证有效用户AOP值对象的类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午4:37:57
+ * @version 2.0
  */
 public class UserIdTokenVO implements Serializable{
 

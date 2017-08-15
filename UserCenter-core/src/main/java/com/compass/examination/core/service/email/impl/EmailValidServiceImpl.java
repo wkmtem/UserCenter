@@ -115,7 +115,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
 		}
 		emailValidationPO.setActiveCode(activeCode);
 		emailValidationPO.setActiveMd5(MD5.getMD5(activeCode));
-		emailValidationPO.setExpireMillis(expireMillis);
+		emailValidationPO.setExpireStamp(expireMillis);
 		emailValidationPO.setGmtModified(date);
 		if (flag) {
 			emailValidationMapper.insertSelective(emailValidationPO);
@@ -156,7 +156,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
  				"<html>http://www.baidu.com?" 
  						+ emailValidationPO.getTenantId() +"&" 
  						+ emailValidationPO.getActiveCode() + "&" 
- 						+ emailValidationPO.getExpireMillis() + "</html>"); // 邮件 html 正文
+ 						+ emailValidationPO.getExpireStamp() + "</html>"); // 邮件 html 正文
  		sendEmailInfoVO.setTextBody("textBody"); // 邮件 text 正文
  		return EmailUtil.singleSendMail(sendEmailInfoVO);
 	}

@@ -12,7 +12,7 @@ public class EmailValidationExample implements Serializable {
 
     protected List<Criteria> oredCriteria;
 
-    private static final long serialVersionUID = 1779087747094422258L;
+    private static final long serialVersionUID = -2914945678143666335L;
 
     protected int limitStart = -1;
 
@@ -388,63 +388,63 @@ public class EmailValidationExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisIsNull() {
-            addCriterion("expire_millis is null");
+        public Criteria andExpireStampIsNull() {
+            addCriterion("expire_stamp is null");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisIsNotNull() {
-            addCriterion("expire_millis is not null");
+        public Criteria andExpireStampIsNotNull() {
+            addCriterion("expire_stamp is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisEqualTo(Long value) {
-            addCriterion("expire_millis =", value, "expireMillis");
+        public Criteria andExpireStampEqualTo(Long value) {
+            addCriterion("expire_stamp =", value, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisNotEqualTo(Long value) {
-            addCriterion("expire_millis <>", value, "expireMillis");
+        public Criteria andExpireStampNotEqualTo(Long value) {
+            addCriterion("expire_stamp <>", value, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisGreaterThan(Long value) {
-            addCriterion("expire_millis >", value, "expireMillis");
+        public Criteria andExpireStampGreaterThan(Long value) {
+            addCriterion("expire_stamp >", value, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisGreaterThanOrEqualTo(Long value) {
-            addCriterion("expire_millis >=", value, "expireMillis");
+        public Criteria andExpireStampGreaterThanOrEqualTo(Long value) {
+            addCriterion("expire_stamp >=", value, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisLessThan(Long value) {
-            addCriterion("expire_millis <", value, "expireMillis");
+        public Criteria andExpireStampLessThan(Long value) {
+            addCriterion("expire_stamp <", value, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisLessThanOrEqualTo(Long value) {
-            addCriterion("expire_millis <=", value, "expireMillis");
+        public Criteria andExpireStampLessThanOrEqualTo(Long value) {
+            addCriterion("expire_stamp <=", value, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisIn(List<Long> values) {
-            addCriterion("expire_millis in", values, "expireMillis");
+        public Criteria andExpireStampIn(List<Long> values) {
+            addCriterion("expire_stamp in", values, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisNotIn(List<Long> values) {
-            addCriterion("expire_millis not in", values, "expireMillis");
+        public Criteria andExpireStampNotIn(List<Long> values) {
+            addCriterion("expire_stamp not in", values, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisBetween(Long value1, Long value2) {
-            addCriterion("expire_millis between", value1, value2, "expireMillis");
+        public Criteria andExpireStampBetween(Long value1, Long value2) {
+            addCriterion("expire_stamp between", value1, value2, "expireStamp");
             return (Criteria) this;
         }
 
-        public Criteria andExpireMillisNotBetween(Long value1, Long value2) {
-            addCriterion("expire_millis not between", value1, value2, "expireMillis");
+        public Criteria andExpireStampNotBetween(Long value1, Long value2) {
+            addCriterion("expire_stamp not between", value1, value2, "expireStamp");
             return (Criteria) this;
         }
 

@@ -8,12 +8,12 @@ import com.compass.common.enums.RetCodeEnum;
 
 /**
  * 
- * @Class Name: ResultBO
- * @Description: 
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年7月27日下午7:38:16
- * @version: 2.0
+ * <p>Class Name: ResultBO</p>
+ * <p>Description: 返回值对象类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午4:27:28
+ * @version 2.0
  */
 public class ResultBO implements Serializable {
 
@@ -27,6 +27,17 @@ public class ResultBO implements Serializable {
 		super();
 	}
 	
+	/**
+	 * 
+	 * <p>Constructor Name: ResultBO</p>
+	 * <p>Description: </p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:28:09
+	 * @version 2.0
+	 * @param code
+	 * @param msg
+	 * @param info
+	 */
 	public ResultBO(String code, String msg, Object info) {
 		super();
 		this.code = code;
@@ -34,25 +45,69 @@ public class ResultBO implements Serializable {
 		this.info = info;
 	}
 	
+	/**
+	 * 
+	 * <p>Method Name: ok</p>
+	 * <p>Description: </p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:29:05
+	 * @version 2.0
+	 * @return resultBO("1", "SUCCEEDED", null)
+	 */
 	public static ResultBO ok() {
 		return ok(null);
 	}
 
+	/**
+	 * 
+	 * <p>Method Name: ok</p>
+	 * <p>Description: </p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:30:20
+	 * @version 2.0
+	 * @param target对象
+	 * @return resultBO("1", "SUCCEEDED", target)
+	 */
 	public static ResultBO ok(Object target) {
 		return new ResultBO(RetCodeEnum.SUCCEEDED.code, RetCodeEnum.SUCCEEDED.value, target);
 	}
 
+	/**
+	 * 
+	 * <p>Method Name: fail</p>
+	 * <p>Description: </p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:30:52
+	 * @version 2.0
+	 * @param msg描述信息
+	 * @return resultBO("0", msg, null)
+	 */
 	public static ResultBO fail(String msg) {
 		return new ResultBO(RetCodeEnum.FAILED.code, msg, null);
 	}
 
+	/**
+	 * 
+	 * <p>Method Name: empty</p>
+	 * <p>Description: </p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:31:31
+	 * @version 2.0
+	 * @param msg描述信息
+	 * @return resultBO("0", msg, null)
+	 */
 	public static ResultBO empty(String msg) {
 		return fail(msg);
 	}
 
 	/**
-	 * format: 
-	 * 		%s String
+	 * 
+	 * <p>Method Name: fail</p>
+	 * <p>Description: </p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:32:13
+	 * @version 2.0
+	 * @param format
 	 * 		%c char
 	 * 		%b boolean
 	 * 		%d digit 10进制整数
@@ -77,24 +132,53 @@ public class ResultBO implements Serializable {
 	 *		   如果是16进制或8进制则添加0x或0	("%#o", 99) 			0143
 	 *		< 格式化前一个转换符所描述的参数	("%f和%<3.2f", 99.45) 	99.450000和99.45
 	 *		$ 被格式化的参数索引			("%1$d,%2$s", 99,"abc") 99,abc
-	 * msgs: 
-	 * 		可变参数，数组
+	 * @param msgs 可变参数，数组
+	 * @return resultBO("0", msg, null)
 	 */
 	public static ResultBO fail(String format, Object... msgs) {
 		return new ResultBO(RetCodeEnum.FAILED.code, String.format(format, msgs), null);
 	}
 
+	/**
+	 * 
+	 * <p>Class Name: MapBuilder</p>
+	 * <p>Description: 内部类</p>
+	 * <p>Company: www.compass.com</p> 
+	 * @author wkm
+	 * @date 2017年8月15日下午4:33:52
+	 * @version 2.0
+	 */
 	public static class MapBuilder<K, V> {
 
 		Map<K, V> respMap = new LinkedHashMap<K, V>();
 
-		public ResultBO builder() {
-			return ok(respMap);
-		}
-
+		/**
+		 * 
+		 * <p>Method Name: put</p>
+		 * <p>Description: </p>
+		 * @author wkm
+		 * @date 2017年8月15日下午4:36:29
+		 * @version 2.0
+		 * @param key
+		 * @param value
+		 * @return
+		 */
 		public MapBuilder<K, V> put(K key, V value) {
 			respMap.put(key, value);
 			return this;
+		}
+		
+		/**
+		 * 
+		 * <p>Method Name: builder</p>
+		 * <p>Description: </p>
+		 * @author wkm
+		 * @date 2017年8月15日下午4:36:34
+		 * @version 2.0
+		 * @return
+		 */
+		public ResultBO builder() {
+			return ok(respMap);
 		}
 	}
 	

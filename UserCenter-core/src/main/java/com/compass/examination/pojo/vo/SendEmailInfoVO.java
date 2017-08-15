@@ -2,6 +2,15 @@ package com.compass.examination.pojo.vo;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * <p>Class Name: SendEmailInfoVO</p>
+ * <p>Description: 邮件推送值对象的类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午4:38:44
+ * @version 2.0
+ */
 public class SendEmailInfoVO implements Serializable{
 
 	/** serialVersionUID*/
@@ -35,5 +44,4 @@ public class SendEmailInfoVO implements Serializable{
 		return "SendEmailInfoVO [toAddress=" + toAddress + ", htmlBody="
 				+ htmlBody + ", textBody=" + textBody + "]";
 	}
-
 }

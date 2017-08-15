@@ -30,9 +30,9 @@ public class Tenant implements Serializable {
 
     private Date gmtModified;
 
-    private Date gmtActive;
+    private Long activeStamp;
 
-    private static final long serialVersionUID = 3556743822355086828L;
+    private static final long serialVersionUID = -1471588327189024128L;
 
     public Long getId() {
         return id;
@@ -138,11 +138,11 @@ public class Tenant implements Serializable {
         this.gmtModified = gmtModified;
     }
 
-    public Date getGmtActive() {
-        return gmtActive;
+    public Long getActiveStamp() {
+        return activeStamp;
     }
 
-    public void setGmtActive(Date gmtActive) {
-        this.gmtActive = gmtActive;
+    public void setActiveStamp(Long activeStamp) {
+        this.activeStamp = activeStamp;
     }
 }

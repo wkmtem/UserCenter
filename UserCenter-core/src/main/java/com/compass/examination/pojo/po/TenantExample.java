@@ -12,7 +12,7 @@ public class TenantExample implements Serializable {
 
     protected List<Criteria> oredCriteria;
 
-    private static final long serialVersionUID = 524590799391481375L;
+    private static final long serialVersionUID = -4177962650730438403L;
 
     protected int limitStart = -1;
 
@@ -988,63 +988,63 @@ public class TenantExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveIsNull() {
-            addCriterion("gmt_active is null");
+        public Criteria andActiveStampIsNull() {
+            addCriterion("active_stamp is null");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveIsNotNull() {
-            addCriterion("gmt_active is not null");
+        public Criteria andActiveStampIsNotNull() {
+            addCriterion("active_stamp is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveEqualTo(Date value) {
-            addCriterion("gmt_active =", value, "gmtActive");
+        public Criteria andActiveStampEqualTo(Long value) {
+            addCriterion("active_stamp =", value, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveNotEqualTo(Date value) {
-            addCriterion("gmt_active <>", value, "gmtActive");
+        public Criteria andActiveStampNotEqualTo(Long value) {
+            addCriterion("active_stamp <>", value, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveGreaterThan(Date value) {
-            addCriterion("gmt_active >", value, "gmtActive");
+        public Criteria andActiveStampGreaterThan(Long value) {
+            addCriterion("active_stamp >", value, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveGreaterThanOrEqualTo(Date value) {
-            addCriterion("gmt_active >=", value, "gmtActive");
+        public Criteria andActiveStampGreaterThanOrEqualTo(Long value) {
+            addCriterion("active_stamp >=", value, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveLessThan(Date value) {
-            addCriterion("gmt_active <", value, "gmtActive");
+        public Criteria andActiveStampLessThan(Long value) {
+            addCriterion("active_stamp <", value, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveLessThanOrEqualTo(Date value) {
-            addCriterion("gmt_active <=", value, "gmtActive");
+        public Criteria andActiveStampLessThanOrEqualTo(Long value) {
+            addCriterion("active_stamp <=", value, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveIn(List<Date> values) {
-            addCriterion("gmt_active in", values, "gmtActive");
+        public Criteria andActiveStampIn(List<Long> values) {
+            addCriterion("active_stamp in", values, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveNotIn(List<Date> values) {
-            addCriterion("gmt_active not in", values, "gmtActive");
+        public Criteria andActiveStampNotIn(List<Long> values) {
+            addCriterion("active_stamp not in", values, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveBetween(Date value1, Date value2) {
-            addCriterion("gmt_active between", value1, value2, "gmtActive");
+        public Criteria andActiveStampBetween(Long value1, Long value2) {
+            addCriterion("active_stamp between", value1, value2, "activeStamp");
             return (Criteria) this;
         }
 
-        public Criteria andGmtActiveNotBetween(Date value1, Date value2) {
-            addCriterion("gmt_active not between", value1, value2, "gmtActive");
+        public Criteria andActiveStampNotBetween(Long value1, Long value2) {
+            addCriterion("active_stamp not between", value1, value2, "activeStamp");
             return (Criteria) this;
         }
     }

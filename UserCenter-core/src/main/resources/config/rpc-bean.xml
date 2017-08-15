@@ -50,4 +50,13 @@
 		</hsf:methodSpecials>
 	</hsf:provider> -->
 	
+	<bean id="persionRPCServiceImpl" class="com.compass.examination.rpc.api.PersionRPCServiceImpl" />
+	<hsf:provider id="iPersonRPCService" interface="com.compass.examination.rpc.api.IPersonRPCService"
+		version="1.0.0" group="compass" clientTimeout="3000" serializeType="hessian"
+		enableTXC="true" ref="persionRPCServiceImpl" >
+		<hsf:methodSpecials>
+			<hsf:methodSpecial name="sum" timeout="2000" />
+		</hsf:methodSpecials>
+	</hsf:provider>
+	
 </beans>

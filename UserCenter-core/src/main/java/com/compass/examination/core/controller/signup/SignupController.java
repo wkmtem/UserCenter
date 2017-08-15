@@ -173,7 +173,7 @@ public class SignupController {
 			return ResultBO.empty(ErrorMsgEnum.EM17.value); // 无效企业ID，或企业尚未注册
 		}
 		// 当前时间 > 过期时间 = 过期
-		if (System.currentTimeMillis() > emailValidation.getExpireMillis()) {
+		if (System.currentTimeMillis() > emailValidation.getExpireStamp()) {
 			return ResultBO.fail(ErrorMsgEnum.EM18.value); // 激活码已过期
 		}
 		
@@ -189,7 +189,7 @@ public class SignupController {
 			Tenant updateTenant = new Tenant();
 			updateTenant.setId(tenantId);
 			updateTenant.setState(true);// 激活
-			updateTenant.setGmtActive(date);
+			updateTenant.setActiveStamp(date.getTime());
 			tenantService.updateTenant(updateTenant);
 			return ResultBO.ok();
 		}
