@@ -3,12 +3,12 @@ package com.compass.examination.constant;
 
 /**
  * 
- * @Class Name: AliConstant
- * @Description: 阿里常量
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年5月24日上午10:31:21
- * @version: 2.0
+ * <p>Class Name: AliConstant</p>
+ * <p>Description: 阿里云常量</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:35:49
+ * @version 2.0
  */
 public class AliConstant {
 

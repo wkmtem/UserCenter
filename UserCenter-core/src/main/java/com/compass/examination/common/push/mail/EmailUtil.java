@@ -15,25 +15,24 @@ import com.compass.examination.pojo.vo.SendEmailInfoVO;
 
 /**
  * 
- * @Class Name: EmailUtil
- * @Description: 阿里邮件推送
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月10日下午1:10:21
- * @version: 2.0
+ * <p>Class Name: EmailUtil</p>
+ * <p>Description: 阿里邮件推送</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:16:01
+ * @version 2.0
  */
 public class EmailUtil {
 
 	/**
 	 * 
-	 * @Method Name: singleSendMail
-	 * @Description: 单一发信
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月10日下午1:10:39
+	 * <p>Method Name: singleSendMail</p>
+	 * <p>Description: 单一邮件推送</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:16:13
+	 * @version 2.0
 	 * @param sendEmailInfoVO
-	 * @return:
+	 * @return
 	 */
 	public static String  singleSendMail (SendEmailInfoVO sendEmailInfoVO) {
 		

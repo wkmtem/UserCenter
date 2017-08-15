@@ -1,5 +1,14 @@
 package com.compass.examination.constant;
 
+/**
+ * 
+ * <p>Class Name: InitConstant</p>
+ * <p>Description: 系统初始化常量类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:35:31
+ * @version 2.0
+ */
 public class InitConstant {
 
 	// 运行环境：true：正式，false：测试

@@ -23,16 +23,16 @@ import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.po.UserExample;
-import com.compass.examination.pojo.vo.RegisterInfoVO;
+import com.compass.examination.pojo.vo.SignupInfoVO;
 
 /**
  * 
- * @Class Name: UserServiceImpl
- * @Description: 
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月9日下午4:09:30
- * @version: 2.0
+ * <p>Class Name: UserServiceImpl</p>
+ * <p>Description: 用户实现类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:42:42
+ * @version 2.0
  */
 @Service
 @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = false)
@@ -47,21 +47,24 @@ public class UserServiceImpl implements IUserService {
 
 	
 	/**
-	 * 
-	 * @Description: 注册管理员账号
-	 * @param registerInfoVO
+	 * （非 Javadoc）
+	 * <p>Method Name: userSignup</p>
+	 * <p>Description: 注册管理员账号</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:46:37
+	 * @version 2.0
+	 * @param signupInfoVO
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月9日下午12:58:27
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.user.IUserService#userSignup(com.compass.examination.pojo.vo.SignupInfoVO)
 	 */
 	@Override
-	public boolean userRegister(RegisterInfoVO registerInfoVO) throws Exception {
+	public boolean userSignup(SignupInfoVO signupInfoVO) throws Exception {
 		
 		Date date = new Date();
 		
 		// 获取租户id
-		Tenant tenantPO = tenantService.getTenantByAccount(registerInfoVO.getAccount());
+		Tenant tenantPO = tenantService.getTenantByAccount(signupInfoVO.getAccount());
 		if (null == tenantPO) {
 			return false;
 		}
@@ -76,9 +79,9 @@ public class UserServiceImpl implements IUserService {
 		
 		User userPO = new User();
 		userPO.setTenantId(tenantId);
-		userPO.setUsername(registerInfoVO.getUsername());
-		userPO.setPassword(registerInfoVO.getPassword());
-		userPO.setEmail(registerInfoVO.getEmail());
+		userPO.setUsername(signupInfoVO.getUsername());
+		userPO.setPassword(signupInfoVO.getPassword());
+		userPO.setEmail(signupInfoVO.getEmail());
 		userPO.setGmtCreate(date);
 		userPO.setGmtModified(date);
 		userPO.setEnabled(true);// 启用
@@ -92,7 +95,7 @@ public class UserServiceImpl implements IUserService {
 			tenantPO.setAdminUserId(id);
 			tenantService.updateTenant(tenantPO);
 			// 发送邮件
-			emailValidService.singleSendActiveMail(emailValidationPO.getId(), registerInfoVO.getEmail());
+			emailValidService.singleSendActiveMail(emailValidationPO.getId(), signupInfoVO.getEmail());
 			return true;
 		}
 		return false;
@@ -100,13 +103,16 @@ public class UserServiceImpl implements IUserService {
 
 
 	/**
-	 * 
-	 * @Description: 新增用户
-	 * @param user
-	 * @return 主键
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月9日下午4:20:05
+	 * （非 Javadoc）
+	 * <p>Method Name: insertUser</p>
+	 * <p>Description: 新增用户</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:46:52
+	 * @version 2.0
+	 * @param userPO
+	 * @return
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.user.IUserService#insertUser(com.compass.examination.pojo.po.User)
 	 */
 	@Override
 	public Long insertUser(User userPO) throws Exception {
@@ -119,15 +125,18 @@ public class UserServiceImpl implements IUserService {
 
 
 	/**
-	 * 
-	 * @Description: 用户登录
+	 * （非 Javadoc）
+	 * <p>Method Name: login</p>
+	 * <p>Description: 用户登录</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:49:45
+	 * @version 2.0
 	 * @param account
 	 * @param username
 	 * @param password
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日上午10:32:56
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.user.IUserService#login(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public ResultBO login(String account, String username, String password)
@@ -188,16 +197,17 @@ public class UserServiceImpl implements IUserService {
 	
 	
 	/**
-	 * 
-	 * @Method Name: listUserByTenantIdAndUsername
-	 * @Description: 根据租户id、用户名，获取用户集合
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月11日上午10:45:53
+	 * （非 Javadoc）
+	 * <p>Method Name: listUserByTenantIdAndUsername</p>
+	 * <p>Description: 根据租户id、用户名，获取用户集合</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:49:57
+	 * @version 2.0
+	 * @param tenantId
 	 * @param username
 	 * @return
-	 * @throws Exception:
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.user.IUserService#listUserByTenantIdAndUsername(java.lang.Long, java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -213,14 +223,17 @@ public class UserServiceImpl implements IUserService {
 	
 	
 	/**
-	 * 
-	 * @Description: 根据租户id、用户名，获取用户
+	 * （非 Javadoc）
+	 * <p>Method Name: getUserByTenantIdAndUsername</p>
+	 * <p>Description: 根据租户id、用户名，获取用户</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:51:02
+	 * @version 2.0
 	 * @param tenantId
 	 * @param username
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日上午11:57:30
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.user.IUserService#getUserByTenantIdAndUsername(java.lang.Long, java.lang.String)
 	 */
 	@Override
 	public User getUserByTenantIdAndUsername (Long tenantId, String username) 
@@ -235,13 +248,16 @@ public class UserServiceImpl implements IUserService {
 
 
 	/**
-	 * 
-	 * @Description: 根据用户id，获取用户
-	 * @param adminUserId
+	 * （非 Javadoc）
+	 * <p>Method Name: getUserById</p>
+	 * <p>Description: 根据用户id，获取用户</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:51:15
+	 * @version 2.0
+	 * @param id
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日下午3:01:24
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.user.IUserService#getUserById(java.lang.Long)
 	 */
 	@Override
 	public User getUserById(Long id) throws Exception {

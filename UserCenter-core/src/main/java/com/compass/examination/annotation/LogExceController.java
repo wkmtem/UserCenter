@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * @Class Name: LogExceController
- * @Description: 自定义注解，AOP拦截Controller
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年7月27日下午7:30:22
- * @version: 2.0
+ * <p>Class Name: LogExceController</p>
+ * <p>Description: 自定义注解，AOP拦截Controller</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:15:09
+ * @version 2.0
  */
 @Target({ElementType.PARAMETER, ElementType.METHOD})    
 @Retention(RetentionPolicy.RUNTIME)    

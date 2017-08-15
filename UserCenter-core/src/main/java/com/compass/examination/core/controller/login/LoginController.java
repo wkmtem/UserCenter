@@ -16,12 +16,12 @@ import com.compass.examination.pojo.bo.ResultBO;
 
 /**
  * 
- * @Class Name: LoginController
- * @Description: 用户登录
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月11日上午10:07:02
- * @version: 2.0
+ * <p>Class Name: LoginController</p>
+ * <p>Description: 用户登录</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日上午11:19:02
+ * @version 2.0
  */
 @Controller
 @RequestMapping(value = "/login")
@@ -35,15 +35,14 @@ public class LoginController {
 	
 	/**
 	 * 
-	 * @Method Name: getSaltByTenantAcc
-	 * @Description: 根据租户账号，获取散列盐
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月11日上午9:40:56
-	 * @param account
-	 * @return
-	 * @throws Exception:
+	 * <p>Method Name: getSaltByTenantAcc</p>
+	 * <p>Description: 根据租户账号，获取散列盐</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午11:19:16
+	 * @version 2.0
+	 * @param account 租户账号
+	 * @return resultBO(code[1, 0], msg[str], info[str:salt])
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/getSaltByTenantAcc", method = RequestMethod.GET)
 	@LogExceController(name = "根据租户账号，获取散列盐")
@@ -67,17 +66,16 @@ public class LoginController {
 	
 	/**
 	 * 
-	 * @Method Name: login
-	 * @Description: 根据租户账号，用户名登录
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月11日下午1:13:18
-	 * @param account
-	 * @param username
-	 * @param password
-	 * @return
-	 * @throws Exception:
+	 * <p>Method Name: login</p>
+	 * <p>Description: 根据租户账号，用户名登录</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午11:20:14
+	 * @version 2.0
+	 * @param account 租户账号
+	 * @param username 用户账号
+	 * @param password 密码
+	 * @return resultBO(code[1, 0], msg[str], info[map:id, nickname, headUrl, token])
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	@LogExceController(name = "根据租户账号，用户名登录")

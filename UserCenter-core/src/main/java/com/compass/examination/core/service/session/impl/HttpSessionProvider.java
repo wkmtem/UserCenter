@@ -16,12 +16,12 @@ import com.compass.api.session.SessionProvider;
 
 /**
  * 
- * @Class Name: HttpSessionProvider
- * @Description: local session
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2016-10-18下午3:22:19
- * @version: 2.0
+ * <p>Class Name: HttpSessionProvider</p>
+ * <p>Description: session实现类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:59:54
+ * @version 2.0
  */
 @Service
 @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = false)
@@ -34,14 +34,17 @@ public class HttpSessionProvider implements SessionProvider{
 	*/
 
 	/**
-	 * 
-	 * @Description: 往Session设置值
+	 * （非 Javadoc）
+	 * <p>Method Name: setAttribute</p>
+	 * <p>Description: 设置session值</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:00:12
+	 * @version 2.0
 	 * @param request
 	 * @param response
 	 * @param name
-	 * @param value: 
-	 * @author: wkm
-	 * @Create date: 2017年8月13日上午11:33:52
+	 * @param value
+	 * @see com.compass.api.session.SessionProvider#setAttribute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.io.Serializable)
 	 */
 	@Override
 	public void setAttribute(HttpServletRequest request, HttpServletResponse response, 
@@ -53,14 +56,17 @@ public class HttpSessionProvider implements SessionProvider{
 	}
 
 	/**
-	 * 
-	 * @Description: 从Session中取值
+	 * （非 Javadoc）
+	 * <p>Method Name: getAttribute</p>
+	 * <p>Description: 获取sesion值</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:00:28
+	 * @version 2.0
 	 * @param request
 	 * @param response
 	 * @param name
-	 * @return: 
-	 * @author: wkm
-	 * @Create date: 2017年8月13日上午11:34:06
+	 * @return
+	 * @see com.compass.api.session.SessionProvider#getAttribute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -75,12 +81,15 @@ public class HttpSessionProvider implements SessionProvider{
 	}
 
 	/**
-	 * 
-	 * @Description: 退出登陆
+	 * （非 Javadoc）
+	 * <p>Method Name: logout</p>
+	 * <p>Description: 退出登陆，销毁session</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:00:43
+	 * @version 2.0
 	 * @param request
-	 * @param response: 
-	 * @author: wkm
-	 * @Create date: 2017年8月13日上午11:34:18
+	 * @param response
+	 * @see com.compass.api.session.SessionProvider#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
@@ -97,13 +106,16 @@ public class HttpSessionProvider implements SessionProvider{
 	}
 
 	/**
-	 * 
-	 * @Description: 获取SessionID
+	 * （非 Javadoc）
+	 * <p>Method Name: getSessionId</p>
+	 * <p>Description: 获取SessionID</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:00:58
+	 * @version 2.0
 	 * @param request
 	 * @param response
-	 * @return: 
-	 * @author: wkm
-	 * @Create date: 2017年8月13日上午11:36:24
+	 * @return
+	 * @see com.compass.api.session.SessionProvider#getSessionId(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Transactional(readOnly = true)
 	@Override

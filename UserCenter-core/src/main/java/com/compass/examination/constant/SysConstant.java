@@ -1,12 +1,13 @@
 package com.compass.examination.constant;
 
 /**
- * @Class Name: SysConstant
- * @Description: 系统常量
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2016-11-17下午2:26:01
- * @version: 2.0
+ * 
+ * <p>Class Name: SysConstant</p>
+ * <p>Description: 系统常量类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:34:56
+ * @version 2.0
  */
 public class SysConstant {
 

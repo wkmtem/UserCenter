@@ -12,12 +12,12 @@ import com.compass.examination.pojo.bo.ResultBO;
 
 /**
  * 
- * @Class Name: SystemController
- * @Description: 系统
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月14日下午5:11:16
- * @version: 2.0
+ * <p>Class Name: SystemController</p>
+ * <p>Description: 系统</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日上午11:23:20
+ * @version 2.0
  */
 @Controller
 @RequestMapping(value = "/system")
@@ -25,14 +25,13 @@ public class SystemController {
 
 	/**
 	 * 
-	 * @Method Name: getCurrentTime
-	 * @Description: 获取当前时间
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月14日下午4:41:34
-	 * @return
-	 * @throws Exception: 
+	 * <p>Method Name: getCurrentTime</p>
+	 * <p>Description: 获取当前时间</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午11:23:32
+	 * @version 2.0
+	 * @return resultBO(code[1, 0], msg[str], info[str:yyyy-MM-dd HH:mm:ss])
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/getCurrentTime", method = RequestMethod.GET)
 	@LogExceController(name = "获取当前时间")

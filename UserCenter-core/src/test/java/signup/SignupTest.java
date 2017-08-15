@@ -1,4 +1,4 @@
-package register;
+package signup;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,10 @@ import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
-import com.compass.examination.pojo.vo.RegisterInfoVO;
+import com.compass.examination.pojo.vo.SignupInfoVO;
 import com.compass.examination.pojo.vo.SendEmailInfoVO;
 
-public class RegisterTest extends SpringJunitTest {
+public class SignupTest extends SpringJunitTest {
 
 	@Autowired
 	private ITenantService tenantService;
@@ -27,22 +27,22 @@ public class RegisterTest extends SpringJunitTest {
 	
 	// 租户：生成盐，激活码，md5验证码
 	@Test
-	public void testTenantRegister() throws Exception {
-		RegisterInfoVO infoVO = new RegisterInfoVO();
+	public void testTenantSignup() throws Exception {
+		SignupInfoVO infoVO = new SignupInfoVO();
 		infoVO.setAccount("testAccount");
 		infoVO.setTenantName("测试租户");
-		System.out.println("result >>>>>>>>>> " + tenantService.tenantRegister(infoVO));
+		System.out.println("result >>>>>>>>>> " + tenantService.tenantSignup(infoVO));
 	}
 	
 	// 用户：发邮件
 	@Test
-	public void testUserRegister() throws Exception {
-		RegisterInfoVO infoVO = new RegisterInfoVO();
+	public void testUserSignup() throws Exception {
+		SignupInfoVO infoVO = new SignupInfoVO();
 		infoVO.setAccount("testAccount");
 		infoVO.setUsername("wkmtem");
 		infoVO.setPassword(MD5.get2MD5StrBySaltWithPwd("E6BD6E6A35042EF0CD3DF00A903EAB48", "123"));
 		infoVO.setEmail("813272417@qq.com");
-		System.out.println("register >>>>>>>>>> " + userService.userRegister(infoVO));
+		System.out.println("Signup >>>>>>>>>> " + userService.userSignup(infoVO));
 	}
 	
 	@Test

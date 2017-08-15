@@ -28,12 +28,12 @@ import com.compass.examination.pojo.vo.UserIdTokenVO;
 
 /**
  * 
- * @Class Name: ValidUserAspect
- * @Description: 验证有效用户切面
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月14日下午5:56:02
- * @version: 2.0
+ * <p>Class Name: ValidUserAspect</p>
+ * <p>Description: 验证有效用户切面类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:51:53
+ * @version 2.0
  */
 @Component
 @Aspect
@@ -51,15 +51,14 @@ public class ValidUserAspect {
 	
 	/**
 	 * 
-	 * @Method Name: validateUserIdAndToken
-	 * @Description: 
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月14日下午5:58:27
-	 * @param joinPoint
-	 * @return
-	 * @throws Throwable:
+	 * <p>Method Name: validUserIdAndToken</p>
+	 * <p>Description: 验证有效用户</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:52:04
+	 * @version 2.0
+	 * @param joinPoint 连接点
+	 * @return 代理对象的返回值
+	 * @throws Throwable
 	 */
 	@Around("validUserToken()")
 	public Object validUserIdAndToken(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -156,7 +155,15 @@ public class ValidUserAspect {
 	
 	
 	/**
-	 * 获取Controller层UserTokenAnnotation注解名称
+	 * 
+	 * <p>Method Name: getUserTokenAnnotationMethodName</p>
+	 * <p>Description: 获取UserTokenAnnotation注解目标类的方法名称</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:54:17
+	 * @version 2.0
+	 * @param joinPoint
+	 * @return
+	 * @throws Exception
 	 */
 	private static String getUserTokenAnnotationMethodName(JoinPoint joinPoint)
 			throws Exception {

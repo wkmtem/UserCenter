@@ -23,12 +23,12 @@ import com.compass.examination.pojo.vo.SendEmailInfoVO;
 
 /**
  * 
- * @Class Name: EmailValidServiceImpl
- * @Description: 
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月9日下午10:41:34
- * @version: 2.0
+ * <p>Class Name: EmailValidServiceImpl</p>
+ * <p>Description: 邮件验证实现类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:58:49
+ * @version 2.0
  */
 @Service
 @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = false)
@@ -40,13 +40,16 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	private IUserService userService;
 	
 	/**
-	 * 
-	 * @Description: 根据租户id，获取激活码对象
+	 * （非 Javadoc）
+	 * <p>Method Name: getEmailValidationByTenantId</p>
+	 * <p>Description: 根据租户id，获取激活码对象</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:59:02
+	 * @version 2.0
 	 * @param tenantId
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月9日下午10:43:45
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.email.IEmailValidService#getEmailValidationByTenantId(java.lang.Long)
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -64,13 +67,16 @@ public class EmailValidServiceImpl implements IEmailValidService {
 
 	
 	/**
-	 * 
-	 * @Description: 更新激活码对象
-	 * @param emailValidation
+	 * （非 Javadoc）
+	 * <p>Method Name: updateEmailValidation</p>
+	 * <p>Description: 更新激活码对象</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:59:14
+	 * @version 2.0
+	 * @param emailValidationPO
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日下午2:29:25
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.email.IEmailValidService#updateEmailValidation(com.compass.examination.pojo.po.EmailValidation)
 	 */
 	@Override
 	public int updateEmailValidation(EmailValidation emailValidationPO)
@@ -80,13 +86,16 @@ public class EmailValidServiceImpl implements IEmailValidService {
 
 
 	/**
-	 * 
-	 * @Description: 创建邮件验证信息
+	 * （非 Javadoc）
+	 * <p>Method Name: insertOrUpdateEmailValidation</p>
+	 * <p>Description: 创建邮件验证信息</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:59:22
+	 * @version 2.0
 	 * @param tenantId
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日下午4:17:38
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.email.IEmailValidService#insertOrUpdateEmailValidation(java.lang.Long)
 	 */
 	@Override
 	public Long insertOrUpdateEmailValidation(Long tenantId) throws Exception {
@@ -118,14 +127,17 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	
 	
 	/**
-	 * 
-	 * @Description: 根据邮箱验证对象id，邮箱，发送单封激活邮件
+	 * （非 Javadoc）
+	 * <p>Method Name: singleSendActiveMail</p>
+	 * <p>Description: 根据邮箱验证对象id，邮箱，发送单封激活邮件</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:59:33
+	 * @version 2.0
 	 * @param validId
 	 * @param email
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日下午4:37:48
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.email.IEmailValidService#singleSendActiveMail(java.lang.Long, java.lang.String)
 	 */
 	@Override
 	public String singleSendActiveMail(Long validId, String email) throws Exception {

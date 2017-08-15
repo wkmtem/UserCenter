@@ -27,12 +27,12 @@ import com.compass.examination.annotation.LogExceService;
 
 /**
  * 
- * @Class Name: SysLogExceptionAspect
- * @Description: 日志、异常切面
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年7月28日下午6:05:10
- * @version: 2.0
+ * <p>Class Name: SysLogExceptionAspect</p>
+ * <p>Description: 日志、异常切面类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:36:41
+ * @version 2.0
  */
 @Component
 @Aspect
@@ -46,12 +46,27 @@ public class SysLogExceptionAspect {
 	@Autowired
 	private SysOperationLogMapper operationLogMapper;*/
 	
-	// 异常切点
+	
+	/**
+	 * 
+	 * <p>Method Name: afterThrowing</p>
+	 * <p>Description: 异常切点表达式</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:37:21
+	 * @version 2.0
+	 */
 	@Pointcut("@annotation(com.compass.examination.annotation.LogExceController)||" +
 			  "@annotation(com.compass.examination.annotation.LogExceService)")// CGLIB
 	public void afterThrowing() {}
 
-	// 环绕切点
+	/**
+	 * 
+	 * <p>Method Name: around</p>
+	 * <p>Description: 日志环绕切点表达式</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:37:45
+	 * @version 2.0
+	 */
 	@Pointcut("@annotation(com.compass.examination.annotation.LogExceController)||" +
 			  "@annotation(com.compass.examination.annotation.LogExceService)")// CGLIB
 	public void around() {}
@@ -59,16 +74,14 @@ public class SysLogExceptionAspect {
 
 	/**
 	 * 
-	 * @Method Name: doAround
-	 * @Description: 环绕通知：拦截controller层访问记录
-	 * @params:
-	 * @author: wkmtem
-	 * @version: 2.0
-	 * @Create date: 2016-8-23下午10:26:51
+	 * <p>Method Name: doAround</p>
+	 * <p>Description: 环绕通知：访问日志</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:38:19
+	 * @version 2.0
 	 * @param joinPoint
 	 * @return
 	 * @throws Throwable
-	 *             :
 	 */
 	@Around("around()")
 	public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -152,15 +165,13 @@ public class SysLogExceptionAspect {
 
 	/**
 	 * 
-	 * @Method Name: doAfterThrowing
-	 * @Description: 异常通知：拦截controller层记录异常日志
-	 * @params:
-	 * @author: wkmtem
-	 * @version: 2.0
-	 * @Create date: 2016-8-23下午10:27:09
+	 * <p>Method Name: doAfterThrowing</p>
+	 * <p>Description: 异常通知：异常日志</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:38:57
+	 * @version 2.0
 	 * @param joinPoint
-	 * @param throwable
-	 *            :
+	 * @param e
 	 */
 	@AfterThrowing(pointcut = "afterThrowing()", throwing = "e")
 	public void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
@@ -241,7 +252,15 @@ public class SysLogExceptionAspect {
 	
 
 	/**
-	 * 获取Controller层注解名称
+	 * 
+	 * <p>Method Name: getControllerMethodName</p>
+	 * <p>Description: 获取LogExceController注解目标类的方法名称</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:41:58
+	 * @version 2.0
+	 * @param joinPoint
+	 * @return
+	 * @throws Exception
 	 */
 	private static String getControllerMethodName(JoinPoint joinPoint) throws Exception {
 		String name = "";
@@ -264,7 +283,15 @@ public class SysLogExceptionAspect {
 	
 
 	/**
-	 * 获取service层注解名称
+	 * 
+	 * <p>Method Name: getServiceMthodName</p>
+	 * <p>Description: 获取LogExceService注解目标类的方法名称</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午3:42:06
+	 * @version 2.0
+	 * @param joinPoint
+	 * @return
+	 * @throws Exception
 	 */
 	private static String getServiceMthodName(JoinPoint joinPoint)
 			throws Exception {

@@ -20,16 +20,16 @@ import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.TenantExample;
-import com.compass.examination.pojo.vo.RegisterInfoVO;
+import com.compass.examination.pojo.vo.SignupInfoVO;
 
 /**
  * 
- * @Class Name: TenantServiceImpl
- * @Description: 
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年7月28日上午10:54:03
- * @version: 2.0
+ * <p>Class Name: TenantServiceImpl</p>
+ * <p>Description: 租户实现类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午4:01:12
+ * @version 2.0
  */
 @Service
 @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = false)
@@ -43,13 +43,16 @@ public class TenantServiceImpl implements ITenantService {
 	private IEmailValidService emailValidService;
 
 	/**
-	 * 
-	 * @Description: 企业账号是否存在
+	 * （非 Javadoc）
+	 * <p>Method Name: isExistAccount</p>
+	 * <p>Description: 企业账号是否存在</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:01:46
+	 * @version 2.0
 	 * @param account
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年7月28日上午10:52:07
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.tenant.ITenantService#isExistAccount(java.lang.String)
 	 */
 	@Override
 	public boolean isExistAccount(String account) throws Exception {
@@ -63,16 +66,19 @@ public class TenantServiceImpl implements ITenantService {
 	
 	
 	/**
-	 * 
-	 * @Description: 注册企业账号
-	 * @param registerInfoVO
-	 * @return 返回散列盐
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月9日下午2:41:57
+	 * （非 Javadoc）
+	 * <p>Method Name: tenantSignup</p>
+	 * <p>Description: 注册企业账号</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:02:01
+	 * @version 2.0
+	 * @param signupInfoVO
+	 * @return
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.tenant.ITenantService#tenantSignup(com.compass.examination.pojo.vo.SignupInfoVO)
 	 */
 	@Override
-	public String tenantRegister(RegisterInfoVO registerInfoVO) throws Exception {
+	public String tenantSignup(SignupInfoVO signupInfoVO) throws Exception {
 		
 		String salt = MD5.get2MD5StrByTimeMillis();
 		int ret = -1;
@@ -81,14 +87,14 @@ public class TenantServiceImpl implements ITenantService {
 		calendar.add(Calendar.MILLISECOND, AliConstant.EMAIL_EXPIRE_MILLIS);
 		
 		// 企业账号已存在
-		boolean isExist = this.isExistAccount(registerInfoVO.getAccount());
+		boolean isExist = this.isExistAccount(signupInfoVO.getAccount());
 		if (isExist) {
 			return RetCodeEnum.FAILED.value;
 		}
 		
 		Tenant tenantPO = new Tenant();
-		tenantPO.setAccount(registerInfoVO.getAccount());// 租户账号
-		tenantPO.setName(registerInfoVO.getTenantName());// 租户名称
+		tenantPO.setAccount(signupInfoVO.getAccount());// 租户账号
+		tenantPO.setName(signupInfoVO.getTenantName());// 租户名称
 		tenantPO.setSalt(salt);
 		tenantPO.setState(false);// 未激活
 		tenantPO.setGmtCreate(date);
@@ -104,16 +110,16 @@ public class TenantServiceImpl implements ITenantService {
 	
 	
 	/**
-	 * 
-	 * @Method Name: listTenantByAccount
-	 * @Description: 根据租户账号，获取租户集合
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月9日下午4:11:38
+	 * （非 Javadoc）
+	 * <p>Method Name: listTenantByAccount</p>
+	 * <p>Description: 根据租户账号，获取租户集合</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:02:12
+	 * @version 2.0
 	 * @param account
 	 * @return
-	 * @throws Exception:
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.tenant.ITenantService#listTenantByAccount(java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -126,16 +132,16 @@ public class TenantServiceImpl implements ITenantService {
 	
 	
 	/**
-	 * 
-	 * @Method Name: getTenantByAccount
-	 * @Description: 根据租户账号，获取租户
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月11日上午11:46:03
+	 * （非 Javadoc）
+	 * <p>Method Name: getTenantByAccount</p>
+	 * <p>Description: 根据租户账号，获取租户</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:02:19
+	 * @version 2.0
 	 * @param account
 	 * @return
-	 * @throws Exception:
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.tenant.ITenantService#getTenantByAccount(java.lang.String)
 	 */
 	@Override
 	public Tenant getTenantByAccount(String account) throws Exception {
@@ -149,13 +155,16 @@ public class TenantServiceImpl implements ITenantService {
 
 
 	/**
-	 * 
-	 * @Description: 根据租户账号，获取散列盐
+	 * （非 Javadoc）
+	 * <p>Method Name: getSaltByAccount</p>
+	 * <p>Description: 根据租户账号，获取散列盐</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:02:27
+	 * @version 2.0
 	 * @param account
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日上午9:47:17
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.tenant.ITenantService#getSaltByAccount(java.lang.String)
 	 */
 	@Override
 	public String getSaltByAccount(String account) throws Exception {
@@ -176,13 +185,16 @@ public class TenantServiceImpl implements ITenantService {
 	
 	
 	/**
-	 * 
-	 * @Description: 更新租户对象
-	 * @param tenant
+	 * （非 Javadoc）
+	 * <p>Method Name: updateTenant</p>
+	 * <p>Description: 更新租户对象</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:02:34
+	 * @version 2.0
+	 * @param tenantPO
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日下午2:35:56
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.tenant.ITenantService#updateTenant(com.compass.examination.pojo.po.Tenant)
 	 */
 	@Override
 	public int updateTenant(Tenant tenantPO) throws Exception {
@@ -191,13 +203,16 @@ public class TenantServiceImpl implements ITenantService {
 
 
 	/**
-	 * 
-	 * @Description: 根据主键，获取租户
+	 * （非 Javadoc）
+	 * <p>Method Name: getTenantById</p>
+	 * <p>Description: 根据主键，获取租户</p>
+	 * @author wkm
+	 * @date 2017年8月15日下午4:02:42
+	 * @version 2.0
 	 * @param tenantId
 	 * @return
-	 * @throws Exception: 
-	 * @author: wkm
-	 * @Create date: 2017年8月11日下午4:47:19
+	 * @throws Exception
+	 * @see com.compass.examination.core.service.tenant.ITenantService#getTenantById(java.lang.Long)
 	 */
 	@Override
 	public Tenant getTenantById(Long tenantId) throws Exception {

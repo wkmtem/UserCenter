@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * @Class Name: UserTokenAnnotation
- * @Description: 自定义注解，AOP拦截用户登录
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月14日下午5:52:20
- * @version: 2.0
+ * <p>Class Name: UserTokenAnnotation</p>
+ * <p>Description: 自定义注解，AOP拦截用户登录</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:15:36
+ * @version 2.0
  */
 @Target({ElementType.PARAMETER, ElementType.METHOD})    
 @Retention(RetentionPolicy.RUNTIME)    

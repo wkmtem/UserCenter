@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 /**
  * 
- * @Class Name: RegisterInfoVO
- * @Description: 注册信息
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年8月9日下午4:05:53
- * @version: 2.0
+ * <p>Class Name: SignupInfoVO</p>
+ * <p>Description: 注册信息类</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午4:09:54
+ * @version 2.0
  */
-public class RegisterInfoVO implements Serializable{
+public class SignupInfoVO implements Serializable{
 
 	/** serialVersionUID*/
 	private static final long serialVersionUID = 1211093098967237960L;
@@ -55,7 +55,7 @@ public class RegisterInfoVO implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "RegisterInfoVO [account=" + account + ", tenantName="
+		return "SignupInfoVO [account=" + account + ", tenantName="
 				+ tenantName + ", username=" + username + ", password="
 				+ password + ", email=" + email + "]";
 	}

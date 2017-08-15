@@ -7,12 +7,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * 
- * @Class Name: SpringJunitTest
- * @Description: 测试共公类，可配置多个注入配置文件，任意注入所需的bean
- * @author: wkmtem
- * @Company: www.compass.com
- * @Create date: 2016-10-13下午5:34:21
- * @version: 2.0
+ * <p>Class Name: SpringJunitTest</p>
+ * <p>Description: 测试共公类，可配置多个注入配置文件，任意注入所需的bean</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日下午3:15:48
+ * @version 2.0
  */
 @RunWith(SpringJUnit4ClassRunner.class) // spring提供，结合junit
 @WebAppConfiguration

@@ -20,16 +20,16 @@ import com.compass.examination.pojo.bo.ResultBO;
 import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.User;
-import com.compass.examination.pojo.vo.RegisterInfoVO;
+import com.compass.examination.pojo.vo.SignupInfoVO;
 
 /**
  * 
- * @Class Name: SignupController
- * @Description: 租户注册
- * @author: wkm
- * @Company: www.compass.com
- * @Create date: 2017年7月28日下午5:46:05
- * @version: 2.0
+ * <p>Class Name: SignupController</p>
+ * <p>Description: 租户注册</p>
+ * <p>Company: www.compass.com</p> 
+ * @author wkm
+ * @date 2017年8月15日上午10:57:23
+ * @version 2.0
  */
 @Controller
 @RequestMapping(value = "/signup")
@@ -45,15 +45,14 @@ public class SignupController {
 	
 	/**
 	 * 
-	 * @Method Name: isExistAccount
-	 * @Description: 租户账号是否存在
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年7月28日下午5:46:23
-	 * @param account
-	 * @return
-	 * @throws Exception:
+	 * <p>Method Name: isExistAccount</p>
+	 * <p>Description: 租户账号是否存在</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午10:57:40
+	 * @version 2.0
+	 * @param account 租户账号
+	 * @return resultBO(code[1, 0], msg[str], info[boolean:存在:ture, 不存在:false])
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/isExistAccount", method = RequestMethod.GET)
 	@LogExceController(name = "租户账号是否存在")
@@ -71,29 +70,28 @@ public class SignupController {
 	
 	/**
 	 * "注册租户账号"与"注册管理员账号"同时在"立即注册"中完成！
-	 * @Method Name: tenantRegister
-	 * @Description: 注册租户账号
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月9日下午2:41:04
-	 * @param registerInfoVO
-	 * @return 返回散列盐
-	 * @throws Exception:
+	 * <p>Method Name: tenantSignup</p>
+	 * <p>Description: 注册租户账号</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午11:00:53
+	 * @version 2.0
+	 * @param signupInfoVO(account 租户账号, tenantName 租户名称)
+	 * @return resultBO(code[1, 0], msg[str], info[str:salt])
+	 * @throws Exception
 	 */
-	@RequestMapping(value = "/tenantRegister", method = RequestMethod.GET)
+	@RequestMapping(value = "/tenantSignup", method = RequestMethod.GET)
 	@LogExceController(name = "注册租户账号")
 	@ResponseBody
-	public ResultBO tenantRegister(RegisterInfoVO registerInfoVO) throws Exception {
+	public ResultBO tenantSignup(SignupInfoVO signupInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(registerInfoVO.getAccount())) {
+		if (StringUtils.isBlank(signupInfoVO.getAccount())) {
 			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
-		if (StringUtils.isBlank(registerInfoVO.getTenantName())) {
+		if (StringUtils.isBlank(signupInfoVO.getTenantName())) {
 			return ResultBO.empty(ErrorMsgEnum.EM02.value); // 企业名称不能为空
 		}
 		
-		String salt = tenantService.tenantRegister(registerInfoVO);
+		String salt = tenantService.tenantSignup(signupInfoVO);
 		if (StringUtils.isNotBlank(salt)) {
 			if (salt.contains(RetCodeEnum.FAILED.value)) {
 				return ResultBO.fail(ErrorMsgEnum.EM20.value); // 企业账号已存在
@@ -106,42 +104,37 @@ public class SignupController {
 	
 	/** 
 	 * 
-	 * @Method Name: userRegister
-	 * @Description: 注册管理员账号
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月9日下午12:47:11
-	 * @param account
-	 * @param tenantName
-	 * @param username
-	 * @param password
-	 * @param email
-	 * @return
-	 * @throws Exception:
+	 * <p>Method Name: userSignup</p>
+	 * <p>Description: 注册管理员账号</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午11:02:55
+	 * @version 2.0
+	 * @param signupInfoVO(account 租户账号, username 用户账号, password 密码, email 邮箱)
+	 * @return resultBO(code[1, 0], msg[str], info[boolean:成功:ture, 失败:false])
+	 * @throws Exception
 	 */
-	@RequestMapping(value = "/userRegister", method = RequestMethod.GET)
+	@RequestMapping(value = "/userSignup", method = RequestMethod.GET)
 	@LogExceController(name = "注册管理员账号")
 	@ResponseBody
-	public ResultBO register(RegisterInfoVO registerInfoVO) throws Exception {
+	public ResultBO userSignup(SignupInfoVO signupInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(registerInfoVO.getAccount())) {
+		if (StringUtils.isBlank(signupInfoVO.getAccount())) {
 			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
-		if (StringUtils.isBlank(registerInfoVO.getUsername())) {
+		if (StringUtils.isBlank(signupInfoVO.getUsername())) {
 			return ResultBO.empty(ErrorMsgEnum.EM06.value); // 用户名不能为空
 		}
-		if (StringUtils.isBlank(registerInfoVO.getPassword())) {
+		if (StringUtils.isBlank(signupInfoVO.getPassword())) {
 			return ResultBO.empty(ErrorMsgEnum.EM08.value); // 密码不能为空
 		}
-		if (StringUtils.isBlank(registerInfoVO.getEmail())) {
+		if (StringUtils.isBlank(signupInfoVO.getEmail())) {
 			return ResultBO.empty(ErrorMsgEnum.EM13.value); // 电子邮箱不能为空
 		}
-		if (!Regex.checkEmail(registerInfoVO.getEmail())) {
+		if (!Regex.checkEmail(signupInfoVO.getEmail())) {
 			return ResultBO.fail(ErrorMsgEnum.EM14.value); // 电子邮箱格式错误
 		}
 		
-		boolean bool = userService.userRegister(registerInfoVO);
+		boolean bool = userService.userSignup(signupInfoVO);
 		if (bool) {
 			return ResultBO.ok(bool);
 		}
@@ -151,16 +144,15 @@ public class SignupController {
 	
 	/**
 	 * 
-	 * @Method Name: validateActiveCode
-	 * @Description: 验证邮箱激活码
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月11日下午2:31:24
-	 * @param tenantId
-	 * @param activeMD5
-	 * @return
-	 * @throws Exception:
+	 * <p>Method Name: validateActiveCode</p>
+	 * <p>Description: 验证邮箱激活码</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午11:05:31
+	 * @version 2.0
+	 * @param tenantId 租户ID 
+	 * @param activeMD5 MD5验证码
+	 * @return resultBO(code[1, 0], msg[str], info[null])
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/validateActiveCode", method = RequestMethod.GET)
 	@LogExceController(name = "验证邮箱激活码")
@@ -207,16 +199,14 @@ public class SignupController {
 	
 	/**
 	 * 
-	 * @Method Name: singleSendActiveMail
-	 * @Description: 发送激活码邮件
-	 * @params:
-	 * @author: wkm
-	 * @version: 2.0
-	 * @Create date: 2017年8月11日下午2:51:47
-	 * @param tenantId
-	 * @param activeMD5
-	 * @return
-	 * @throws Exception:
+	 * <p>Method Name: singleSendActiveMail</p>
+	 * <p>Description: 发送激活码邮件</p>
+	 * @author wkm
+	 * @date 2017年8月15日上午11:08:03
+	 * @version 2.0
+	 * @param account 租户账号
+	 * @return resultBO(code[1, 0], msg[str], info[null])
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.GET)
 	@LogExceController(name = "发送激活码邮件")
