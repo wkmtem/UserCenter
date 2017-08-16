@@ -208,6 +208,17 @@
         <artifactId>aliyun-java-sdk-dm</artifactId>
       </dependency>
       
+      <!-- jsp -->
+      <dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>jsp-api</artifactId>
+	  </dependency>
+	  <!-- jstl -->
+	  <dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+	  </dependency>
+      
       <!-- compass -->
       <dependency>
       	<groupId>com.compass</groupId>

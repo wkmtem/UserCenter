@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<input id="hide_flag" type="hide">
+	<input id="hide_flag" type="hidden" value="${flag}">
 	<div class="register">
 		<div class="register-header clearfix">
 			<div class="register-leftb"></div>
@@ -50,16 +50,24 @@
 	</div>
 </body>
 <script type="text/javascript">
+$(function(){
+	$(".register-success").hide();
+	$(".register-fail").hide();
+	$(".form-cont register-again").hide();
+	
 	var flag = $("#hide_flag").val();
 	if(flag === "EM27"){ // 激活成功
+		alert("激活成功");
 		$(".register-success").show();
+	} else if (flag === "EM28") { // 激活失败
+		alert("激活失败");
 		$(".register-fail").hide();
 		$(".form-cont register-again").hide();
-	} else if (flag === "EM28") { // 激活失败
-		
 	} else { // 激活超时
-		
+		alert("激活超时");
+		$(".register-fail").hide();
 	}
+});
 </script>
 
 </html>

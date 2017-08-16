@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.compass.common.constructor.LinkedMapCustom;
 import com.compass.common.enums.ErrorMsgEnum;
 import com.compass.common.uuid.UUIDBuild;
+import com.compass.examination.constant.MailTemplate;
 import com.compass.examination.core.dao.mapper.UserMapper;
 import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
@@ -69,6 +70,7 @@ public class UserServiceImpl implements IUserService {
 			return false;
 		}
 		Long tenantId = tenantPO.getId();
+		Date gmtCreate = tenantPO.getGmtCreate();
 		
 		// 获取邮箱验证对象
 		EmailValidation emailValidationPO = 
@@ -94,8 +96,14 @@ public class UserServiceImpl implements IUserService {
 			tenantPO.setId(tenantId);
 			tenantPO.setAdminUserId(id);
 			tenantService.updateTenant(tenantPO);
+			
+			String activeLink = "tenantId=" + emailValidationPO.getTenantId() +"&activeCode=" + 
+					emailValidationPO.getActiveCode() + "&expireStamp=" + 
+					emailValidationPO.getExpireStamp();
+			String mailBody = MailTemplate.getMailInnerHtml(gmtCreate, 
+					userPO.getEmail(), signupInfoVO.getAccount(), activeLink);
 			// 发送邮件
-			emailValidService.singleSendActiveMail(emailValidationPO.getId(), signupInfoVO.getEmail());
+			emailValidService.singleSendActiveMail(signupInfoVO.getEmail(), mailBody);
 			return true;
 		}
 		return false;

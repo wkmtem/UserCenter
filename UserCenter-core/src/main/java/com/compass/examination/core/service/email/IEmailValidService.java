@@ -1,7 +1,5 @@
 package com.compass.examination.core.service.email;
 
-import org.apache.http.HttpRequest;
-
 import com.compass.examination.pojo.po.EmailValidation;
 
 /**
@@ -49,22 +47,22 @@ public interface IEmailValidService {
 	 * @date 2017年8月15日下午3:56:02
 	 * @version 2.0
 	 * @param tenantId 租户id
-	 * @return 邮箱验证对象id
+	 * @return 邮箱验证对象
 	 * @throws Exception
 	 */
-	Long insertOrUpdateEmailValidation(Long tenantId) throws Exception;
+	EmailValidation insertOrUpdateEmailValidation(Long tenantId) throws Exception;
 	
 	/**
 	 * 
 	 * <p>Method Name: singleSendActiveMail</p>
-	 * <p>Description: 根据邮箱验证对象id，邮箱，发送单封激活邮件</p>
+	 * <p>Description: 发送单封激活邮件</p>
 	 * @author wkm
 	 * @date 2017年8月15日下午3:57:03
 	 * @version 2.0
-	 * @param validId 邮箱验证对象id
 	 * @param email 邮箱
+	 * @param mailBody 邮件正文
 	 * @return 邮件推送唯一识别码RequestId
 	 * @throws Exception
 	 */
-	String singleSendActiveMail(Long validId, String email) throws Exception;
+	String singleSendActiveMail(String email, String mailBody) throws Exception;
 }

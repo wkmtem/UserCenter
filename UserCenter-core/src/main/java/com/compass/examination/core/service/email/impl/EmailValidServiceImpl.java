@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.common.algorithm.MD5;
 import com.compass.common.algorithm.RandomCode;
-import com.compass.common.http.HttpRequest;
 import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.EmailValidationMapper;
@@ -99,7 +98,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	 * @see com.compass.examination.core.service.email.IEmailValidService#insertOrUpdateEmailValidation(java.lang.Long)
 	 */
 	@Override
-	public Long insertOrUpdateEmailValidation(Long tenantId) throws Exception {
+	public EmailValidation insertOrUpdateEmailValidation(Long tenantId) throws Exception {
 		boolean flag = false;
 		Date date = new Date();
 		byte[] genChances = {1, 1, 1}; 
@@ -123,27 +122,25 @@ public class EmailValidServiceImpl implements IEmailValidService {
 		} else {
 			emailValidationMapper.updateByPrimaryKeySelective(emailValidationPO);
 		}
-		return emailValidationPO.getId();
+		return emailValidationPO;
 	}
 	
 	
 	/**
 	 * （非 Javadoc）
 	 * <p>Method Name: singleSendActiveMail</p>
-	 * <p>Description: 根据邮箱验证对象id，邮箱，发送单封激活邮件</p>
+	 * <p>Description: 发送单封激活邮件</p>
 	 * @author wkm
 	 * @date 2017年8月15日下午3:59:33
 	 * @version 2.0
-	 * @param validId
 	 * @param email
+	 * @param mailBody
 	 * @return
 	 * @throws Exception
 	 * @see com.compass.examination.core.service.email.IEmailValidService#singleSendActiveMail(java.lang.Long, java.lang.String)
 	 */
 	@Override
-	public String singleSendActiveMail(Long validId, String email) throws Exception {
-		
-		EmailValidation emailValidationPO = emailValidationMapper.selectByPrimaryKey(validId);
+	public String singleSendActiveMail(String email, String mailBody) throws Exception {
 		
 		/** 发送邮件
 		 *	1.发送邮件包含：激活成功页URL，拼接租户id，激活码原码，有效时间
@@ -152,13 +149,8 @@ public class EmailValidServiceImpl implements IEmailValidService {
 		 */
  		SendEmailInfoVO sendEmailInfoVO = new SendEmailInfoVO();
  		sendEmailInfoVO.setToAddress(email);
- 		// TODO htmlContent
- 		sendEmailInfoVO.setHtmlBody(
- 				"<html>" + new HttpRequest().getBaseURL() + "?" 
- 						+ emailValidationPO.getTenantId() +"&" 
- 						+ emailValidationPO.getActiveCode() + "&" 
- 						+ emailValidationPO.getExpireStamp() + "</html>"); // 邮件 html 正文
- 		sendEmailInfoVO.setTextBody("textBody"); // 邮件 text 正文
+ 		sendEmailInfoVO.setHtmlBody(mailBody); // 邮件 html 正文
+ 		//sendEmailInfoVO.setTextBody("textBody"); // 邮件 text 正文
  		return EmailUtil.singleSendMail(sendEmailInfoVO);
 	}
 }

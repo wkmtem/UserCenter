@@ -14,6 +14,7 @@ import com.compass.common.algorithm.MD5;
 import com.compass.common.enums.ErrorMsgEnum;
 import com.compass.common.enums.RetCodeEnum;
 import com.compass.examination.annotation.LogExceController;
+import com.compass.examination.constant.MailTemplate;
 import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
@@ -43,7 +44,20 @@ public class MailController {
 	private IEmailValidService emailValidService;
 	
 	
-	
+	/**
+	 * 
+	 * <p>Method Name: showActiveInfo</p>
+	 * <p>Description: 跳转邮件激活信息页面</p>
+	 * @author wkm
+	 * @date 2017年8月17日上午12:10:27
+	 * @version 2.0
+	 * @param tenantId
+	 * @param activeCode
+	 * @param expireStamp
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/showActiveInfo", method = RequestMethod.GET)
 	@LogExceController(name = "跳转邮件激活信息页面")
 	public String showActiveInfo(Long tenantId, String activeCode, Long expireStamp, Model model) throws Exception {
@@ -83,7 +97,6 @@ public class MailController {
 		} else {
 			model.addAttribute("flag", ErrorMsgEnum.EM29.code); // 激活超时
 		}
-
 		return "mail/active_mail";
 	}
 	
@@ -163,24 +176,31 @@ public class MailController {
 			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
 		
-		Tenant tenant = tenantService.getTenantByAccount(account);
-		if (null == tenant) {
+		Tenant tenantPO = tenantService.getTenantByAccount(account);
+		if (null == tenantPO) {
 			return ResultBO.fail(ErrorMsgEnum.EM03.value); // 企业账号不存在
 		}
 		
-		Long adminId = tenant.getAdminUserId();
+		Long adminId = tenantPO.getAdminUserId();
 		if (null == adminId) {
 			return ResultBO.fail(ErrorMsgEnum.EM21.value); // 未设置管理员账号
 		}
-		User user = userService.getUserById(adminId);
-		if (null == user) {
+		User userPO = userService.getUserById(adminId);
+		if (null == userPO) {
 			return ResultBO.fail(ErrorMsgEnum.EM22.value); // 用户账号不存在
 		}
 		
 		// 创建邮件激活码
-		Long validId = emailValidService.insertOrUpdateEmailValidation(tenant.getId());
+		EmailValidation emailValidationPO = 
+				emailValidService.insertOrUpdateEmailValidation(tenantPO.getId());
+			
+		String activeLink = "tenantId=" + emailValidationPO.getTenantId() +"&activeCode=" + 
+				emailValidationPO.getActiveCode() + "&expireStamp=" + 
+				emailValidationPO.getExpireStamp();
+		String mailBody = MailTemplate.getMailInnerHtml(tenantPO.getGmtCreate(), 
+							userPO.getEmail(), tenantPO.getAccount(), activeLink);
 		// 发送邮件
-		emailValidService.singleSendActiveMail(validId, user.getEmail());
+		emailValidService.singleSendActiveMail(userPO.getEmail(), mailBody);
 		return ResultBO.ok();
 	}
 
