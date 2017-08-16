@@ -134,7 +134,7 @@ public class ValidUserAspect {
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户登录超时");
 			}
-			return ResultBO.fail(ErrorMsgEnum.EM28.value); // 用户登录超时
+			return ResultBO.fail(ErrorMsgEnum.EM26.value); // 用户登录超时
 		}
 		
 		// 拷贝实参对象

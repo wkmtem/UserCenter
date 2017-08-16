@@ -1,7 +1,5 @@
 package com.compass.examination.core.controller.signup;
 
-import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +11,9 @@ import com.compass.common.enums.ErrorMsgEnum;
 import com.compass.common.enums.RetCodeEnum;
 import com.compass.common.validation.Regex;
 import com.compass.examination.annotation.LogExceController;
-import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.bo.ResultBO;
-import com.compass.examination.pojo.po.EmailValidation;
-import com.compass.examination.pojo.po.Tenant;
-import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.vo.SignupInfoVO;
 
 /**
@@ -39,8 +33,6 @@ public class SignupController {
 	private ITenantService tenantService;
 	@Autowired
 	private IUserService userService;
-	@Autowired
-	private IEmailValidService emailValidService;
 	
 	
 	/**
@@ -63,7 +55,7 @@ public class SignupController {
 			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
 		
-		boolean isExist = tenantService.isExistAccount(account);
+		boolean isExist = tenantService.isExistAccount(account.toLowerCase());
 		return ResultBO.ok(isExist);
 	}
 	
@@ -91,6 +83,8 @@ public class SignupController {
 			return ResultBO.empty(ErrorMsgEnum.EM02.value); // 企业名称不能为空
 		}
 		
+		// 转小写
+		signupInfoVO.setAccount(signupInfoVO.getAccount().toLowerCase());
 		String salt = tenantService.tenantSignup(signupInfoVO);
 		if (StringUtils.isNotBlank(salt)) {
 			if (salt.contains(RetCodeEnum.FAILED.value)) {
@@ -134,6 +128,8 @@ public class SignupController {
 			return ResultBO.fail(ErrorMsgEnum.EM14.value); // 电子邮箱格式错误
 		}
 		
+		// 转小写
+		signupInfoVO.setAccount(signupInfoVO.getAccount().toLowerCase());
 		boolean bool = userService.userSignup(signupInfoVO);
 		if (bool) {
 			return ResultBO.ok(bool);
@@ -141,101 +137,4 @@ public class SignupController {
 		return ResultBO.fail(ErrorMsgEnum.EM10.value); // 用户注册失败
 	}
 	
-	
-	/**
-	 * 
-	 * <p>Method Name: validateActiveCode</p>
-	 * <p>Description: 验证邮箱激活码</p>
-	 * @author wkm
-	 * @date 2017年8月15日上午11:05:31
-	 * @version 2.0
-	 * @param tenantId 租户ID 
-	 * @param activeMD5 MD5验证码
-	 * @return resultBO(code[1, 0], msg[str], info[null])
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/validateActiveCode", method = RequestMethod.POST)
-	@LogExceController(name = "验证邮箱激活码")
-	@ResponseBody
-	public ResultBO validateActiveCode(Long tenantId, String activeMD5) throws Exception {
-		 
-		if (null == tenantId) {
-			return ResultBO.empty(ErrorMsgEnum.EM15.value); // 租户ID不能为空
-		}
-		if (StringUtils.isBlank(activeMD5)) {
-			return ResultBO.empty(ErrorMsgEnum.EM16.value); // MD5激活码不能为空
-		}
-		
-		Tenant tenant = tenantService.getTenantById(tenantId);
-		EmailValidation emailValidation = 
-				emailValidService.getEmailValidationByTenantId(tenantId);
-		if (null == tenant || null == emailValidation) {
-			return ResultBO.empty(ErrorMsgEnum.EM17.value); // 无效企业ID，或企业尚未注册
-		}
-		// 当前时间 > 过期时间 = 过期
-		if (System.currentTimeMillis() > emailValidation.getExpireStamp()) {
-			return ResultBO.fail(ErrorMsgEnum.EM18.value); // 激活码已过期
-		}
-		
-		Date date = new Date();
-		// 验证成功
-		if (emailValidation.getActiveMd5().equals(activeMD5)) {
-			// 抹掉激活码更新修改时间
-			emailValidation.setActiveCode(RetCodeEnum.SUCCEEDED.value);
-			emailValidation.setActiveMd5(RetCodeEnum.SUCCEEDED.value);
-			emailValidation.setGmtModified(date);
-			emailValidService.updateEmailValidation(emailValidation);
-			// 激活租户账户
-			Tenant updateTenant = new Tenant();
-			updateTenant.setId(tenantId);
-			updateTenant.setState(true);// 激活
-			updateTenant.setActiveStamp(date.getTime());
-			tenantService.updateTenant(updateTenant);
-			return ResultBO.ok();
-		}
-		return ResultBO.fail(ErrorMsgEnum.EM19.value); // 激活码错误
-	}
-	
-	
-	/**
-	 * 
-	 * <p>Method Name: singleSendActiveMail</p>
-	 * <p>Description: 发送激活码邮件</p>
-	 * @author wkm
-	 * @date 2017年8月15日上午11:08:03
-	 * @version 2.0
-	 * @param account 租户账号
-	 * @return resultBO(code[1, 0], msg[str], info[null])
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.POST)
-	@LogExceController(name = "发送激活码邮件")
-	@ResponseBody
-	public ResultBO singleSendActiveMail(String account) throws Exception {
-		
-		if (StringUtils.isBlank(account)) {
-			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
-		}
-		
-		Tenant tenant = tenantService.getTenantByAccount(account);
-		if (null == tenant) {
-			return ResultBO.fail(ErrorMsgEnum.EM03.value); // 企业账号不存在
-		}
-		
-		Long adminId = tenant.getAdminUserId();
-		if (null == adminId) {
-			return ResultBO.fail(ErrorMsgEnum.EM21.value); // 未设置管理员账号
-		}
-		User user = userService.getUserById(adminId);
-		if (null == user) {
-			return ResultBO.fail(ErrorMsgEnum.EM22.value); // 用户账号不存在
-		}
-		
-		// 创建邮件激活码
-		Long validId = emailValidService.insertOrUpdateEmailValidation(tenant.getId());
-		// 发送邮件
-		emailValidService.singleSendActiveMail(validId, user.getEmail());
-		return ResultBO.ok();
-	}
-
 }

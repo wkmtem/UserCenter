@@ -104,8 +104,6 @@
 	<!-- 可访问资源（过滤对指定路径不使用Spring MVC解释器）-->
     <mvc:resources mapping="/images/**" location="/images/" />
     <mvc:resources mapping="/js/**" location="/js/" />
-    <mvc:resources mapping="/styles/**" location="/styles/" />
     <mvc:resources mapping="/css/**" location="/css/" />
-    <mvc:resources mapping="/mpeg/**" location="/mpeg/" />
     
 </beans>

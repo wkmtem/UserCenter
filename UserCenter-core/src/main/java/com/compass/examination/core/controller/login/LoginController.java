@@ -53,7 +53,7 @@ public class LoginController {
 			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
 		}
 		
-		String salt = tenantService.getSaltByAccount(account);
+		String salt = tenantService.getSaltByAccount(account.toLowerCase());
 		if (StringUtils.isNotBlank(salt)) {
 			if (salt.contains(RetCodeEnum.FAILED.value)) {
 				return ResultBO.fail(ErrorMsgEnum.EM04.value); // 企业账号尚未激活
@@ -91,6 +91,6 @@ public class LoginController {
 		if (StringUtils.isBlank(password)) {
 			return ResultBO.empty(ErrorMsgEnum.EM08.value); // 密码不能为空
 		}
-		return userService.login(account, username, password);
+		return userService.login(account.toLowerCase(), username, password);
 	}
 }

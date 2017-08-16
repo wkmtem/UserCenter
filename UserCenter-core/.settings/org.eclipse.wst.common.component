@@ -7,9 +7,6 @@
         <dependent-module archiveName="UserCenter-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/UserCenter-api/UserCenter-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="commons-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commons/commons">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="UserCenter-core"/>
         <property name="java-output-path" value="/UserCenter-core/target/classes"/>
     </wb-module>
