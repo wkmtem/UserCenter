@@ -2,8 +2,6 @@ package com.compass.examination.core.component.aspect;
 
 import java.lang.reflect.Method;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,10 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.compass.common.enums.ErrorMsgEnum;
+import com.compass.common.http.HttpRequest;
 import com.compass.examination.annotation.UserTokenAnnotation;
 import com.compass.examination.constant.SysConstant;
 import com.compass.examination.core.service.user.IUserService;
@@ -69,9 +66,7 @@ public class ValidUserAspect {
 		String token = null;
 		
 		Object[] args = joinPoint.getArgs();// 目标类参数
-		HttpServletRequest request = 
-				((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		String ip = request.getRemoteAddr();// 请求的IP
+		String ip = new HttpRequest().getRemoteAddr();// 请求的IP
 		if(logger.isInfoEnabled()){
 			logger.info("IP: [" + ip + "]目标Controller方法描述: " + getUserTokenAnnotationMethodName(joinPoint));
 		}

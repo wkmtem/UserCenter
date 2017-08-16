@@ -54,7 +54,7 @@ public class SystemController {
 	@RequestMapping(value = "/getCurrentTime", method = RequestMethod.GET)
 	@LogExceController(name = "获取当前时间")
 	@ResponseBody
-	public ResultBO getCurrentTime() throws Exception {
+	public ResultBO getCurrentTime() throws Exception {		
 		return ResultBO.ok(new Date());
 	}
 	

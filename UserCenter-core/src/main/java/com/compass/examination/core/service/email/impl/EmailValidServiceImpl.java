@@ -3,20 +3,16 @@ package com.compass.examination.core.service.email.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.compass.common.algorithm.MD5;
 import com.compass.common.algorithm.RandomCode;
+import com.compass.common.http.HttpRequest;
 import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.EmailValidationMapper;
@@ -149,11 +145,6 @@ public class EmailValidServiceImpl implements IEmailValidService {
 		
 		EmailValidation emailValidationPO = emailValidationMapper.selectByPrimaryKey(validId);
 		
-		// 返回了RequestAttributes接口,将其强转为ServletRequestAttributes实现类
-		HttpServletRequest request = 
-				((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest();
-		StringBuffer requestURL = request.getRequestURL();
-		
 		/** 发送邮件
 		 *	1.发送邮件包含：激活成功页URL，拼接租户id，激活码原码，有效时间
 		 *	2.点击URL，跳转成功页，Load事件捕获参数，访问激活接口，提交租户id与MD5后的激活码
@@ -163,7 +154,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
  		sendEmailInfoVO.setToAddress(email);
  		// TODO htmlContent
  		sendEmailInfoVO.setHtmlBody(
- 				"<html>http://www.baidu.com?" 
+ 				"<html>" + new HttpRequest().getBaseURL() + "?" 
  						+ emailValidationPO.getTenantId() +"&" 
  						+ emailValidationPO.getActiveCode() + "&" 
  						+ emailValidationPO.getExpireStamp() + "</html>"); // 邮件 html 正文

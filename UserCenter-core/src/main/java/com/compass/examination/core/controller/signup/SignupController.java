@@ -54,7 +54,7 @@ public class SignupController {
 	 * @return resultBO(code[1, 0], msg[str], info[boolean:存在:ture, 不存在:false])
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/isExistAccount", method = RequestMethod.GET)
+	@RequestMapping(value = "/isExistAccount", method = RequestMethod.POST)
 	@LogExceController(name = "租户账号是否存在")
 	@ResponseBody
 	public ResultBO isExistAccount(String account) throws Exception {
@@ -208,7 +208,7 @@ public class SignupController {
 	 * @return resultBO(code[1, 0], msg[str], info[null])
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.GET)
+	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.POST)
 	@LogExceController(name = "发送激活码邮件")
 	@ResponseBody
 	public ResultBO singleSendActiveMail(String account) throws Exception {

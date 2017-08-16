@@ -21,6 +21,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.compass.common.constant.Constant;
+import com.compass.common.http.HttpRequest;
 import com.compass.common.json.JsonMapper;
 import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.annotation.LogExceService;
@@ -93,12 +94,9 @@ public class SysLogExceptionAspect {
 		String serviceMthodName = null;
 		DateFormat dateFormat = new SimpleDateFormat(Constant.DATE_FORMAT_DATETIME);
 		String currentDateTime = dateFormat.format(new Date());
-		
-		HttpServletRequest request = 
-				((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
 		// 请求的IP
-		String requestIp = request.getRemoteAddr();
+		String requestIp = new HttpRequest().getRemoteAddr();
 		// 目标类
 		String targetClassName = joinPoint.getTarget().getClass().getName();
 		// 连接点名称
