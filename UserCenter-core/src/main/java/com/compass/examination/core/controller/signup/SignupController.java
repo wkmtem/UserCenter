@@ -79,7 +79,7 @@ public class SignupController {
 	 * @return resultBO(code[1, 0], msg[str], info[str:salt])
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/tenantSignup", method = RequestMethod.GET)
+	@RequestMapping(value = "/tenantSignup", method = RequestMethod.POST)
 	@LogExceController(name = "注册租户账号")
 	@ResponseBody
 	public ResultBO tenantSignup(SignupInfoVO signupInfoVO) throws Exception {
@@ -113,7 +113,7 @@ public class SignupController {
 	 * @return resultBO(code[1, 0], msg[str], info[boolean:成功:ture, 失败:false])
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/userSignup", method = RequestMethod.GET)
+	@RequestMapping(value = "/userSignup", method = RequestMethod.POST)
 	@LogExceController(name = "注册管理员账号")
 	@ResponseBody
 	public ResultBO userSignup(SignupInfoVO signupInfoVO) throws Exception {
@@ -154,7 +154,7 @@ public class SignupController {
 	 * @return resultBO(code[1, 0], msg[str], info[null])
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/validateActiveCode", method = RequestMethod.GET)
+	@RequestMapping(value = "/validateActiveCode", method = RequestMethod.POST)
 	@LogExceController(name = "验证邮箱激活码")
 	@ResponseBody
 	public ResultBO validateActiveCode(Long tenantId, String activeMD5) throws Exception {

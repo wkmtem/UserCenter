@@ -3,12 +3,17 @@ package com.compass.examination.core.service.email.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.compass.common.algorithm.MD5;
 import com.compass.common.algorithm.RandomCode;
@@ -143,6 +148,11 @@ public class EmailValidServiceImpl implements IEmailValidService {
 	public String singleSendActiveMail(Long validId, String email) throws Exception {
 		
 		EmailValidation emailValidationPO = emailValidationMapper.selectByPrimaryKey(validId);
+		
+		// 返回了RequestAttributes接口,将其强转为ServletRequestAttributes实现类
+		HttpServletRequest request = 
+				((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest();
+		StringBuffer requestURL = request.getRequestURL();
 		
 		/** 发送邮件
 		 *	1.发送邮件包含：激活成功页URL，拼接租户id，激活码原码，有效时间

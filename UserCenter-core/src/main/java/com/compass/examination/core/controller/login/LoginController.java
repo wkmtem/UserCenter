@@ -35,7 +35,7 @@ public class LoginController {
 	
 	/**
 	 * 
-	 * <p>Method Name: getSaltByTenantAcc</p>
+	 * <p>Method Name: getSaltByAccount</p>
 	 * <p>Description: 根据租户账号，获取散列盐</p>
 	 * @author wkm
 	 * @date 2017年8月15日上午11:19:16
@@ -44,10 +44,10 @@ public class LoginController {
 	 * @return resultBO(code[1, 0], msg[str], info[str:salt])
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/getSaltByTenantAcc", method = RequestMethod.GET)
+	@RequestMapping(value = "/getSaltByAccount", method = RequestMethod.POST)
 	@LogExceController(name = "根据租户账号，获取散列盐")
 	@ResponseBody
-	public ResultBO getSaltByTenantAcc(String account) throws Exception {
+	public ResultBO getSaltByAccount(String account) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
 			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
@@ -77,7 +77,7 @@ public class LoginController {
 	 * @return resultBO(code[1, 0], msg[str], info[map:id, nickname, headUrl, token])
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@LogExceController(name = "根据租户账号，用户名登录")
 	@ResponseBody
 	public ResultBO login(String account, String username, String password) throws Exception {

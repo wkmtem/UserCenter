@@ -1,5 +1,7 @@
 package com.compass.examination.core.service.email;
 
+import org.apache.http.HttpRequest;
+
 import com.compass.examination.pojo.po.EmailValidation;
 
 /**
