@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.common.algorithm.MD5;
-import com.compass.common.enums.RetCodeEnum;
+import com.compass.common.enums.StateEnum;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.TenantMapper;
 import com.compass.examination.core.dao.mapper.UserMapper;
@@ -89,7 +89,7 @@ public class TenantServiceImpl implements ITenantService {
 		// 企业账号已存在
 		boolean isExist = this.isExistAccount(signupInfoVO.getAccount());
 		if (isExist) {
-			return RetCodeEnum.FAILED.value;
+			return StateEnum.FAILED.value;
 		}
 		
 		Tenant tenantPO = new Tenant();
@@ -180,7 +180,7 @@ public class TenantServiceImpl implements ITenantService {
 			return tenantPO.getSalt();
 		}
 		// 未激活
-		return RetCodeEnum.FAILED.value;
+		return StateEnum.FAILED.value;
 	}
 	
 	

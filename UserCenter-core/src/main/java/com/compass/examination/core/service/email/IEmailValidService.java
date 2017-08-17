@@ -52,17 +52,4 @@ public interface IEmailValidService {
 	 */
 	EmailValidation insertOrUpdateEmailValidation(Long tenantId) throws Exception;
 	
-	/**
-	 * 
-	 * <p>Method Name: singleSendActiveMail</p>
-	 * <p>Description: 发送单封激活邮件</p>
-	 * @author wkm
-	 * @date 2017年8月15日下午3:57:03
-	 * @version 2.0
-	 * @param email 邮箱
-	 * @param mailBody 邮件正文
-	 * @return 邮件推送唯一识别码RequestId
-	 * @throws Exception
-	 */
-	String singleSendActiveMail(String email, String mailBody) throws Exception;
 }

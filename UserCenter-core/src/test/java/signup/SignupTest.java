@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.compass.common.algorithm.MD5;
 import com.compass.examination.common.junit.SpringJunitTest;
+import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.MailTemplate;
 import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
@@ -52,15 +53,13 @@ public class SignupTest extends SpringJunitTest {
 	@Test
 	public void testSendEmail() throws Exception {
 		SendEmailInfoVO sendEmailInfoVO = new SendEmailInfoVO();
-		sendEmailInfoVO.setToAddress("813272417@qq.com"); // 目标email地址
-		
-		String activeLink = "tenantId=" + "2" +"&activeCode=" + 
-				"14+50201Z_QpZ+15Vc-88-S%9[$0U@D0L:5^|/fVO.Qy_zhi|[:00X5lny_#0264" + "&expireStamp=" + 
-				"1502900307237";
-		String mailBody = MailTemplate.getMailInnerHtml(new Date(), 
-				"813272417@qq.com", "compass", activeLink);
-		// 发送邮件
-		emailValidService.singleSendActiveMail("813272417@qq.com", mailBody);
-		System.out.println(mailBody);
+		sendEmailInfoVO.setTenantId(2L);
+		sendEmailInfoVO.setTenantName("指南证环境科技有限公司");
+		sendEmailInfoVO.setGmtCreate(new Date());
+		sendEmailInfoVO.setActiveCode("14+50201Z_QpZ+15Vc-88-S%9[$0U@D0L:5^|/fVO.Qy_zhi|[:00X5lny_#0264");
+		sendEmailInfoVO.setExpireStamp(1502900307237L);
+		sendEmailInfoVO.setToAddress("813272417@qq.com");
+		EmailUtil.singleSendMail(MailTemplate.getMailInnerHtml(sendEmailInfoVO));
+
 	}
 }

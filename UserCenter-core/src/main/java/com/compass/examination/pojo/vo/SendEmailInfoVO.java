@@ -1,6 +1,7 @@
 package com.compass.examination.pojo.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
@@ -16,10 +17,46 @@ public class SendEmailInfoVO implements Serializable{
 	/** serialVersionUID*/
 	private static final long serialVersionUID = -284975961888604250L;
 	
+	public Long tenantId; // 租户id
+	public String tenantName; // 租户名称
+	public String activeCode; // 激活码
+	public Long expireStamp; // 激活码到期时间戳
+	public Date gmtCreate; // 注册时间
 	public String toAddress; // 必须：目标地址，多个email地址逗号分隔，最多100个
+	
 	public String htmlBody; // 可选：邮件 html 正文
 	public String textBody; // 可选：邮件 text 正文
 	
+	public Long getTenantId() {
+		return tenantId;
+	}
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
+	public String getTenantName() {
+		return tenantName;
+	}
+	public void setTenantName(String tenantName) {
+		this.tenantName = tenantName;
+	}
+	public String getActiveCode() {
+		return activeCode;
+	}
+	public void setActiveCode(String activeCode) {
+		this.activeCode = activeCode;
+	}
+	public Long getExpireStamp() {
+		return expireStamp;
+	}
+	public void setExpireStamp(Long expireStamp) {
+		this.expireStamp = expireStamp;
+	}
+	public Date getGmtCreate() {
+		return gmtCreate;
+	}
+	public void setGmtCreate(Date gmtCreate) {
+		this.gmtCreate = gmtCreate;
+	}
 	public String getToAddress() {
 		return toAddress;
 	}
@@ -41,7 +78,10 @@ public class SendEmailInfoVO implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "SendEmailInfoVO [toAddress=" + toAddress + ", htmlBody="
-				+ htmlBody + ", textBody=" + textBody + "]";
+		return "SendEmailInfoVO [tenantId=" + tenantId + ", tenantName="
+				+ tenantName + ", activeCode=" + activeCode + ", expireStamp="
+				+ expireStamp + ", gmtCreate=" + gmtCreate + ", toAddress="
+				+ toAddress + ", htmlBody=" + htmlBody + ", textBody="
+				+ textBody + "]";
 	}
 }

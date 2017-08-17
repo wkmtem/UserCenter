@@ -12,8 +12,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.common.constructor.LinkedMapCustom;
-import com.compass.common.enums.ErrorMsgEnum;
+import com.compass.common.enums.RetCodeMsgEnum;
 import com.compass.common.uuid.UUIDBuild;
+import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.MailTemplate;
 import com.compass.examination.core.dao.mapper.UserMapper;
 import com.compass.examination.core.service.email.IEmailValidService;
@@ -24,6 +25,7 @@ import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.po.UserExample;
+import com.compass.examination.pojo.vo.SendEmailInfoVO;
 import com.compass.examination.pojo.vo.SignupInfoVO;
 
 /**
@@ -70,7 +72,6 @@ public class UserServiceImpl implements IUserService {
 			return false;
 		}
 		Long tenantId = tenantPO.getId();
-		Date gmtCreate = tenantPO.getGmtCreate();
 		
 		// 获取邮箱验证对象
 		EmailValidation emailValidationPO = 
@@ -97,13 +98,14 @@ public class UserServiceImpl implements IUserService {
 			tenantPO.setAdminUserId(id);
 			tenantService.updateTenant(tenantPO);
 			
-			String activeLink = "tenantId=" + emailValidationPO.getTenantId() +"&activeCode=" + 
-					emailValidationPO.getActiveCode() + "&expireStamp=" + 
-					emailValidationPO.getExpireStamp();
-			String mailBody = MailTemplate.getMailInnerHtml(gmtCreate, 
-					userPO.getEmail(), signupInfoVO.getAccount(), activeLink);
 			// 发送邮件
-			emailValidService.singleSendActiveMail(signupInfoVO.getEmail(), mailBody);
+			SendEmailInfoVO sendEmailInfoVO = new SendEmailInfoVO();
+			sendEmailInfoVO.setTenantId(tenantId);
+			sendEmailInfoVO.setGmtCreate(tenantPO.getGmtCreate());
+			sendEmailInfoVO.setActiveCode(emailValidationPO.getActiveCode());
+			sendEmailInfoVO.setExpireStamp(emailValidationPO.getExpireStamp());
+			sendEmailInfoVO.setToAddress(signupInfoVO.getEmail());
+			EmailUtil.singleSendMail(MailTemplate.getMailInnerHtml(sendEmailInfoVO));
 			return true;
 		}
 		return false;
@@ -153,20 +155,20 @@ public class UserServiceImpl implements IUserService {
 		// 获取租户
 		Tenant tenantPO = tenantService.getTenantByAccount(account);
 		if (null == tenantPO) {
-			return ResultBO.fail(ErrorMsgEnum.EM03.value); // 企业账号不存在
+			return ResultBO.failed(RetCodeMsgEnum.RC002.code, RetCodeMsgEnum.RC002.value); // 企业账号不存在
 		}
 		Boolean state = tenantPO.getState();
 		Long tenantId = tenantPO.getId();
 		
 		// 获取租户状态
 		if (!state) {
-			return ResultBO.fail(ErrorMsgEnum.EM04.value); // 企业账号尚未激活
+			return ResultBO.failed(RetCodeMsgEnum.RC004.code, RetCodeMsgEnum.RC004.value); // 企业账号未激活
 		}
 		
 		// 获取用户
 		User userPO = this.getUserByTenantIdAndUsername(tenantId, username);
 		if (null == userPO) {
-			return ResultBO.fail(ErrorMsgEnum.EM07.value); // 用户名不存在
+			return ResultBO.failed(RetCodeMsgEnum.RC013.code, RetCodeMsgEnum.RC013.value); // 用户账号不存在
 		}
 		Boolean enabled = userPO.getEnabled();
 		Boolean deleted = userPO.getDeleted();
@@ -174,13 +176,13 @@ public class UserServiceImpl implements IUserService {
 		
 		// 判断状态
 		if (deleted) {
-			return ResultBO.fail(ErrorMsgEnum.EM11.value); // 用户账号已删除
+			return ResultBO.failed(RetCodeMsgEnum.RC016.code, RetCodeMsgEnum.RC016.value); // 用户账号已删除
 		}
 		if (!enabled) {
-			return ResultBO.fail(ErrorMsgEnum.EM12.value); // 用户账号已停用
+			return ResultBO.failed(RetCodeMsgEnum.RC017.code, RetCodeMsgEnum.RC017.value); // 用户账号已停用
 		}
 		if (!dbPwd.equals(password)) {
-			return ResultBO.fail(ErrorMsgEnum.EM09.value); // 密码错误
+			return ResultBO.failed(RetCodeMsgEnum.RC023.code, RetCodeMsgEnum.RC023.value); // 密码错误
 		}
 		
 		// 创建token
@@ -200,7 +202,7 @@ public class UserServiceImpl implements IUserService {
 				.put("token", token)
 				.builder();
 		
-		return ResultBO.ok(map);
+		return ResultBO.succeeded(map);
 	}
 	
 	

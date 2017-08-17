@@ -12,14 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.common.algorithm.MD5;
 import com.compass.common.algorithm.RandomCode;
-import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.AliConstant;
 import com.compass.examination.core.dao.mapper.EmailValidationMapper;
 import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.po.EmailValidationExample;
-import com.compass.examination.pojo.vo.SendEmailInfoVO;
 
 /**
  * 
@@ -124,33 +122,5 @@ public class EmailValidServiceImpl implements IEmailValidService {
 		}
 		return emailValidationPO;
 	}
-	
-	
-	/**
-	 * （非 Javadoc）
-	 * <p>Method Name: singleSendActiveMail</p>
-	 * <p>Description: 发送单封激活邮件</p>
-	 * @author wkm
-	 * @date 2017年8月15日下午3:59:33
-	 * @version 2.0
-	 * @param email
-	 * @param mailBody
-	 * @return
-	 * @throws Exception
-	 * @see com.compass.examination.core.service.email.IEmailValidService#singleSendActiveMail(java.lang.Long, java.lang.String)
-	 */
-	@Override
-	public String singleSendActiveMail(String email, String mailBody) throws Exception {
-		
-		/** 发送邮件
-		 *	1.发送邮件包含：激活成功页URL，拼接租户id，激活码原码，有效时间
-		 *	2.点击URL，跳转成功页，Load事件捕获参数，访问激活接口，提交租户id与MD5后的激活码
-		 *	3.后台验证成功，并设置新的随机数更新，此时在点击以前链接时，已失效
-		 */
- 		SendEmailInfoVO sendEmailInfoVO = new SendEmailInfoVO();
- 		sendEmailInfoVO.setToAddress(email);
- 		sendEmailInfoVO.setHtmlBody(mailBody); // 邮件 html 正文
- 		//sendEmailInfoVO.setTextBody("textBody"); // 邮件 text 正文
- 		return EmailUtil.singleSendMail(sendEmailInfoVO);
-	}
+
 }

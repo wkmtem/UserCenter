@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compass.common.enums.ErrorMsgEnum;
-import com.compass.common.enums.RetCodeEnum;
+import com.compass.common.enums.RetCodeMsgEnum;
+import com.compass.common.enums.StateEnum;
 import com.compass.common.validation.Regex;
 import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.core.service.tenant.ITenantService;
@@ -52,11 +52,11 @@ public class SignupController {
 	public ResultBO isExistAccount(String account) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
-			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
 		}
 		
 		boolean isExist = tenantService.isExistAccount(account.toLowerCase());
-		return ResultBO.ok(isExist);
+		return ResultBO.succeeded(isExist);
 	}
 	
 	
@@ -77,22 +77,22 @@ public class SignupController {
 	public ResultBO tenantSignup(SignupInfoVO signupInfoVO) throws Exception {
 		
 		if (StringUtils.isBlank(signupInfoVO.getAccount())) {
-			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
 		}
 		if (StringUtils.isBlank(signupInfoVO.getTenantName())) {
-			return ResultBO.empty(ErrorMsgEnum.EM02.value); // 企业名称不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC007.code, RetCodeMsgEnum.RC007.value); // 企业名称不能为空
 		}
 		
 		// 转小写
 		signupInfoVO.setAccount(signupInfoVO.getAccount().toLowerCase());
 		String salt = tenantService.tenantSignup(signupInfoVO);
 		if (StringUtils.isNotBlank(salt)) {
-			if (salt.contains(RetCodeEnum.FAILED.value)) {
-				return ResultBO.fail(ErrorMsgEnum.EM20.value); // 企业账号已存在
+			if (salt.contains(StateEnum.FAILED.value)) {
+				return ResultBO.failed(RetCodeMsgEnum.RC003.code, RetCodeMsgEnum.RC003.value); // 企业账号已存在
 			}
-			return ResultBO.ok(salt); // 注册成功，返回散列盐
+			return ResultBO.succeeded(salt); // 注册成功，返回散列盐
 		}
-		return ResultBO.fail(ErrorMsgEnum.EM05.value); // 企业账号注册失败
+		return ResultBO.failed(RetCodeMsgEnum.RC005.code, RetCodeMsgEnum.RC005.value); // 企业账号注册失败
 	}
 	
 	
@@ -113,28 +113,28 @@ public class SignupController {
 	public ResultBO userSignup(SignupInfoVO signupInfoVO) throws Exception {
 		
 		if (StringUtils.isBlank(signupInfoVO.getAccount())) {
-			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
 		}
 		if (StringUtils.isBlank(signupInfoVO.getUsername())) {
-			return ResultBO.empty(ErrorMsgEnum.EM06.value); // 用户名不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC012.code, RetCodeMsgEnum.RC012.value); // 用户账号不能为空
 		}
 		if (StringUtils.isBlank(signupInfoVO.getPassword())) {
-			return ResultBO.empty(ErrorMsgEnum.EM08.value); // 密码不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC022.code, RetCodeMsgEnum.RC022.value); // 密码不能为空
 		}
 		if (StringUtils.isBlank(signupInfoVO.getEmail())) {
-			return ResultBO.empty(ErrorMsgEnum.EM13.value); // 电子邮箱不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC024.code, RetCodeMsgEnum.RC024.value); // 电子邮箱不能为空
 		}
 		if (!Regex.checkEmail(signupInfoVO.getEmail())) {
-			return ResultBO.fail(ErrorMsgEnum.EM14.value); // 电子邮箱格式错误
+			return ResultBO.failed(RetCodeMsgEnum.RC025.code, RetCodeMsgEnum.RC025.value); // 电子邮箱格式错误
 		}
 		
 		// 转小写
 		signupInfoVO.setAccount(signupInfoVO.getAccount().toLowerCase());
 		boolean bool = userService.userSignup(signupInfoVO);
 		if (bool) {
-			return ResultBO.ok(bool);
+			return ResultBO.succeeded(bool);
 		}
-		return ResultBO.fail(ErrorMsgEnum.EM10.value); // 用户注册失败
+		return ResultBO.failed(RetCodeMsgEnum.RC015.code, RetCodeMsgEnum.RC015.value); // 用户账号注册失败
 	}
 	
 }

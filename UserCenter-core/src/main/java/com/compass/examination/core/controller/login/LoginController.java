@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compass.common.enums.ErrorMsgEnum;
-import com.compass.common.enums.RetCodeEnum;
+import com.compass.common.enums.RetCodeMsgEnum;
+import com.compass.common.enums.StateEnum;
 import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
@@ -50,17 +50,17 @@ public class LoginController {
 	public ResultBO getSaltByAccount(String account) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
-			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
 		}
 		
 		String salt = tenantService.getSaltByAccount(account.toLowerCase());
 		if (StringUtils.isNotBlank(salt)) {
-			if (salt.contains(RetCodeEnum.FAILED.value)) {
-				return ResultBO.fail(ErrorMsgEnum.EM04.value); // 企业账号尚未激活
+			if (salt.contains(StateEnum.FAILED.value)) {
+				return ResultBO.failed(RetCodeMsgEnum.RC004.code, RetCodeMsgEnum.RC004.value); // 企业账号未激活
 			}
-			return ResultBO.ok(salt);
+			return ResultBO.succeeded(salt);
 		}
-		return ResultBO.fail(ErrorMsgEnum.EM03.value); // 企业账号不存在
+		return ResultBO.failed(RetCodeMsgEnum.RC002.code, RetCodeMsgEnum.RC002.value); // 企业账号不存在
 	}
 	
 	
@@ -83,13 +83,13 @@ public class LoginController {
 	public ResultBO login(String account, String username, String password) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
-			return ResultBO.empty(ErrorMsgEnum.EM01.value); // 企业账号不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
 		}
 		if (StringUtils.isBlank(username)) {
-			return ResultBO.empty(ErrorMsgEnum.EM06.value); // 用户名不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC012.code, RetCodeMsgEnum.RC012.value); // 用户账号不能为空
 		}
 		if (StringUtils.isBlank(password)) {
-			return ResultBO.empty(ErrorMsgEnum.EM08.value); // 密码不能为空
+			return ResultBO.failed(RetCodeMsgEnum.RC022.code, RetCodeMsgEnum.RC022.value); // 密码不能为空
 		}
 		return userService.login(account.toLowerCase(), username, password);
 	}
