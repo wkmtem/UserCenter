@@ -21,6 +21,7 @@ import com.compass.examination.pojo.po.EmailValidation;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.vo.SendEmailInfoVO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 /**
  * 
@@ -111,22 +112,22 @@ public class MailController {
 	 * <p>Method Name: singleSendActiveMail</p>
 	 * <p>Description: 发送激活码邮件</p>
 	 * @author wkm
-	 * @date 2017年8月15日上午11:08:03
+	 * @date 2017年8月18日上午10:45:08
 	 * @version 2.0
-	 * @param account 租户账号
-	 * @return resultBO(code[1, 0], msg[str], info[null])
+	 * @param signupLoginInfoVO: account
+	 * @return ResultBO 对象
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/singleSendActiveMail", method = RequestMethod.POST)
 	@LogExceController(name = "发送激活码邮件")
 	@ResponseBody
-	public ResultBO singleSendActiveMail(String account) throws Exception {
+	public ResultBO singleSendActiveMail(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(account)) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getAccount())) {
 			return ResultBO.result(1); // 企业账号不能为空
 		}
 		
-		Tenant tenantPO = tenantService.getTenantByAccount(account);
+		Tenant tenantPO = tenantService.getTenantByAccount(signupLoginInfoVO.getAccount());
 		if (null == tenantPO) {
 			return ResultBO.result(2); // 企业账号不存在
 		}

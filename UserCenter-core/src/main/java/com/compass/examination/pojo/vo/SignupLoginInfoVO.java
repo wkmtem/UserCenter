@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2017年8月15日下午4:09:54
  * @version 2.0
  */
-public class SignupInfoVO implements Serializable{
+public class SignupLoginInfoVO implements Serializable{
 
 	/** serialVersionUID*/
 	private static final long serialVersionUID = 1211093098967237960L;
@@ -26,7 +26,7 @@ public class SignupInfoVO implements Serializable{
 		return account;
 	}
 	public void setAccount(String account) {
-		this.account = account;
+		this.account = account.toLowerCase();
 	}
 	public String getTenantName() {
 		return tenantName;

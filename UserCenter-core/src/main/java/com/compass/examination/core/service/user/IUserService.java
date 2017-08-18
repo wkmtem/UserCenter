@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.compass.examination.pojo.bo.ResultBO;
 import com.compass.examination.pojo.po.User;
-import com.compass.examination.pojo.vo.SignupInfoVO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 
 /**
@@ -29,7 +29,7 @@ public interface IUserService {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	boolean userSignup(SignupInfoVO signupInfoVO) throws Exception;
+	boolean userSignup(SignupLoginInfoVO signupInfoVO) throws Exception;
 	
 	/**
 	 * 

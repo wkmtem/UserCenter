@@ -13,7 +13,7 @@ import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.bo.ResultBO;
-import com.compass.examination.pojo.vo.SignupInfoVO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 /**
  * 
@@ -39,22 +39,22 @@ public class SignupController {
 	 * <p>Method Name: isExistAccount</p>
 	 * <p>Description: 租户账号是否存在</p>
 	 * @author wkm
-	 * @date 2017年8月15日上午10:57:40
+	 * @date 2017年8月18日上午10:50:37
 	 * @version 2.0
-	 * @param account 租户账号
-	 * @return resultBO(code[1, 0], msg[str], info[boolean:存在:ture, 不存在:false])
+	 * @param signupLoginInfoVO: account
+	 * @return ResultBO 对象
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/isExistAccount", method = RequestMethod.POST)
 	@LogExceController(name = "租户账号是否存在")
 	@ResponseBody
-	public ResultBO isExistAccount(String account) throws Exception {
+	public ResultBO isExistAccount(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(account)) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getAccount())) {
 			return ResultBO.result(1); // 企业账号不能为空
 		}
 		
-		boolean isExist = tenantService.isExistAccount(account.toLowerCase());
+		boolean isExist = tenantService.isExistAccount(signupLoginInfoVO.getAccount());
 		return ResultBO.result(0, isExist);
 	}
 	
@@ -67,24 +67,22 @@ public class SignupController {
 	 * @date 2017年8月15日上午11:00:53
 	 * @version 2.0
 	 * @param signupInfoVO(account 租户账号, tenantName 租户名称)
-	 * @return resultBO(code[1, 0], msg[str], info[str:salt])
+	 * @return resultBO 对象
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/tenantSignup", method = RequestMethod.POST)
 	@LogExceController(name = "注册租户账号")
 	@ResponseBody
-	public ResultBO tenantSignup(SignupInfoVO signupInfoVO) throws Exception {
+	public ResultBO tenantSignup(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(signupInfoVO.getAccount())) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getAccount())) {
 			return ResultBO.result(1); // 企业账号不能为空
 		}
-		if (StringUtils.isBlank(signupInfoVO.getTenantName())) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getTenantName())) {
 			return ResultBO.result(7); // 企业名称不能为空
 		}
 		
-		// 转小写
-		signupInfoVO.setAccount(signupInfoVO.getAccount().toLowerCase());
-		String salt = tenantService.tenantSignup(signupInfoVO);
+		String salt = tenantService.tenantSignup(signupLoginInfoVO);
 		if (StringUtils.isNotBlank(salt)) {
 			if (salt.contains(StateEnum.FAILED.value)) {
 				return ResultBO.result(3); // 企业账号已存在
@@ -102,34 +100,32 @@ public class SignupController {
 	 * @author wkm
 	 * @date 2017年8月15日上午11:02:55
 	 * @version 2.0
-	 * @param signupInfoVO(account 租户账号, username 用户账号, password 密码, email 邮箱)
-	 * @return resultBO(code[1, 0], msg[str], info[boolean:成功:ture, 失败:false])
+	 * @param signupLoginInfoVO(account 租户账号, username 用户账号, password 密码, email 邮箱)
+	 * @return resultBO 对象
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/userSignup", method = RequestMethod.POST)
 	@LogExceController(name = "注册管理员账号")
 	@ResponseBody
-	public ResultBO userSignup(SignupInfoVO signupInfoVO) throws Exception {
+	public ResultBO userSignup(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(signupInfoVO.getAccount())) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getAccount())) {
 			return ResultBO.result(1); // 企业账号不能为空
 		}
-		if (StringUtils.isBlank(signupInfoVO.getUsername())) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getUsername())) {
 			return ResultBO.result(12); // 用户账号不能为空
 		}
-		if (StringUtils.isBlank(signupInfoVO.getPassword())) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getPassword())) {
 			return ResultBO.result(22); // 密码不能为空
 		}
-		if (StringUtils.isBlank(signupInfoVO.getEmail())) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getEmail())) {
 			return ResultBO.result(24); // 电子邮箱不能为空
 		}
-		if (!Regex.checkEmail(signupInfoVO.getEmail())) {
+		if (!Regex.checkEmail(signupLoginInfoVO.getEmail())) {
 			return ResultBO.result(25); // 电子邮箱格式错误
 		}
 		
-		// 转小写
-		signupInfoVO.setAccount(signupInfoVO.getAccount().toLowerCase());
-		boolean bool = userService.userSignup(signupInfoVO);
+		boolean bool = userService.userSignup(signupLoginInfoVO);
 		if (bool) {
 			return ResultBO.result(0, bool);
 		}

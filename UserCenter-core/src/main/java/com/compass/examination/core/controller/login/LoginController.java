@@ -12,6 +12,7 @@ import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.bo.ResultBO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 /**
  * 
@@ -37,22 +38,22 @@ public class LoginController {
 	 * <p>Method Name: getSaltByAccount</p>
 	 * <p>Description: 根据租户账号，获取散列盐</p>
 	 * @author wkm
-	 * @date 2017年8月15日上午11:19:16
+	 * @date 2017年8月18日上午10:43:04
 	 * @version 2.0
-	 * @param account 租户账号
-	 * @return resultBO(code[1, 0], msg[str], info[str:salt])
+	 * @param signupLoginInfoVO: account
+	 * @return ResultBO 对象
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/getSaltByAccount", method = RequestMethod.POST)
 	@LogExceController(name = "根据租户账号，获取散列盐")
 	@ResponseBody
-	public ResultBO getSaltByAccount(String account) throws Exception {
+	public ResultBO getSaltByAccount(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(account)) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getAccount())) {
 			return ResultBO.result(1); // 企业账号不能为空
 		}
 		
-		String salt = tenantService.getSaltByAccount(account.toLowerCase());
+		String salt = tenantService.getSaltByAccount(signupLoginInfoVO.getAccount());
 		if (StringUtils.isNotBlank(salt)) {
 			if (salt.contains(StateEnum.FAILED.value)) {
 				return ResultBO.result(4); // 企业账号未激活
@@ -68,28 +69,27 @@ public class LoginController {
 	 * <p>Method Name: login</p>
 	 * <p>Description: 根据租户账号，用户名登录</p>
 	 * @author wkm
-	 * @date 2017年8月15日上午11:20:14
+	 * @date 2017年8月18日上午10:42:03
 	 * @version 2.0
-	 * @param account 租户账号
-	 * @param username 用户账号
-	 * @param password 密码
-	 * @return resultBO(code[1, 0], msg[str], info[map:id, nickname, headUrl, token])
+	 * @param signupLoginInfoVO: account, username, password
+	 * @return ResultBO 对象
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@LogExceController(name = "根据租户账号，用户名登录")
 	@ResponseBody
-	public ResultBO login(String account, String username, String password) throws Exception {
+	public ResultBO login(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
-		if (StringUtils.isBlank(account)) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getAccount())) {
 			return ResultBO.result(1); // 企业账号不能为空
 		}
-		if (StringUtils.isBlank(username)) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getUsername())) {
 			return ResultBO.result(12); // 用户账号不能为空
 		}
-		if (StringUtils.isBlank(password)) {
+		if (StringUtils.isBlank(signupLoginInfoVO.getPassword())) {
 			return ResultBO.result(22); // 密码不能为空
 		}
-		return userService.login(account.toLowerCase(), username, password);
+		return userService.login(signupLoginInfoVO.getAccount(), 
+				signupLoginInfoVO.getUsername(), signupLoginInfoVO.getPassword());
 	}
 }

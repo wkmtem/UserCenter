@@ -74,48 +74,6 @@ public class ResultBO implements Serializable {
 
 	/**
 	 * 
-	 * <p>Method Name: succeeded</p>
-	 * <p>Description: 请求成功</p>
-	 * @author wkm
-	 * @date 2017年8月17日下午5:50:14
-	 * @version 2.0
-	 * @param obj 对象
-	 * @return ResultBO
-	 */
-	private static ResultBO succeeded(Object obj) {
-		return new ResultBO(RetCodeMsgEnum.RC000.code, RetCodeMsgEnum.RC000.value, obj);
-	}
-	
-	/**
-	 * 
-	 * <p>Method Name: succeeded</p>
-	 * <p>Description: 请求成功</p>
-	 * @author wkm
-	 * @date 2017年8月17日下午5:50:31
-	 * @version 2.0 
-	 * @return ResultBO
-	 */
-	private static ResultBO succeeded() {
-		return succeeded(null);
-	}
-
-	/**
-	 * 
-	 * <p>Method Name: failed</p>
-	 * <p>Description: 请求失败</p>
-	 * @author wkm
-	 * @date 2017年8月17日下午5:50:49
-	 * @version 2.0
-	 * @param code 状态码
-	 * @param msg 描述
-	 * @return ResultBO
-	 */
-	private static ResultBO failed(String code, String msg) {
-		return new ResultBO(code, msg, null);
-	}
-	
-	/**
-	 * 
 	 * <p>Method Name: matchCode</p>
 	 * <p>Description: 匹配响应码</p>
 	 * @author wkm
@@ -241,6 +199,48 @@ public class ResultBO implements Serializable {
 				break;
 		}
 		return resultBO;
+	}
+	
+	/**
+	 * 
+	 * <p>Method Name: succeeded</p>
+	 * <p>Description: 请求成功</p>
+	 * @author wkm
+	 * @date 2017年8月17日下午5:50:31
+	 * @version 2.0 
+	 * @return ResultBO
+	 */
+	private static ResultBO succeeded() {
+		return succeeded(null);
+	}
+	
+	/**
+	 * 
+	 * <p>Method Name: succeeded</p>
+	 * <p>Description: 请求成功</p>
+	 * @author wkm
+	 * @date 2017年8月17日下午5:50:14
+	 * @version 2.0
+	 * @param obj 对象
+	 * @return ResultBO
+	 */
+	private static ResultBO succeeded(Object obj) {
+		return new ResultBO(RetCodeMsgEnum.RC000.code, RetCodeMsgEnum.RC000.value, obj);
+	}
+	
+	/**
+	 * 
+	 * <p>Method Name: failed</p>
+	 * <p>Description: 请求失败</p>
+	 * @author wkm
+	 * @date 2017年8月17日下午5:50:49
+	 * @version 2.0
+	 * @param code 状态码
+	 * @param msg 描述
+	 * @return ResultBO
+	 */
+	private static ResultBO failed(String code, String msg) {
+		return new ResultBO(code, msg, null);
 	}
 
 	public String getCode() {

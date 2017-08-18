@@ -20,7 +20,7 @@ import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.TenantExample;
-import com.compass.examination.pojo.vo.SignupInfoVO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 /**
  * 
@@ -75,10 +75,10 @@ public class TenantServiceImpl implements ITenantService {
 	 * @param signupInfoVO
 	 * @return
 	 * @throws Exception
-	 * @see com.compass.examination.core.service.tenant.ITenantService#tenantSignup(com.compass.examination.pojo.vo.SignupInfoVO)
+	 * @see com.compass.examination.core.service.tenant.ITenantService#tenantSignup(com.compass.examination.pojo.vo.SignupLoginInfoVO)
 	 */
 	@Override
-	public String tenantSignup(SignupInfoVO signupInfoVO) throws Exception {
+	public String tenantSignup(SignupLoginInfoVO signupInfoVO) throws Exception {
 		
 		String salt = MD5.getInstance().get2MD5StrByTimeMillis();
 		int ret = -1;

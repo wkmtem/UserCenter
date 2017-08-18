@@ -3,7 +3,7 @@ package com.compass.examination.core.service.tenant;
 import java.util.List;
 
 import com.compass.examination.pojo.po.Tenant;
-import com.compass.examination.pojo.vo.SignupInfoVO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 /**
  * 
@@ -40,7 +40,7 @@ public interface ITenantService {
 	 * @return salt
 	 * @throws Exception
 	 */
-	String tenantSignup(SignupInfoVO signupInfoVO) throws Exception;
+	String tenantSignup(SignupLoginInfoVO signupInfoVO) throws Exception;
 
 	/**
 	 * 

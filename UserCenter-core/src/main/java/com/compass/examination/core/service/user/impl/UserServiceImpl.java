@@ -25,7 +25,7 @@ import com.compass.examination.pojo.po.Tenant;
 import com.compass.examination.pojo.po.User;
 import com.compass.examination.pojo.po.UserExample;
 import com.compass.examination.pojo.vo.SendEmailInfoVO;
-import com.compass.examination.pojo.vo.SignupInfoVO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 /**
  * 
@@ -58,10 +58,10 @@ public class UserServiceImpl implements IUserService {
 	 * @param signupInfoVO
 	 * @return
 	 * @throws Exception
-	 * @see com.compass.examination.core.service.user.IUserService#userSignup(com.compass.examination.pojo.vo.SignupInfoVO)
+	 * @see com.compass.examination.core.service.user.IUserService#userSignup(com.compass.examination.pojo.vo.SignupLoginInfoVO)
 	 */
 	@Override
-	public boolean userSignup(SignupInfoVO signupInfoVO) throws Exception {
+	public boolean userSignup(SignupLoginInfoVO signupInfoVO) throws Exception {
 		
 		Date date = new Date();
 		

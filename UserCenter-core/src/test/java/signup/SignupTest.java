@@ -13,7 +13,7 @@ import com.compass.examination.core.service.email.IEmailValidService;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.vo.SendEmailInfoVO;
-import com.compass.examination.pojo.vo.SignupInfoVO;
+import com.compass.examination.pojo.vo.SignupLoginInfoVO;
 
 public class SignupTest extends SpringJunitTest {
 
@@ -33,7 +33,7 @@ public class SignupTest extends SpringJunitTest {
 	// 租户：生成盐，激活码，md5验证码
 	@Test
 	public void testTenantSignup() throws Exception {
-		SignupInfoVO infoVO = new SignupInfoVO();
+		SignupLoginInfoVO infoVO = new SignupLoginInfoVO();
 		infoVO.setAccount("testAccount");
 		infoVO.setTenantName("测试租户");
 		System.out.println("result >>>>>>>>>> " + tenantService.tenantSignup(infoVO));
@@ -42,7 +42,7 @@ public class SignupTest extends SpringJunitTest {
 	// 用户：发邮件
 	@Test
 	public void testUserSignup() throws Exception {
-		SignupInfoVO infoVO = new SignupInfoVO();
+		SignupLoginInfoVO infoVO = new SignupLoginInfoVO();
 		infoVO.setAccount("compass");
 		infoVO.setUsername("wkmtem");
 		infoVO.setPassword(MD5.getInstance().get2MD5StrBySaltWithPwd("BBF76D8E6B5FB8DE529FC684DF909D03", "a123456"));
