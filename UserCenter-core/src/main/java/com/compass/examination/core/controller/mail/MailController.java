@@ -66,10 +66,6 @@ public class MailController {
 		if (null == tenantId) {
 			return ResultBO.result(25); // 企业ID不能为空
 		}
-		if (StringUtils.isBlank(activeMD5)) {
-			return ResultBO.result(26); // MD5激活码不能为空
-		}
-		
 		// 获取租户
 		Tenant tenant = tenantService.getTenantById(tenantId);
 		if (null == tenant) {
@@ -77,6 +73,10 @@ public class MailController {
 		}
 		if (tenant.getState()) {
 			return ResultBO.result(6); // 企业账号已激活
+		}
+		
+		if (StringUtils.isBlank(activeMD5)) {
+			return ResultBO.result(26); // MD5激活码不能为空
 		}
 		
 		// 获取激活信息
@@ -100,6 +100,7 @@ public class MailController {
 					tenantService.updateTenant(updateTenant);
 					return ResultBO.result(0);
 				} 
+				return ResultBO.result(28); // 激活码错误
 			}
 			return ResultBO.result(27); // 激活码已失效
 		}
