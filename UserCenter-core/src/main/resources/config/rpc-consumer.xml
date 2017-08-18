@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop" 
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:hsf="http://www.taobao.com/hsf"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+						   http://www.springframework.org/schema/mvc 
+						   http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+						   http://www.springframework.org/schema/context 
+						   http://www.springframework.org/schema/context/spring-context-4.3.xsd 
+						   http://www.springframework.org/schema/aop 
+						   http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
+						   http://www.springframework.org/schema/tx 
+						   http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
+						   http://www.springframework.org/schema/jdbc 
+     					   http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+     					   http://www.springframework.org/schema/task 
+     					   http://www.springframework.org/schema/task/spring-task-4.3.xsd
+     					   http://www.taobao.com/hsf
+     					   http://www.taobao.com/hsf/hsf.xsd"
+     					   default-autowire="byName">
+
+	<!-- Consumer 
+	 	interface: 必填[String]，调用服务的接口 
+		version: 可选[String]，服务的版本，默认为 1.0.0 
+		group: 可选[String]，服务所属的组别，以便按组别来管理服务的配置，默认为 HSF
+		connectionNum: 支持设置连接到server 连接数，默认为 1，在小数据传输，要求低延迟的情况下设 置多一些，会提升 tps
+		clientTimeout: 该配置对接口中的所有方法生效，但是如果客户端通过MethodSpecial属性对某方法配置了超时时间，则该方法的超时时间以客户端配置为准，其他方法不受影响
+		asyncallMethods: 可选配置[List]，含义为调用此服务时需 要采用异步调用的方法名列表以及异步调用的方式
+		maxWaitTimeForCsAddress: 在服务订阅的时候，会在指定的时间内，等待地址推送过来，避免地址过来后，调用该服务出现找不到地址的情况，超过指定时间未等到地址，将继续初始化完成 
+		methodSpecials: 可选，为方法单独配置超时(单位 ms)， 这样接口中的方法可以采用不同的超时时间，
+			优先级高于clientTimeout的超时配置，低于客户端的methodSpecials配置
+	-->
+	
+	<!-- 测试消费接口 -->
+	<hsf:consumer id="personRPCService" interface="com.compass.examination.rpc.api.IPersonRPCService"
+		version="1.0.0" group="compass" clientTimeout="3000" maxWaitTimeForCsAddress="5000">
+		<hsf:methodSpecials>
+			<hsf:methodSpecial name="sum" timeout="2000" />
+		</hsf:methodSpecials>
+	</hsf:consumer>
+
+</beans>

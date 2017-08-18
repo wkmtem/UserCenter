@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compass.common.enums.RetCodeMsgEnum;
 import com.compass.common.enums.StateEnum;
 import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.core.service.tenant.ITenantService;
@@ -50,17 +49,17 @@ public class LoginController {
 	public ResultBO getSaltByAccount(String account) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
-			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
+			return ResultBO.result(1); // 企业账号不能为空
 		}
 		
 		String salt = tenantService.getSaltByAccount(account.toLowerCase());
 		if (StringUtils.isNotBlank(salt)) {
 			if (salt.contains(StateEnum.FAILED.value)) {
-				return ResultBO.failed(RetCodeMsgEnum.RC004.code, RetCodeMsgEnum.RC004.value); // 企业账号未激活
+				return ResultBO.result(4); // 企业账号未激活
 			}
-			return ResultBO.succeeded(salt);
+			return ResultBO.result(0, salt);
 		}
-		return ResultBO.failed(RetCodeMsgEnum.RC002.code, RetCodeMsgEnum.RC002.value); // 企业账号不存在
+		return ResultBO.result(2); // 企业账号不存在
 	}
 	
 	
@@ -83,13 +82,13 @@ public class LoginController {
 	public ResultBO login(String account, String username, String password) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
-			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
+			return ResultBO.result(1); // 企业账号不能为空
 		}
 		if (StringUtils.isBlank(username)) {
-			return ResultBO.failed(RetCodeMsgEnum.RC012.code, RetCodeMsgEnum.RC012.value); // 用户账号不能为空
+			return ResultBO.result(12); // 用户账号不能为空
 		}
 		if (StringUtils.isBlank(password)) {
-			return ResultBO.failed(RetCodeMsgEnum.RC022.code, RetCodeMsgEnum.RC022.value); // 密码不能为空
+			return ResultBO.result(22); // 密码不能为空
 		}
 		return userService.login(account.toLowerCase(), username, password);
 	}

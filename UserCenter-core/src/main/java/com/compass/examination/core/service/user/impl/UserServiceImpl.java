@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.compass.common.constructor.LinkedMapCustom;
-import com.compass.common.enums.RetCodeMsgEnum;
 import com.compass.common.uuid.UUIDBuild;
 import com.compass.examination.common.push.mail.EmailUtil;
 import com.compass.examination.constant.MailTemplate;
@@ -155,20 +154,20 @@ public class UserServiceImpl implements IUserService {
 		// 获取租户
 		Tenant tenantPO = tenantService.getTenantByAccount(account);
 		if (null == tenantPO) {
-			return ResultBO.failed(RetCodeMsgEnum.RC002.code, RetCodeMsgEnum.RC002.value); // 企业账号不存在
+			return ResultBO.result(2); // 企业账号不存在
 		}
 		Boolean state = tenantPO.getState();
 		Long tenantId = tenantPO.getId();
 		
 		// 获取租户状态
 		if (!state) {
-			return ResultBO.failed(RetCodeMsgEnum.RC004.code, RetCodeMsgEnum.RC004.value); // 企业账号未激活
+			return ResultBO.result(4); // 企业账号未激活
 		}
 		
 		// 获取用户
 		User userPO = this.getUserByTenantIdAndUsername(tenantId, username);
 		if (null == userPO) {
-			return ResultBO.failed(RetCodeMsgEnum.RC013.code, RetCodeMsgEnum.RC013.value); // 用户账号不存在
+			return ResultBO.result(13); // 用户账号不存在
 		}
 		Boolean enabled = userPO.getEnabled();
 		Boolean deleted = userPO.getDeleted();
@@ -176,13 +175,13 @@ public class UserServiceImpl implements IUserService {
 		
 		// 判断状态
 		if (deleted) {
-			return ResultBO.failed(RetCodeMsgEnum.RC016.code, RetCodeMsgEnum.RC016.value); // 用户账号已删除
+			return ResultBO.result(16); // 用户账号已删除
 		}
 		if (!enabled) {
-			return ResultBO.failed(RetCodeMsgEnum.RC017.code, RetCodeMsgEnum.RC017.value); // 用户账号已停用
+			return ResultBO.result(17); // 用户账号已停用
 		}
 		if (!dbPwd.equals(password)) {
-			return ResultBO.failed(RetCodeMsgEnum.RC023.code, RetCodeMsgEnum.RC023.value); // 密码错误
+			return ResultBO.result(23); // 密码错误
 		}
 		
 		// 创建token
@@ -202,7 +201,7 @@ public class UserServiceImpl implements IUserService {
 				.put("token", token)
 				.builder();
 		
-		return ResultBO.succeeded(map);
+		return ResultBO.result(0, map);
 	}
 	
 	

@@ -14,7 +14,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.compass.common.enums.RetCodeMsgEnum;
 import com.compass.common.http.HttpRequest;
 import com.compass.examination.annotation.UserTokenAnnotation;
 import com.compass.examination.constant.SysConstant;
@@ -94,13 +93,13 @@ public class ValidUserAspect {
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户ID或为空");
 			}
-			return ResultBO.failed(RetCodeMsgEnum.RC018.code, RetCodeMsgEnum.RC018.value); // 用户ID不能为空
+			return ResultBO.result(18); // 用户ID不能为空
 		}
 		if (StringUtils.isBlank(token)) {
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户Token为空");
 			}
-			return ResultBO.failed(RetCodeMsgEnum.RC020.code, RetCodeMsgEnum.RC020.value); // 用户Token不能为空
+			return ResultBO.result(20); // 用户Token不能为空
 		}
 		
 		// 根据用户id获取用户
@@ -109,21 +108,21 @@ public class ValidUserAspect {
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户ID不存在");
 			}
-			return ResultBO.failed(RetCodeMsgEnum.RC019.code, RetCodeMsgEnum.RC019.value); // 用户ID不存在
+			return ResultBO.result(19); // 用户ID不存在
 		}
 		// 用户是否删除
 		if(dbUserPO.getDeleted()){
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户账号已删除");
 			}
-			return ResultBO.failed(RetCodeMsgEnum.RC016.code, RetCodeMsgEnum.RC016.value); // 用户账号已删除
+			return ResultBO.result(16); // 用户账号已删除
 		}
 		// 用户是否启用
 		if(!dbUserPO.getEnabled()){
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户账号已停用");
 			}
-			return ResultBO.failed(RetCodeMsgEnum.RC017.code, RetCodeMsgEnum.RC017.value); // 用户账号已停用
+			return ResultBO.result(17); // 用户账号已停用
 		}
 		// 验证token,登录超时验证:当前时间-上次登录时间 >= 设定值
 		String dbToken = dbUserPO.getToken();
@@ -134,7 +133,7 @@ public class ValidUserAspect {
 			if(logger.isInfoEnabled()){
 				logger.info("IP: [" + ip + "] Request faild: 用户登录超时");
 			}
-			return ResultBO.failed(RetCodeMsgEnum.RC021.code, RetCodeMsgEnum.RC021.value); // 用户登录超时
+			return ResultBO.result(21); // 用户登录超时
 		}
 		
 		// 拷贝实参对象

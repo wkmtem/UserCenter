@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compass.common.enums.RetCodeMsgEnum;
 import com.compass.common.enums.StateEnum;
 import com.compass.examination.annotation.LogExceController;
 import com.compass.examination.common.push.mail.EmailUtil;
@@ -64,19 +63,19 @@ public class MailController {
 		Date date = new Date();
 		
 		if (null == tenantId) {
-			return ResultBO.failed(RetCodeMsgEnum.RC025.code, RetCodeMsgEnum.RC005.value); // 企业ID不能为空
+			return ResultBO.result(25); // 企业ID不能为空
 		}
 		if (StringUtils.isBlank(activeMD5)) {
-			return ResultBO.failed(RetCodeMsgEnum.RC026.code, RetCodeMsgEnum.RC026.value); // MD5激活码不能为空
+			return ResultBO.result(26); // MD5激活码不能为空
 		}
 		
 		// 获取租户
 		Tenant tenant = tenantService.getTenantById(tenantId);
 		if (null == tenant) {
-			return ResultBO.failed(RetCodeMsgEnum.RC009.code, RetCodeMsgEnum.RC009.value); // 企业ID不存在
+			return ResultBO.result(9); // 企业ID不存在
 		}
 		if (tenant.getState()) {
-			return ResultBO.failed(RetCodeMsgEnum.RC006.code, RetCodeMsgEnum.RC006.value); // 企业账号已激活
+			return ResultBO.result(6); // 企业账号已激活
 		}
 		
 		// 获取激活信息
@@ -98,12 +97,12 @@ public class MailController {
 					updateTenant.setState(true);// 激活
 					updateTenant.setActiveStamp(date.getTime());
 					tenantService.updateTenant(updateTenant);
-					return ResultBO.succeeded();
+					return ResultBO.result(0);
 				} 
 			}
-			return ResultBO.failed(RetCodeMsgEnum.RC027.code, RetCodeMsgEnum.RC027.value); // 激活码已失效
+			return ResultBO.result(27); // 激活码已失效
 		}
-		return ResultBO.failed(RetCodeMsgEnum.RC011.code, RetCodeMsgEnum.RC011.value); // 尚未发送激活邮件
+		return ResultBO.result(11); // 尚未发送激活邮件
 	}
 	
 	
@@ -124,23 +123,23 @@ public class MailController {
 	public ResultBO singleSendActiveMail(String account) throws Exception {
 		
 		if (StringUtils.isBlank(account)) {
-			return ResultBO.failed(RetCodeMsgEnum.RC001.code, RetCodeMsgEnum.RC001.value); // 企业账号不能为空
+			return ResultBO.result(1); // 企业账号不能为空
 		}
 		
 		Tenant tenantPO = tenantService.getTenantByAccount(account);
 		if (null == tenantPO) {
-			return ResultBO.failed(RetCodeMsgEnum.RC002.code, RetCodeMsgEnum.RC002.value); // 企业账号不存在
+			return ResultBO.result(2); // 企业账号不存在
 		}
 		if (tenantPO.getState()) {
-			return ResultBO.failed(RetCodeMsgEnum.RC006.code, RetCodeMsgEnum.RC006.value); // 企业账号已激活
+			return ResultBO.result(6); // 企业账号已激活
 		}
 		Long adminId = tenantPO.getAdminUserId();
 		if (null == adminId) {
-			return ResultBO.failed(RetCodeMsgEnum.RC010.code, RetCodeMsgEnum.RC010.value); // 未设置管理员账号
+			return ResultBO.result(10); // 未设置管理员账号
 		}
 		User userPO = userService.getUserById(adminId);
 		if (null == userPO) {
-			return ResultBO.failed(RetCodeMsgEnum.RC013.code, RetCodeMsgEnum.RC013.value); // 用户账号不存在
+			return ResultBO.result(13); // 用户账号不存在
 		}
 		
 		// 创建邮件激活码
@@ -156,7 +155,7 @@ public class MailController {
 		sendEmailInfoVO.setToAddress(userPO.getEmail());
 		EmailUtil.singleSendMail(MailTemplate.getMailInnerHtml(sendEmailInfoVO));
 		
-		return ResultBO.succeeded();
+		return ResultBO.result(0);
 	}
 
 }

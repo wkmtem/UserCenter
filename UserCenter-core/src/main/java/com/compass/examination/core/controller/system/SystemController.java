@@ -37,7 +37,7 @@ public class SystemController {
 	@ResponseBody
 	public ResultBO testRPC(String name) throws Exception {
 		String showName = personRPCService.showName(name);
-		return ResultBO.succeeded(showName);
+		return ResultBO.result(0, showName);
 	}
 	
 	
@@ -55,7 +55,7 @@ public class SystemController {
 	@LogExceController(name = "获取当前时间")
 	@ResponseBody
 	public ResultBO getCurrentTime() throws Exception {		
-		return ResultBO.succeeded(new Date());
+		return ResultBO.result(0, new Date());
 	}
 	
 }

@@ -112,7 +112,7 @@ public class EmailValidServiceImpl implements IEmailValidService {
 			emailValidationPO.setGmtCreate(date);
 		}
 		emailValidationPO.setActiveCode(activeCode);
-		emailValidationPO.setActiveMd5(MD5.getMD5(activeCode));
+		emailValidationPO.setActiveMd5(MD5.getInstance().getMD5(activeCode));
 		emailValidationPO.setExpireStamp(expireMillis);
 		emailValidationPO.setGmtModified(date);
 		if (flag) {

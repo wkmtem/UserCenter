@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
 
-import com.compass.common.algorithm.MD5;
 import com.compass.common.algorithm.Base64;
+import com.compass.common.algorithm.MD5;
 import com.compass.common.algorithm.RandomCode;
 import com.compass.examination.common.junit.SpringJunitTest;
 
@@ -41,7 +41,7 @@ public class AlgorithmTest extends SpringJunitTest {
 
 	@Test
 	public void test3() {
-		System.out.println(MD5.get2MD5StrBySaltWithPwd("BBF76D8E6B5FB8DE529FC684DF909D03", "a123456"));
+		System.out.println(MD5.getInstance().get2MD5StrBySaltWithPwd("BBF76D8E6B5FB8DE529FC684DF909D03", "a123456"));
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class AlgorithmTest extends SpringJunitTest {
 	
 	@Test
 	public void test5() {
-		System.out.println(MD5.getMD5(MD5.getMD5("123456")));
+		System.out.println(MD5.getInstance().getMD5(MD5.getInstance().getMD5("123456")));
 	}
 	
 	@Test
@@ -65,4 +65,5 @@ public class AlgorithmTest extends SpringJunitTest {
 	public void test7() throws UnsupportedEncodingException {
 		System.out.println(new String(Base64.base64Decode("MTIzNDU2")));
 	}
+
 }

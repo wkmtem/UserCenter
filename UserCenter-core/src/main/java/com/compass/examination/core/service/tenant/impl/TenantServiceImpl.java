@@ -80,7 +80,7 @@ public class TenantServiceImpl implements ITenantService {
 	@Override
 	public String tenantSignup(SignupInfoVO signupInfoVO) throws Exception {
 		
-		String salt = MD5.get2MD5StrByTimeMillis();
+		String salt = MD5.getInstance().get2MD5StrByTimeMillis();
 		int ret = -1;
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();

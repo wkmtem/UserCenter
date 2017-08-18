@@ -45,7 +45,7 @@ public class SignupTest extends SpringJunitTest {
 		SignupInfoVO infoVO = new SignupInfoVO();
 		infoVO.setAccount("compass");
 		infoVO.setUsername("wkmtem");
-		infoVO.setPassword(MD5.get2MD5StrBySaltWithPwd("BBF76D8E6B5FB8DE529FC684DF909D03", "a123456"));
+		infoVO.setPassword(MD5.getInstance().get2MD5StrBySaltWithPwd("BBF76D8E6B5FB8DE529FC684DF909D03", "a123456"));
 		infoVO.setEmail("813272417@qq.com");
 		System.out.println("Signup >>>>>>>>>> " + userService.userSignup(infoVO));
 	}
