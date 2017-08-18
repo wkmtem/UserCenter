@@ -102,10 +102,10 @@ public class SysLogExceptionAspect {
 		// 连接点名称
 		String mothodName = joinPoint.getSignature().getName();
 		// 请求方法的参数,序列化为JSON格式字符串
-		String params = "";
+		String paramsJSON = "";
 		if (null != joinPoint.getArgs() && joinPoint.getArgs().length > 0) {
 			for (int i = 0; i < joinPoint.getArgs().length; i++) {
-				params += JsonMapper.toNonNullJson(joinPoint.getArgs()[i]) + ";";
+				paramsJSON += JsonMapper.toNonNullJson(joinPoint.getArgs()[i]) + ";";
 			}
 		}
 
@@ -113,6 +113,7 @@ public class SysLogExceptionAspect {
 		long preTime = System.currentTimeMillis();
 		Object proceed = joinPoint.proceed();
 		long postTime = System.currentTimeMillis() - preTime;
+		String retJSON = JsonMapper.toNonNullJson(proceed);
 
 		try {
 			if(targetClassName.contains("service")) {
@@ -135,12 +136,13 @@ public class SysLogExceptionAspect {
 		System.out.println(">>>>>>>> 操 作 人: " + realname);
 		System.out.println(">>>>>>>> 注解描述: " + annotationMethodName);
 		System.out.println(">>>>>>>> 请求函数: "+ (targetClassName + "." + mothodName + "()"));
-		System.out.println(">>>>>>>> 请求参数: " + params);
+		System.out.println(">>>>>>>> 请求参数: " + paramsJSON);
 		System.out.println(">>>>>>>> 响应时间: " + postTime + " ms");
+		System.out.println(">>>>>>>> 响应数据: " + retJSON);
 		System.out.println("======================== Controller/Service Log around advice   end ========================");
 		// 阿里日志捕获
-		logger.info("请求时间: {}&&请求  IP: {}&&租户账号: {}&&操作账号: {}&&操 作 人: {}&&注解描述: {}&&请求函数: {}&&请求参数: {}&&响应时间: {}", 
-				currentDateTime, requestIp, account, username, realname, annotationMethodName, targetClassName + "." + mothodName + "()", params, postTime + " ms");
+		logger.info("请求时间: {}&&请求  IP: {}&&租户账号: {}&&操作账号: {}&&操 作 人: {}&&注解描述: {}&&请求函数: {}&&请求参数: {}&&响应时间: {}&&响应数据: {}", 
+				currentDateTime, requestIp, account, username, realname, annotationMethodName, targetClassName + "." + mothodName + "()", paramsJSON, postTime + " ms", retJSON);
 		
 		// 操作日志
 		// TODO 操作日志保存
@@ -196,10 +198,10 @@ public class SysLogExceptionAspect {
 		// 异常信息
 		String exceptionMsg = e.getMessage();
 		// 请求方法的参数,序列化为JSON格式字符串
-		String params = "";
+		String paramsJSON = "";
 		if (null != joinPoint.getArgs() && joinPoint.getArgs().length > 0) {
 			for (int i = 0; i < joinPoint.getArgs().length; i++) {
-				params += JsonMapper.toNonNullJson(joinPoint.getArgs()[i]) + ";";
+				paramsJSON += JsonMapper.toNonNullJson(joinPoint.getArgs()[i]) + ";";
 			}
 		}			
 		
@@ -226,11 +228,11 @@ public class SysLogExceptionAspect {
 		System.out.println(">>>>>>>> 异常函数: "+ (targetClassName + "." + mothodName + "()"));
 		System.out.println(">>>>>>>> 异常名称: " + exceptionName);
 		System.out.println(">>>>>>>> 异常信息: " + exceptionMsg);
-		System.out.println(">>>>>>>> 请求参数: " + params);
+		System.out.println(">>>>>>>> 请求参数: " + paramsJSON);
 		System.out.println("======================== Controller/Service afterThrowing advice   end ========================");
 		// 阿里日志捕获
 		logger.info("异常时间: {}&&请求  IP: {}&&租户账号: {}&&操作账号: {}&&操 作 人: {}&&注解描述: {}&&异常函数: {}&&异常名称: {}&&异常信息: {}&&请求参数: {}", 
-				currentDateTime, requestIp, account, username, realname, annotationMethodName, targetClassName + "." + mothodName + "()", exceptionName, exceptionMsg, params);
+				currentDateTime, requestIp, account, username, realname, annotationMethodName, targetClassName + "." + mothodName + "()", exceptionName, exceptionMsg, paramsJSON);
 		
 		// 异常日志
 		// TODO 异常日志保存
