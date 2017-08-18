@@ -5,13 +5,13 @@ c3p0.user:tlj
 c3p0.password:Tlj20170322@
 
 # linux
-ip:192.168.1.202
-port:81
+ip:106.14.118.130
+port:9090
 user:root
 password:centos
-dir:/usr/local/tomcat/alitomcat-7_81
+dir:/usr/local/tomcat/aliTomcat_9090/deploy
 
 # git
 account:wkm
-password:a123456789
+password:
 url:http://gitlab.sh-tlj.com/compass_examination_java/UserCenter.git
