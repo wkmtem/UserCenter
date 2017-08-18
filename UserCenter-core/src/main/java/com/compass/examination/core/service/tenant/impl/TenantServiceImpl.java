@@ -72,13 +72,13 @@ public class TenantServiceImpl implements ITenantService {
 	 * @author wkm
 	 * @date 2017年8月15日下午4:02:01
 	 * @version 2.0
-	 * @param signupInfoVO
+	 * @param signupLoginInfoVO
 	 * @return
 	 * @throws Exception
 	 * @see com.compass.examination.core.service.tenant.ITenantService#tenantSignup(com.compass.examination.pojo.vo.SignupLoginInfoVO)
 	 */
 	@Override
-	public String tenantSignup(SignupLoginInfoVO signupInfoVO) throws Exception {
+	public String tenantSignup(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
 		String salt = MD5.getInstance().get2MD5StrByTimeMillis();
 		int ret = -1;
@@ -87,14 +87,14 @@ public class TenantServiceImpl implements ITenantService {
 		calendar.add(Calendar.MILLISECOND, AliConstant.EMAIL_EXPIRE_MILLIS);
 		
 		// 企业账号已存在
-		boolean isExist = this.isExistAccount(signupInfoVO.getAccount());
+		boolean isExist = this.isExistAccount(signupLoginInfoVO.getAccount());
 		if (isExist) {
 			return StateEnum.FAILED.value;
 		}
 		
 		Tenant tenantPO = new Tenant();
-		tenantPO.setAccount(signupInfoVO.getAccount());// 租户账号
-		tenantPO.setName(signupInfoVO.getTenantName());// 租户名称
+		tenantPO.setAccount(signupLoginInfoVO.getAccount());// 租户账号
+		tenantPO.setName(signupLoginInfoVO.getTenantName());// 租户名称
 		tenantPO.setSalt(salt);
 		tenantPO.setState(false);// 未激活
 		tenantPO.setGmtCreate(date);

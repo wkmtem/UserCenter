@@ -25,11 +25,11 @@ public interface IUserService {
 	 * @author wkm
 	 * @date 2017年8月15日下午3:43:41
 	 * @version 2.0
-	 * @param signupInfoVO(account 租户账号, username 用户账号, password 密码, email 邮箱)
-	 * @return boolean
+	 * @param signupLoginInfoVO(account 租户账号, username 用户账号, password 密码, email 邮箱)
+	 * @return String code
 	 * @throws Exception
 	 */
-	boolean userSignup(SignupLoginInfoVO signupInfoVO) throws Exception;
+	int userSignup(SignupLoginInfoVO signupLoginInfoVO) throws Exception;
 	
 	/**
 	 * 

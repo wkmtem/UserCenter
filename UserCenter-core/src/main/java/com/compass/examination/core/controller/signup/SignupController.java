@@ -124,12 +124,8 @@ public class SignupController {
 		if (!Regex.checkEmail(signupLoginInfoVO.getEmail())) {
 			return ResultBO.result(25); // 电子邮箱格式错误
 		}
-		
-		boolean bool = userService.userSignup(signupLoginInfoVO);
-		if (bool) {
-			return ResultBO.result(0, bool);
-		}
-		return ResultBO.result(15); // 用户账号注册失败
+
+		return ResultBO.result(userService.userSignup(signupLoginInfoVO));
 	}
 	
 }

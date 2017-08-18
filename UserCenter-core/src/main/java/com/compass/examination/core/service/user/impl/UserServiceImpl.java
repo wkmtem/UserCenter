@@ -61,23 +61,29 @@ public class UserServiceImpl implements IUserService {
 	 * @see com.compass.examination.core.service.user.IUserService#userSignup(com.compass.examination.pojo.vo.SignupLoginInfoVO)
 	 */
 	@Override
-	public boolean userSignup(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
+	public int userSignup(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
 		Date date = new Date();
 		
 		// 获取租户id
 		Tenant tenantPO = tenantService.getTenantByAccount(signupLoginInfoVO.getAccount());
 		if (null == tenantPO) {
-			return false;
+			return 2; // 企业账号不存在
 		}
 		Long tenantId = tenantPO.getId();
 		Date gmtCreate = tenantPO.getGmtCreate();
 		
+		// 验证用户账号是否重复
+		List<User> list = 
+				this.listUserByTenantIdAndUsername(tenantId, signupLoginInfoVO.getUsername());
+		if(CollectionUtils.isNotEmpty(list)) {
+			return 14; // 用户账号已存在
+		}
 		// 获取邮箱验证对象
 		EmailValidation emailValidationPO = 
 				emailValidService.getEmailValidationByTenantId(tenantId);
 		if (null == emailValidationPO) {
-			return false;
+			return 11; // 尚未发送激活邮件
 		}
 		
 		User userPO = new User();
@@ -106,11 +112,10 @@ public class UserServiceImpl implements IUserService {
 			sendEmailInfoVO.setExpireStamp(emailValidationPO.getExpireStamp());
 			sendEmailInfoVO.setToAddress(signupLoginInfoVO.getEmail());
 			EmailUtil.singleSendMail(MailTemplate.getMailInnerHtml(sendEmailInfoVO));
-			return true;
+			return 0; // 请求成功
 		}
-		return false;
+		return 500; // 请联系系统管理员
 	}
-
 
 	/**
 	 * （非 Javadoc）
