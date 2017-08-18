@@ -18,7 +18,7 @@ import com.compass.examination.pojo.vo.SendEmailInfoVO;
  */
 public class MailTemplate {
 	
-	private static final String NAME = "[面试系统]";
+	private static final String PROJECT_NAME = "[面试系统]";
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public class MailTemplate {
 		
 		String header =  "尊敬的用户：";
 		String msg = "您好！您于" + format.format(sendEmailInfoVO.getGmtCreate()) + "通过账号" + 
-				sendEmailInfoVO.getToAddress() + "注册了 "+ NAME +"，请点击如下连接激活该账号。";
+				sendEmailInfoVO.getToAddress() + "注册了 "+ PROJECT_NAME +"，请点击如下连接激活该账号。";
 		String remark = "(如果您无法点击此链接，请将其复制到浏览器地址栏后访问)";
 		String warning = "为保证您账号的安全性，请在1小时内完成注册，此链接将在您注册后失效!";
 	

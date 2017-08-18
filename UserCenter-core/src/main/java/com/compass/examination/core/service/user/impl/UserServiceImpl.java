@@ -61,16 +61,17 @@ public class UserServiceImpl implements IUserService {
 	 * @see com.compass.examination.core.service.user.IUserService#userSignup(com.compass.examination.pojo.vo.SignupLoginInfoVO)
 	 */
 	@Override
-	public boolean userSignup(SignupLoginInfoVO signupInfoVO) throws Exception {
+	public boolean userSignup(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
 		Date date = new Date();
 		
 		// 获取租户id
-		Tenant tenantPO = tenantService.getTenantByAccount(signupInfoVO.getAccount());
+		Tenant tenantPO = tenantService.getTenantByAccount(signupLoginInfoVO.getAccount());
 		if (null == tenantPO) {
 			return false;
 		}
 		Long tenantId = tenantPO.getId();
+		Date gmtCreate = tenantPO.getGmtCreate();
 		
 		// 获取邮箱验证对象
 		EmailValidation emailValidationPO = 
@@ -81,9 +82,9 @@ public class UserServiceImpl implements IUserService {
 		
 		User userPO = new User();
 		userPO.setTenantId(tenantId);
-		userPO.setUsername(signupInfoVO.getUsername());
-		userPO.setPassword(signupInfoVO.getPassword());
-		userPO.setEmail(signupInfoVO.getEmail());
+		userPO.setUsername(signupLoginInfoVO.getUsername());
+		userPO.setPassword(signupLoginInfoVO.getPassword());
+		userPO.setEmail(signupLoginInfoVO.getEmail());
 		userPO.setGmtCreate(date);
 		userPO.setGmtModified(date);
 		userPO.setEnabled(true);// 启用
@@ -100,10 +101,10 @@ public class UserServiceImpl implements IUserService {
 			// 发送邮件
 			SendEmailInfoVO sendEmailInfoVO = new SendEmailInfoVO();
 			sendEmailInfoVO.setTenantId(tenantId);
-			sendEmailInfoVO.setGmtCreate(tenantPO.getGmtCreate());
+			sendEmailInfoVO.setGmtCreate(gmtCreate);
 			sendEmailInfoVO.setActiveCode(emailValidationPO.getActiveCode());
 			sendEmailInfoVO.setExpireStamp(emailValidationPO.getExpireStamp());
-			sendEmailInfoVO.setToAddress(signupInfoVO.getEmail());
+			sendEmailInfoVO.setToAddress(signupLoginInfoVO.getEmail());
 			EmailUtil.singleSendMail(MailTemplate.getMailInnerHtml(sendEmailInfoVO));
 			return true;
 		}

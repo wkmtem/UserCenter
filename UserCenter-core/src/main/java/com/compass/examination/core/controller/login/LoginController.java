@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.compass.common.enums.StateEnum;
 import com.compass.examination.annotation.LogExceController;
+import com.compass.examination.annotation.UserTokenAnnotation;
 import com.compass.examination.core.service.tenant.ITenantService;
 import com.compass.examination.core.service.user.IUserService;
 import com.compass.examination.pojo.bo.ResultBO;
@@ -77,6 +78,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@LogExceController(name = "根据租户账号，用户名登录")
+	//@UserTokenAnnotation(name = "根据租户账号，用户名登录")
 	@ResponseBody
 	public ResultBO login(SignupLoginInfoVO signupLoginInfoVO) throws Exception {
 		
